@@ -1,7 +1,16 @@
 class MovableObject{
     x = 120;
-    y = 400;
+    y = 550;
     img;
+    height =  150;
+    width = 150;
+
+
+
+    loadImage(path){
+        this.img = new Image();
+        this.img.src = path;
+    }
 
     moveRight(){
         console.log('moving right');
