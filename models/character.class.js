@@ -24,30 +24,21 @@ class Character extends MovableObject{
     animate(){
 
         setInterval(() =>{
-            if(this.world.keyboard.right){
+            if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
                 this.x += this.speed;
                 this.otherDirection = false;
             }
-            if(this.world.keyboard.left){
+            if(this.world.keyboard.left && this.x > 0){
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
-            this.world.camera_x = -this.x
+            this.world.camera_x = -this.x + 100
 
         },1000/60);
 
         setInterval(() =>{
             if(this.world.keyboard.right || this.world.keyboard.left){
-
-                
-
-                //Walk animation
-                // Modulu function --> % <-- bezieht sich auf einen Rest Betrag
-                let i = this.currentImage % this.IMAGES_walking.length; // let i = 0 % 6; 0, Rest 0
-                // 0,1,2,3,4,5,0
-                this.path = this.IMAGES_walking[i];
-                this.img = this.imageCache[this.path];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_walking);
             }
         },50)
 
