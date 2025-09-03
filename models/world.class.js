@@ -13,10 +13,27 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     setWorld(){
         this.character.world = this;
+    }
+
+    checkCollisions(){
+        setInterval(()=>{
+            this.level.enemies.forEach((enemy) => {
+                if(this.character.isColliding(enemy)){
+                   //console.log('collision with character detected');
+                   this.character.damage(); 
+                   //this.character.energy -= 5;
+                    console.log('character Energy ' +this.character.energy);
+                    if(this.character.energy <= 0){
+                        this.character.checkEnergy();
+                    }
+                };
+            });
+        },1000)
     }
 
     draw(){
@@ -46,16 +63,27 @@ class World {
     //mo = MovableObject
     addToMap(mo){
         if(mo.otherDirection){
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1,1);
-            mo.x = mo.x * -1;
+            this.flipImgae(mo);
+            
         }
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
+
         if(mo.otherDirection){
-            mo.x = mo.x * -1
-            this.ctx.restore();
+            this.flipImgaeBack(mo);    
         }
+    }
+
+    flipImgae(mo){
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1,1);
+        mo.x = mo.x * -1;
+    }
+
+    flipImgaeBack(mo){
+        mo.x = mo.x * -1
+        this.ctx.restore();
     }
 
 }

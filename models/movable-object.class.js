@@ -8,7 +8,50 @@ class MovableObject{
     currentImage = 0;
     speed = 0.15;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 2;
+    energy = 100; 
 
+    draw(ctx){
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        
+    }
+
+    drawFrame(ctx){
+
+        if(this instanceof Character || this instanceof Chicken){
+            ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    isColliding(mo){
+        return this.x + this.width > mo.x &&
+            this.y +this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height
+    }
+
+    checkEnergy(){
+        console.log("character ist jetzt tot");
+
+    }
+
+    applyGravity(){
+        setInterval(() =>{
+            if(this.isAboveGround() || this.speedY > 0){
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        },1000/25);
+    }
+
+    isAboveGround(){
+        return this.y < 395;
+    }
 
     loadImage(path){
         this.img = new Image();
@@ -29,13 +72,30 @@ class MovableObject{
         this.currentImage++;
     }
     moveRight(){
-        console.log('moving right');
+        this.x += this.speed;
+        
     }
 
     moveLeft(){
-        console.log('moving left');
-        setInterval(() => {
         this.x -= this.speed
-        }, 1000/60);
+        
+    }
+
+    jump(){
+        this.speedY = 25;
+    }
+
+    damage(){
+        this.energy -= 5;
+        if(this.energy < 0){
+            this.energy = 0;
+        }
+    }
+
+    
+
+    dead(){
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
     }
 }
