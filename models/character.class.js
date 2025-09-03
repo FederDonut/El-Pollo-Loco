@@ -3,6 +3,8 @@ class Character extends MovableObject{
     height = 300
     y = 95 //395
     speed = 10
+
+    walking_sound = new Audio('');
     IMAGES_walking =[
                     'img/2_character_pepe/2_walk/W-21.png',
                     'img/2_character_pepe/2_walk/W-22.png',
@@ -40,6 +42,15 @@ class Character extends MovableObject{
                     'img/2_character_pepe/5_dead/D-56.png',
                     'img/2_character_pepe/5_dead/D-57.png',
     ];
+
+    //IMAGES_statusBarCharacter = [
+    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
+    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
+    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
+    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
+    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
+    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
+    //];
     
     world;
     
@@ -63,7 +74,7 @@ class Character extends MovableObject{
                 this.moveRight();
                 this.otherDirection = false;
             }
-            if(this.world.keyboard.left && this.x > 0){
+             if(this.world.keyboard.left && this.x > 0){
                 this.moveLeft();
                 this.otherDirection = true;
             }
@@ -76,23 +87,28 @@ class Character extends MovableObject{
         },1000/60);
 
         setInterval(() =>{
-            if(this.isAboveGround()){
+
+            
+            if(this.isDead()){
+                this.playAnimation(this.IMAGES_death);
+                this.dead();
+            }     
+            else if(this.isHurt()){
+                this.playAnimation(this.IMAGES_damage);
+            }
+
+            else if(this.isAboveGround()){
                 this.playAnimation(this.IMAGES_jumping);
             }else{
                  
                 if(this.world.keyboard.right || this.world.keyboard.left){
                 this.playAnimation(this.IMAGES_walking);
                 }
-            }           
-        },180)
-
-        setInterval(() =>{
-            
-            if(this.energy <= 0){
-                this.playAnimation(this.IMAGES_death);
-                this.dead();
             }
+                  
         },100)
+
+        
 
     }
 

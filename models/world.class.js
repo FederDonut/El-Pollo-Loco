@@ -1,13 +1,15 @@
 class World {
 
     character = new Character();
+    health_bar = new Statusbar();
     level = level1
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
+
      
-    constructor(canvas, keyboard){
+    constructor(canvas, keyboard,){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -24,13 +26,9 @@ class World {
         setInterval(()=>{
             this.level.enemies.forEach((enemy) => {
                 if(this.character.isColliding(enemy)){
-                   //console.log('collision with character detected');
+                   console.log('collision with character detected');
                    this.character.damage(); 
-                   //this.character.energy -= 5;
                     console.log('character Energy ' +this.character.energy);
-                    if(this.character.energy <= 0){
-                        this.character.checkEnergy();
-                    }
                 };
             });
         },1000)
@@ -45,6 +43,8 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addToMap(this.health_bar);
+        
         
        this.ctx.translate(-this.camera_x , 0);
 
