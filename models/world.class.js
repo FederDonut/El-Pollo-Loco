@@ -29,6 +29,7 @@ class World {
                    console.log('collision with character detected');
                    this.character.damage(); 
                     console.log('character Energy ' +this.character.energy);
+                    this.health_bar.setPercentage(this.character.energy);
                 };
             });
         },1000)
@@ -41,10 +42,15 @@ class World {
         // Y Achse muss angegeben werden, da dies sonst zu Fehlern führt. 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
+
+        this.ctx.translate(-this.camera_x , 0);
+        // Space for fixed Objects
+        this.addToMap(this.health_bar);
+        this.ctx.translate(this.camera_x , 0); 
+        
+
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
-        this.addToMap(this.health_bar);
-        
         
        this.ctx.translate(-this.camera_x , 0);
 
