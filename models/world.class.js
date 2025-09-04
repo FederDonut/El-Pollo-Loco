@@ -8,6 +8,7 @@ class World {
     keyboard;
     camera_x = 0;
 
+    throable_objects = [];
      
     constructor(canvas, keyboard,){
         this.ctx = canvas.getContext('2d');
@@ -15,24 +16,36 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld(){
         this.character.world = this;
     }
 
-    checkCollisions(){
+    run(){
         setInterval(()=>{
-            this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)){
-                   console.log('collision with character detected');
-                   this.character.damage(); 
-                    console.log('character Energy ' +this.character.energy);
-                    this.health_bar.setPercentage(this.character.energy);
-                };
-            });
-        },1000)
+
+        this.checkCollisions();
+        this.checkThrowObjects();    
+           
+        },200)
+    }
+
+
+    checkThrowObjects(){
+        if(this.keyboard.attack){
+            let bottle = new Missile(this.character.x +100, this.character.y +30);
+            this.throable_objects.push(bottle);
+        }
+    }
+    checkCollisions(){
+        this.level.enemies.forEach((enemy) => {
+               if(this.character.isColliding(enemy)){
+                  this.character.damage(); 
+                   this.health_bar.setPercentage(this.character.energy);
+               };
+           });
     }
 
     draw(){
@@ -51,6 +64,7 @@ class World {
 
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throable_objects);
         
        this.ctx.translate(-this.camera_x , 0);
 

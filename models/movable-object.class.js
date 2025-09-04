@@ -5,22 +5,13 @@ class MovableObject extends DrawableObject{
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
+    speedX = 0;
     acceleration = 2;
     energy = 100;
     lastHit = 0; 
 
     
 
-    drawFrame(ctx){
-
-        if(this instanceof Character || this instanceof Chicken){
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
 
     isColliding(mo){
         return this.x + this.width > mo.x &&
@@ -39,7 +30,12 @@ class MovableObject extends DrawableObject{
     }
 
     isAboveGround(){
-        return this.y < 395;
+        if((this instanceof Missile) ){ // Missile should always fall
+            return true;
+        }else{
+            return this.y < 395;
+        }
+        
     }
 
     playAnimation(images){

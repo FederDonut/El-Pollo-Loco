@@ -43,14 +43,7 @@ class Character extends MovableObject{
                     'img/2_character_pepe/5_dead/D-57.png',
     ];
 
-    //IMAGES_statusBarCharacter = [
-    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
-    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-    //                'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
-    //];
+    
     
     world;
     
