@@ -7,6 +7,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    bossThemePlayed = false;
 
     throable_objects = [];
      
@@ -16,7 +17,10 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.endbossSounds();
         this.run();
+        
+        
     }
 
     setWorld(){
@@ -27,7 +31,8 @@ class World {
         setInterval(()=>{
 
         this.checkCollisions();
-        this.checkThrowObjects();    
+        this.checkThrowObjects();
+        this.checkEndbossAudio();    
            
         },200)
     }
@@ -46,6 +51,24 @@ class World {
                    this.health_bar.setPercentage(this.character.energy);
                };
            });
+    }
+       
+    endbossSounds(){
+        this.bossTheme1 = new Audio('audio/endBoss.mp3');
+        this.bossTheme2 = new Audio('audio/wie-viel-ist-ralf-schumacher-wert.mp3');
+    }
+
+    checkEndbossAudio(){
+        if(this.character.x > 1500 && ! this.bossThemePlayed){
+            this.bossTheme1.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
+            this.bossTheme1.play();
+            this.bossThemePlayed = true;
+        }else if(this.character.x < 1490 && this.bossThemePlayed){
+            this.bossThemePlayed=false;
+            this.bossTheme1.pause();
+            this.bossTheme1.currentTime=0
+
+        }
     }
 
     draw(){
