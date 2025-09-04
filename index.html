@@ -24,6 +24,20 @@
 </head>
 <body onload="init()">
 
+    <section class="startScreen" id="startScreen">
+        <div class="startPosition">
+            <h1> El Pollo Loco</h1>
+            <button onclick="startGame()">Start Game</button>
+        </div>
+    </section>
+
+    <section class="gameOverScreen d-none" id="gameOver">
+        <div class="gameOverPosition">
+            <h1 class="wasted">wasted</h1>
+            <button onclick="startGame()">Try again</button>
+        </div>
+    </section>
+
     <h1>El pollo loco</h1>
 
     <canvas id="canvas" width="1720" height="780"></canvas>

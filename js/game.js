@@ -5,11 +5,18 @@ let keyboard = new Keyboard();
 
 
 function init(){
+  
+   
+    //console.log('my Character is', world.character);
+}
+
+function startGame(){
+    let overlayRef = document.getElementById('startScreen');
+    console.log('start');
+    overlayRef.classList.toggle('d-none');
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-   
-
-    console.log('my Character is', world.character);
+    
 }
 
 window.addEventListener('keydown', (event) => {
