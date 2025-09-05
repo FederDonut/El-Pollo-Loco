@@ -36,26 +36,18 @@ class Missile extends MovableObject{
                 
     }
 
-    animate(){
-        setInterval(() =>{
-            if(this.world.keyboard.d){
-                
-                this.throw();
-            }
-        },100);
-    }
     throw(){
         this.speedY = 30;
        
         this.applyGravity();
         setInterval(() =>{
             this.playAnimation(this.IMAGE_missile);
-            this.x += 10;
+            this.x += 15;
         },25)
         
     }
 
     explosion(){
-
+        this.level.enemies
     }
 }

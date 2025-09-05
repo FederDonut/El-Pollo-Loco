@@ -2,6 +2,7 @@ class World {
 
     character = new Character();
     health_bar = new Statusbar();
+    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 2870, 30);
     level = level1
     canvas;
     ctx;
@@ -32,7 +33,7 @@ class World {
 
         this.checkCollisions();
         this.checkThrowObjects();
-        this.checkEndbossAudio();    
+        //this.checkEndbossAudio();    
            
         },200)
     }
@@ -49,13 +50,19 @@ class World {
                if(this.character.isColliding(enemy)){
                   this.character.damage(); 
                    this.health_bar.setPercentage(this.character.energy);
-               };
+                }
+        this.throable_objects.forEach((bottle) =>{
+                if(bottle.isColliding(enemy)){
+                    enemy.damage();
+                    this.enemy_health_bar.setPercentage(this.enemy.energy);
+                    console.log('collision detected');
+                }
+        })        
            });
     }
        
     endbossSounds(){
         this.bossTheme1 = new Audio('audio/endBoss.mp3');
-        this.bossTheme2 = new Audio('audio/wie-viel-ist-ralf-schumacher-wert.mp3');
     }
 
     checkEndbossAudio(){
@@ -83,6 +90,9 @@ class World {
         // Space for fixed Objects
         this.addToMap(this.health_bar);
         this.ctx.translate(this.camera_x , 0); 
+
+        
+        this.addToMap(this.enemy_health_bar);
         
 
         this.addObjectsToMap(this.level.clouds);
