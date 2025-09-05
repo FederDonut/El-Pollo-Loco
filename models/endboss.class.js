@@ -15,6 +15,12 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/2_alert/G11.png',
     ]
 
+    IMAGE_damage = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png',
+    ];
+
     Endboss_audio =[
         'audio/endBoss.mp3',
         'audio/endboss died.mp3'

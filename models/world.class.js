@@ -32,10 +32,11 @@ class World {
         setInterval(()=>{
 
         this.checkCollisions();
+        this.checkMissileCollision()
         this.checkThrowObjects();
         //this.checkEndbossAudio();    
            
-        },200)
+        },100)
     }
 
 
@@ -45,22 +46,47 @@ class World {
             this.throable_objects.push(bottle);
         }
     }
+
     checkCollisions(){
+        //setInterval(() => {
         this.level.enemies.forEach((enemy) => {
                if(this.character.isColliding(enemy)){
                   this.character.damage(); 
                    this.health_bar.setPercentage(this.character.energy);
                 }
+                
+        });
+    }       
+    
+    
+    checkMissileCollision(){
         this.throable_objects.forEach((bottle) =>{
-                if(bottle.isColliding(enemy)){
-                    enemy.damage();
-                    this.enemy_health_bar.setPercentage(this.enemy.energy);
+            this.level.enemies.forEach((enemy) =>{
+                 if(bottle.isColliding(enemy)){
                     console.log('collision detected');
+                    this.endbossDamage(enemy);
+                    
+                    //if(enemy === this.level.enemies[3]){
+                    //    console.log(true);
+                    //    enemy.damage();
+                    //    console.log(enemy.energy);
+                    //}
+                    //enemy.damage();
+                    //console.log(enemy);
+                    //enemy_health_bar.setPercentage(enemy.energy); 
                 }
-        })        
-           });
+            });
+        });
     }
-       
+      
+    endbossDamage(enemy){
+        if(enemy === this.level.enemies[3]){
+            console.log(true);
+            enemy.damage();
+            console.log(enemy.energy);
+            this.enemy_health_bar.setPercentage(enemy.energy);
+        }
+    }
     endbossSounds(){
         this.bossTheme1 = new Audio('audio/endBoss.mp3');
     }

@@ -19,7 +19,7 @@ class DrawableObject{
     }
 
     loadImages(array){
-        if(!Array.isArray(array))return;
+        if(!Array.isArray(array))return; // Fallback
         array.forEach((path) => {
         let img = new Image();
         img.src = path;
