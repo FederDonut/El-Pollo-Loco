@@ -18,6 +18,7 @@ class Explosion extends MovableObject{
         super().loadImage(this.IMAGE_detonation[0]);
         this.loadImages(this.IMAGE_detonation);
         this.detonation(x,y);
+        this.endAnimation();
         
     }
     
@@ -29,9 +30,16 @@ class Explosion extends MovableObject{
     }
 
     animate(){
-        setInterval(() => {
+        this.explosionInterval = setInterval(() => {
             this.playAnimation(this.IMAGE_detonation);
         },200);
+    }
+
+    endAnimation(){
+        if(this.explosionInterval){
+            clearInterval(this.explosionInterval);
+            this.explosionInterval = null;
+        }
     }
 
     sound(){

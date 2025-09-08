@@ -12,6 +12,7 @@ class World {
     camera_x = 0;
     bossThemePlayed = false;
     throable_objects = [];
+    explosions = [];
      
     constructor(canvas, keyboard,){
         this.ctx = canvas.getContext('2d');
@@ -46,6 +47,11 @@ class World {
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle);
         }
+    }
+
+    addExplosion(x,y){
+        let explosion = new Explosion(x,y);
+        this.explosions.push(explosion)
     }
 
     checkCollisions(){
@@ -83,15 +89,17 @@ class World {
             
             bottle.damage();
             console.log(bottle.x , bottle.y);
-            
+            //Explosion
+            //this.addExplosion(bottle.x, bottle.y)
+            //this.explosion.detonation();
             this.explosion.detonation(bottle.x,bottle.y);
+
             bottle.animate();
             setTimeout(() => {
                 bottle.removeMissile =true;
             },600);
             console.log(bottle.energy);
-            
-            
+                    
     }
 
     endbossDamage(enemy,){
@@ -143,6 +151,8 @@ class World {
         this.addToMap(this.explosion);
         
        this.ctx.translate(-this.camera_x , 0);
+
+        
 
         // Draw() wird immer wieder aufgerufen
         let self = this;
