@@ -1,15 +1,16 @@
 class World {
 
     character = new Character();
+    explosion = new Explosion();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 2870, 30);
+   
     level = level1
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
     bossThemePlayed = false;
-
     throable_objects = [];
      
     constructor(canvas, keyboard,){
@@ -65,21 +66,35 @@ class World {
                  if(bottle.isColliding(enemy)){
                     console.log('collision detected');
                     this.endbossDamage(enemy);
+                    this.missileExplosion(bottle);
+                    bottle.detonateAndDamage(enemy, bottle.x, bottle.y);
                     
-                    //if(enemy === this.level.enemies[3]){
-                    //    console.log(true);
-                    //    enemy.damage();
-                    //    console.log(enemy.energy);
-                    //}
-                    //enemy.damage();
-                    //console.log(enemy);
-                    //enemy_health_bar.setPercentage(enemy.energy); 
+                    
+                    
                 }
             });
         });
+        this.throable_objects = this.throable_objects.filter(bottle => !bottle.removeMissile);
     }
-      
-    endbossDamage(enemy){
+    
+    
+    
+    missileExplosion(bottle){
+            
+            bottle.damage();
+            console.log(bottle.x , bottle.y);
+            
+            this.explosion.detonation(bottle.x,bottle.y);
+            bottle.animate();
+            setTimeout(() => {
+                bottle.removeMissile =true;
+            },600);
+            console.log(bottle.energy);
+            
+            
+    }
+
+    endbossDamage(enemy,){
         if(enemy === this.level.enemies[3]){
             console.log(true);
             enemy.damage();
@@ -117,6 +132,7 @@ class World {
         this.addToMap(this.health_bar);
         this.ctx.translate(this.camera_x , 0); 
 
+        //this.addObjectsToMap(this.detonation, 0);
         
         this.addToMap(this.enemy_health_bar);
         
@@ -124,6 +140,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throable_objects);
+        this.addToMap(this.explosion);
         
        this.ctx.translate(-this.camera_x , 0);
 

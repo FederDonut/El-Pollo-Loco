@@ -15,7 +15,7 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/2_alert/G11.png',
     ]
 
-    IMAGE_damage = [
+    IMAGES_damage = [
         'img/4_enemie_boss_chicken/4_hurt/G21.png',
         'img/4_enemie_boss_chicken/4_hurt/G22.png',
         'img/4_enemie_boss_chicken/4_hurt/G23.png',
@@ -29,6 +29,7 @@ class Endboss extends MovableObject{
     constructor(){
         super().loadImage(this.IMAGES_walking[0]);
         this.loadImages(this.IMAGES_walking);
+        this.loadImages(this.IMAGES_damage);
         this.x = 2600
         this.animate();
     }
@@ -38,7 +39,16 @@ class Endboss extends MovableObject{
         setInterval(() =>{
             this.playAnimation(this.IMAGES_walking);
 
+             if(this.isHurt()){
+                this.playAnimation(this.IMAGES_damage);
+
+            }
+
         },100)
+
+        //setInterval(() => {
+        //   
+        //},100)
     }
 
     

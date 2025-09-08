@@ -4,7 +4,7 @@ class Character extends MovableObject{
     y = 95 //395
     speed = 8
 
-    walking_sound = new Audio('');
+    
     IMAGES_walking =[
                     'img/2_character_pepe/2_walk/W-21.png',
                     'img/2_character_pepe/2_walk/W-22.png',
