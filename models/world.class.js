@@ -1,7 +1,7 @@
 class World {
 
     character = new Character();
-    explosion = new Explosion();
+    //explosion = new Explosion();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 2870, 30);
    
@@ -12,7 +12,7 @@ class World {
     camera_x = 0;
     bossThemePlayed = false;
     throable_objects = [];
-    explosions = [];
+    firePower = [];
      
     constructor(canvas, keyboard,){
         this.ctx = canvas.getContext('2d');
@@ -51,11 +51,10 @@ class World {
 
     addExplosion(x,y){
         let explosion = new Explosion(x,y);
-        this.explosions.push(explosion)
+        this.firePower.push(explosion)
     }
 
     checkCollisions(){
-        //setInterval(() => {
         this.level.enemies.forEach((enemy) => {
                if(this.character.isColliding(enemy)){
                   this.character.damage(); 
@@ -72,15 +71,18 @@ class World {
                  if(bottle.isColliding(enemy)){
                     console.log('collision detected');
                     this.endbossDamage(enemy);
+                    bottle.removeMissile = true;
                     this.missileExplosion(bottle);
-                    bottle.detonateAndDamage(enemy, bottle.x, bottle.y);
+                    //explosion.removeExplosion = true;
+                    bottle.detonateAndDamage(enemy);
                     
                     
-                    
+                    //wichtiger Verweis zu 
                 }
             });
         });
         this.throable_objects = this.throable_objects.filter(bottle => !bottle.removeMissile);
+        this.firePower = this.firePower.filter(explosion => !explosion.removeExplosion);
     }
     
     
@@ -90,11 +92,8 @@ class World {
             bottle.damage();
             console.log(bottle.x , bottle.y);
             //Explosion
-            //this.addExplosion(bottle.x, bottle.y)
-            //this.explosion.detonation();
-            this.explosion.detonation(bottle.x,bottle.y);
-
-            bottle.animate();
+            this.addExplosion(bottle.x, bottle.y);
+            
             setTimeout(() => {
                 bottle.removeMissile =true;
             },600);
@@ -102,7 +101,7 @@ class World {
                     
     }
 
-    endbossDamage(enemy,){
+    endbossDamage(enemy){
         if(enemy === this.level.enemies[3]){
             console.log(true);
             enemy.damage();
@@ -148,7 +147,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throable_objects);
-        this.addToMap(this.explosion);
+        this.addObjectsToMap(this.firePower);
         
        this.ctx.translate(-this.camera_x , 0);
 

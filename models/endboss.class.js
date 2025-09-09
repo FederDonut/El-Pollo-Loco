@@ -21,6 +21,12 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/4_hurt/G23.png',
     ];
 
+    IMAGES_dead = [
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png',
+    ];
+
     Endboss_audio =[
         'audio/endBoss.mp3',
         'audio/endboss died.mp3'
@@ -30,6 +36,7 @@ class Endboss extends MovableObject{
         super().loadImage(this.IMAGES_walking[0]);
         this.loadImages(this.IMAGES_walking);
         this.loadImages(this.IMAGES_damage);
+        this.loadImages(this.IMAGES_dead);
         this.x = 2600
         this.animate();
     }
@@ -42,13 +49,15 @@ class Endboss extends MovableObject{
              if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
 
+            }else if(this.isDead()){
+                this.playAnimation(this.IMAGES_dead);
+                this.dead();
+                
             }
 
-        },100)
+        },200)
 
-        //setInterval(() => {
-        //   
-        //},100)
+        
     }
 
     

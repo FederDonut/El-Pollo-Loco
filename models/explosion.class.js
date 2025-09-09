@@ -4,6 +4,7 @@ class Explosion extends MovableObject{
     y;
     width = 100;
     height = 100;
+    removeExplosion = false;
 
     IMAGE_detonation = [
                     'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
@@ -17,22 +18,24 @@ class Explosion extends MovableObject{
     constructor(x,y){
         super().loadImage(this.IMAGE_detonation[0]);
         this.loadImages(this.IMAGE_detonation);
-        this.detonation(x,y);
-        this.endAnimation();
+        this.x = x;
+        this.y = y;
+        this.animate();
+        
         
     }
     
 
-    detonation(x,y){
-        this.x = x;
-        this.y = y;
-        this.animate();
-    }
-
-    animate(){
+    animate(){ // Detonation 
         this.explosionInterval = setInterval(() => {
             this.playAnimation(this.IMAGE_detonation);
-        },200);
+        },300);
+        
+        setTimeout(() =>{
+            this.endAnimation();
+            this.removeExplosion=true;
+        },2000)
+        
     }
 
     endAnimation(){
