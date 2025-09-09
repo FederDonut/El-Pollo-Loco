@@ -2,8 +2,8 @@ class Explosion extends MovableObject{
 
     x;
     y;
-    width = 100;
-    height = 100;
+    width = 200;
+    height = 200;
     removeExplosion = false;
 
     IMAGE_detonation = [
@@ -18,7 +18,7 @@ class Explosion extends MovableObject{
     constructor(x,y){
         super().loadImage(this.IMAGE_detonation[0]);
         this.loadImages(this.IMAGE_detonation);
-        this.x = x;
+        this.x = x + 100;
         this.y = y;
         this.animate();
         
@@ -27,7 +27,7 @@ class Explosion extends MovableObject{
     
 
     animate(){ // Detonation 
-        this.explosionInterval = setInterval(() => {
+        this.explosionInterval = setInterval(() => { 
             this.playAnimation(this.IMAGE_detonation);
         },300);
         
