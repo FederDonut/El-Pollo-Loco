@@ -4,12 +4,15 @@ class World {
     //explosion = new Explosion();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 2870, 30);
+    coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
+    bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
    
     level = level1
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
+    camera_y = 0;
     bossThemePlayed = false;
     throable_objects = [];
     firePower = [];
@@ -64,7 +67,13 @@ class World {
         });
     }       
     
-    
+    checkCollectibleItems(){
+        this.level.bottles.forEach((bottle) =>{
+            if(this.character.isColliding(bottle)){
+
+            }
+        })
+    }
     checkMissileCollision(){
         this.throable_objects.forEach((bottle) =>{
             this.level.enemies.forEach((enemy) =>{
@@ -132,20 +141,28 @@ class World {
         this.ctx.translate(this.camera_x , 0); // transalte verschiebt die camera
         // Y Achse muss angegeben werden, da dies sonst zu Fehlern führt. 
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x , 0);
         // Space for fixed Objects
         this.addToMap(this.health_bar);
-        this.ctx.translate(this.camera_x , 0); 
+        this.addToMap(this.coin_bar);
+        this.addToMap(this.bottle_bar);
+        this.ctx.translate(this.camera_x , 0);
+        
+        //Coin_bar position
+       
+         
 
         //this.addObjectsToMap(this.detonation, 0);
         
         this.addToMap(this.enemy_health_bar);
         
 
-        this.addObjectsToMap(this.level.clouds);
+       
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.throable_objects);
         this.addObjectsToMap(this.firePower);
         

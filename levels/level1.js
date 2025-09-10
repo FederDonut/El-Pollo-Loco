@@ -27,6 +27,19 @@ const level1 = new Level(
     ],
 
     [
-        //new Healthbar('img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png')
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+    ],
+
+    [
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
     ]
 );

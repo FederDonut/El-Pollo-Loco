@@ -2,7 +2,6 @@ class Missile extends MovableObject{
 
    energy = 5;
    lastHit = 0;
-   //fleg = false;
   
 
     IMAGE_missile = [
@@ -45,8 +44,6 @@ class Missile extends MovableObject{
 
     
     detonateAndDamage(enemy){
-        //if(this.fleg) return;
-        //this.fleg = true;
         if(this.throwInterval){
             clearInterval(this.throwInterval);
             this.throwInterval = null;

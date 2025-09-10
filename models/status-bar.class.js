@@ -5,7 +5,7 @@ class Statusbar extends DrawableObject{
     
     
 
-    
+    // Precentage
     IMAGES_health_bar = [
                     'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
                     'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
@@ -23,7 +23,27 @@ class Statusbar extends DrawableObject{
                     'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
                     'img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
     ]
+
+    // Collection 
+    IMAGE_bottle_bar =[
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
+    ];
+
+    IMAGE_coin_bar = [
+                    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png',
+                    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/80.png',
+                    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/60.png',
+                    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/40.png',
+                    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/20.png',
+                    'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
+    ];
     percentatge = 100;
+    collection = 0;
 
     constructor(images = null, x, y){
         super();
@@ -34,6 +54,7 @@ class Statusbar extends DrawableObject{
         this.height = 80;
         this.width = 400;
         this.setPercentage(100);
+        //this.collectItems(0);
     }
 
     setPercentage(percentatge){
@@ -41,6 +62,31 @@ class Statusbar extends DrawableObject{
         let path = this.images[this.resolveImageIndex()];
         this.img = this.imageCache[path];
         
+    }
+
+    //collectItems(){
+    //    let path = this.images[]
+    //};
+
+    reverseResolveIndex(){
+        if(this.collection === 100){
+            return 0
+        }
+        else if(this.collection > 80){
+            return 
+        }
+        else if(this.collection > 60){
+            return 
+        }
+        else if(this.collection > 40){
+            return 
+        }
+        else if(this.collection > 20){
+            return 
+        }
+        else{
+            return 
+        }
     }
 
     resolveImageIndex(){

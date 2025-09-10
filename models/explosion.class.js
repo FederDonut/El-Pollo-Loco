@@ -34,7 +34,7 @@ class Explosion extends MovableObject{
         setTimeout(() =>{
             this.endAnimation();
             this.removeExplosion=true;
-        },2000)
+        },1000)
         
     }
 
