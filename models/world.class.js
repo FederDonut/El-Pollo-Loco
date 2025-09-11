@@ -41,6 +41,7 @@ class World {
         this.checkMissileCollision()
         this.checkThrowObjects();
         this.checkCollectibleBottle();
+        this.checkCoinCollision();
         //this.checkEndbossAudio();    
            
         },100)
@@ -51,6 +52,7 @@ class World {
         if(this.keyboard.attack&& this.bottle_counter !== 0){
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle);
+            // neue Funktion implementieren 
             console.log('peng')
             this.bottle_counter -=1;
             console.log(this.bottle_counter)
@@ -76,6 +78,11 @@ class World {
     checkCollectibleBottle(){
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
+                //Test
+                console.log('x = ',this.character.x ,'Größe = ' ,this.character.height , 'y = ',this.character.y,'breite = ' , this.character.width)
+                console.log('x = ',bottle.x,'größe = ', bottle.height,'y = ', bottle.y, 'breite = ',bottle.width)
+
+
                 bottle.collectBottle = true;
                 if(bottle.collectBottle){
                     let targetBottle = this.level.bottles
@@ -86,6 +93,15 @@ class World {
                 }
             }
         })
+    }
+
+    checkCoinCollision(){
+        this.level.coins.forEach((coin,i) =>{
+            if(this.character.isColliding(coin)){
+                console.log('pling pling');
+            }
+        })    
+    
     }
 
     checkMissileCollision(){
@@ -172,6 +188,7 @@ class World {
        
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.throable_objects);
         this.addObjectsToMap(this.firePower);
         

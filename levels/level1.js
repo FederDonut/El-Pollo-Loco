@@ -25,15 +25,19 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/2_second_layer/2.png',1720,0),
         new BackgroundObject('img/5_background/layers/1_first_layer/2.png',1720,0 ),
     ],
-
+        //Vorraussichtlich 10 Flaschen
     [
         new Bottle(),
         new Bottle(),
         new Bottle(),
         new Bottle(),
         new Bottle(),
-        //new Bottle(),
-        //new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        
     ],
 
     [

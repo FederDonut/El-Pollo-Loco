@@ -87,7 +87,7 @@ class Statusbar extends DrawableObject{
         else if(this.collection >= 4){
             return 2;
         }
-        else if(this.collection >= 2){
+        else if(this.collection >= 1){
             return 1;
         }
         else{
