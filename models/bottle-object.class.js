@@ -3,6 +3,7 @@ class Bottle extends DrawableObject{
     height = 80;
     width = 50;
     y = 605;
+    collectBottle = false;
 
     IMAGE_bottle = [
         'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
@@ -13,5 +14,11 @@ class Bottle extends DrawableObject{
         super().loadImage(this.IMAGE_bottle[0]);
         this.loadImages(this.IMAGE_bottle);
         this.x = 200 +Math.random()*3000;
+    }
+
+    animate(){
+        setTimeout(() => {
+
+        },1000)
     }
 }

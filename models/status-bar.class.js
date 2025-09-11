@@ -26,12 +26,12 @@ class Statusbar extends DrawableObject{
 
     // Collection 
     IMAGE_bottle_bar =[
-                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
-                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
-                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
-                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
-                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
                     'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
+                    'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
     ];
 
     IMAGE_coin_bar = [
@@ -53,8 +53,12 @@ class Statusbar extends DrawableObject{
         this.y = y || 20;
         this.height = 80;
         this.width = 400;
-        this.setPercentage(100);
-        //this.collectItems(0);
+        if(this.images !== this.IMAGES_health_bar && 
+            this.images !== this.IMAGES_endboss_bar){
+            this.setCollection(0);
+        }else{
+            this.setPercentage(100);
+        }
     }
 
     setPercentage(percentatge){
@@ -64,28 +68,30 @@ class Statusbar extends DrawableObject{
         
     }
 
-    //collectItems(){
-    //    let path = this.images[]
-    //};
+    setCollection(collection){
+        this.collection =collection;
+        let path = this.images[this.itemCollection()];
+        this.img = this.imageCache[path];
+    }
 
-    reverseResolveIndex(){
-        if(this.collection === 100){
-            return 0
+    itemCollection(){
+        if(this.collection === 10){
+            return 5;
         }
-        else if(this.collection > 80){
-            return 
+        else if(this.collection >= 8){
+            return 4;
         }
-        else if(this.collection > 60){
-            return 
+        else if(this.collection >= 6){
+            return 3;
         }
-        else if(this.collection > 40){
-            return 
+        else if(this.collection >= 4){
+            return 2;
         }
-        else if(this.collection > 20){
-            return 
+        else if(this.collection >= 2){
+            return 1;
         }
         else{
-            return 
+            return 0;
         }
     }
 

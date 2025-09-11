@@ -12,7 +12,8 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    camera_y = 0;
+    bottle_counter = 0;
+    coin_counter = 0;
     bossThemePlayed = false;
     throable_objects = [];
     firePower = [];
@@ -39,6 +40,7 @@ class World {
         this.checkCollisions();
         this.checkMissileCollision()
         this.checkThrowObjects();
+        this.checkCollectibleBottle();
         //this.checkEndbossAudio();    
            
         },100)
@@ -67,13 +69,21 @@ class World {
         });
     }       
     
-    checkCollectibleItems(){
-        this.level.bottles.forEach((bottle) =>{
+    checkCollectibleBottle(){
+        this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
-
+                bottle.collectBottle = true;
+                if(bottle.collectBottle){
+                    let targetBottle = this.level.bottles
+                    targetBottle.splice(i,1)
+                    this.bottle_counter ++;
+                    this.bottle_bar.setCollection(this.bottle_counter);
+                    console.log(targetBottle, this.bottle_counter);
+                }
             }
         })
     }
+
     checkMissileCollision(){
         this.throable_objects.forEach((bottle) =>{
             this.level.enemies.forEach((enemy) =>{
@@ -102,12 +112,7 @@ class World {
             console.log(bottle.x , bottle.y);
             //Explosion
             this.addExplosion(bottle.x, bottle.y);
-            
-            setTimeout(() => {
-                bottle.removeMissile =true;
-            },600);
-            console.log(bottle.energy);
-                    
+          
     }
 
     endbossDamage(enemy){
