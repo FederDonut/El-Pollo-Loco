@@ -48,9 +48,13 @@ class World {
 
 
     checkThrowObjects(){
-        if(this.keyboard.attack){
+        if(this.keyboard.attack&& this.bottle_counter !== 0){
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle);
+            console.log('peng')
+            this.bottle_counter -=1;
+            console.log(this.bottle_counter)
+            this.bottle_bar.setCollection(this.bottle_counter);
         }
     }
 
