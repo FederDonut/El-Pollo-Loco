@@ -65,15 +65,36 @@ class World {
         this.firePower.push(explosion)
     }
 
+    //checkCollisions(){
+    //    this.level.enemies.forEach((enemy) => {
+    //           if(this.character.isColliding(enemy)){
+    //                if(this.character.isCollidingFromAbove(enemy)){
+    //                    console.log('lalalala')
+    //                };
+    //                
+    //                //this.character.damage(); 
+    //                //this.health_bar.setPercentage(this.character.energy);
+    //            }
+    //            
+    //    });
+    //}  
+    
     checkCollisions(){
-        this.level.enemies.forEach((enemy) => {
-               if(this.character.isColliding(enemy)){
-                  this.character.damage(); 
-                   this.health_bar.setPercentage(this.character.energy);
-                }
-                
-        });
-    }       
+        this.level.enemies.forEach((enemy,i) =>{
+            if(this.character.isCollidingFromAbove(enemy)){
+                console.log('gegner stirbt')
+                enemy.damage();
+                //setTimeout(() =>{
+                //     this.level.enemies.splice(i,1);
+                //},300)
+               
+            }else if(this.character.isColliding(enemy)){
+                console.log('normaler Schaden für den character')
+                this.character.damage();
+                this.health_bar.setPercentage(this.character.energy);
+            }
+        })
+    }
     
     checkCollectibleBottle(){
         this.level.bottles.forEach((bottle, i) =>{
@@ -99,6 +120,13 @@ class World {
         this.level.coins.forEach((coin,i) =>{
             if(this.character.isColliding(coin)){
                 console.log('pling pling');
+                coin.collectCoin = true;
+                if(coin.collectCoin){
+                    let targetCoin = this.level.coins;
+                    targetCoin.splice(i,1);
+                    this.coin_counter ++;
+                    this.coin_bar.setCollection(this.coin_counter);
+                }
             }
         })    
     
@@ -141,6 +169,9 @@ class World {
             enemy.damage();
             console.log(enemy.energy);
             this.enemy_health_bar.setPercentage(enemy.energy);
+        }else{
+            enemy.damage();
+            // funktioniert aber explosions-animation muss noch angepasst werden. 
         }
     }
     endbossSounds(){

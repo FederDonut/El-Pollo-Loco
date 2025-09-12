@@ -15,10 +15,4 @@ class Bottle extends DrawableObject{
         this.loadImages(this.IMAGE_bottle);
         this.x = 200 +Math.random()*3000;
     }
-
-    animate(){
-        setTimeout(() => {
-
-        },1000)
-    }
 }

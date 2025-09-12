@@ -15,9 +15,18 @@ class MovableObject extends DrawableObject{
 
     isColliding(mo){
         return this.x + this.width > mo.x &&
-            this.y +this.height > mo.y &&
-            this.x < mo.x &&
+            this.y +this.height > mo.y && // ziel collision 
+            this.x < mo.x + mo.width &&
             this.y < mo.y + mo.height
+    }
+
+    isCollidingFromAbove(mo){
+        const collision = this.isColliding(mo);
+        const comingFromAbove = this.speedY < 0 &&  this.y < 400 ; // positve Beschleunigung = Fallen
+        //console.log(collision);
+       return collision && comingFromAbove; // Rückgabewert = true
+       
+        
     }
 
     applyGravity(){
@@ -25,6 +34,8 @@ class MovableObject extends DrawableObject{
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+                //console.log(this.speedY);
+                //console.log(this.y);
             }
         },1000/25);
     }
@@ -47,6 +58,7 @@ class MovableObject extends DrawableObject{
 
     moveRight(){
         this.x += this.speed;
+        console.log(this.speedY);
         
     }
 

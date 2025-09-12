@@ -38,4 +38,8 @@ class DrawableObject{
             ctx.stroke();
         }
     }
+
+    removeObjects(index){
+        
+    }
 }

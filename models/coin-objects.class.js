@@ -2,6 +2,7 @@ class Coin extends DrawableObject{
 
     height = 150;
     width = 150;
+    collectCoin = false;
     
     y = 350;
 
@@ -16,6 +17,6 @@ class Coin extends DrawableObject{
         super().loadImage(this.IMAGE_coin[0]);
         this.loadImages(this.IMAGE_coin);
         this.x = 200 +Math.random()*3000;
-        this.y = 350 +Math.random()*100;
+        this.y = 350 -Math.random()*100;
     }
 }
