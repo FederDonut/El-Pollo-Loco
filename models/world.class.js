@@ -87,6 +87,7 @@ class World {
                 //setTimeout(() =>{
                 //     this.level.enemies.splice(i,1);
                 //},300)
+                // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
                
             }else if(this.character.isColliding(enemy)){
                 console.log('normaler Schaden für den character')
@@ -216,7 +217,7 @@ class World {
         this.addToMap(this.enemy_health_bar);
         
 
-       
+        
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);

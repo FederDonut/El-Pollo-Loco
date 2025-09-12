@@ -58,13 +58,10 @@ class MovableObject extends DrawableObject{
 
     moveRight(){
         this.x += this.speed;
-        console.log(this.speedY);
-        
     }
 
     moveLeft(){
         this.x -= this.speed
-        
     }
 
     jump(){
@@ -93,8 +90,8 @@ class MovableObject extends DrawableObject{
 
     dead(){
         if(this.energy <= 0){
-            this.y -= this.speedY;
-            this.speedY -= this.acceleration;
+            this.y -= this.speedY*20;
+            this.speedY -= this.acceleration *20;
         }
         
     }
