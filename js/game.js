@@ -2,13 +2,9 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-//let anyKeyPressed = false;
-let inactivityTimer;
-let sleepTimer;
-//const TIMEOUT = 5000;
-//let timeStamp1 = false;
-//let chillMode = false;
-//let sleepMode = false;
+//let inactivityTimer;
+//let sleepTimer;
+
 
 
 function init(){
@@ -22,35 +18,11 @@ function startGame(){
     console.log('start');
     overlayRef.classList.toggle('d-none');
     canvas = document.getElementById('canvas');
-    //startInteractivTimer();
-    //startSleepTimer();
-    world = new World(canvas, keyboard, inactivityTimer,sleepTimer);
+    world = new World(canvas, keyboard,);
    
     
 }
 
-//function startInteractivTimer(){
-//    inactivityTimer = setTimeout(()=>{
-//        if(!anyKeyPressed){
-//            console.log('Keine taste gedrückt');
-//            timeStamp1 = true;
-//            chillMode = true;
-//            sleepMode = true; 
-//        }
-//    },TIMEOUT);
-//    
-//}
-//
-//function startSleepTimer(){
-//    sleepTimer = setTimeout(()=>{
-//        if(!anyKeyPressed && timeStamp1){
-//            console.log('character schläft');
-//            timeStamp1=false;
-//            chillMode = false;
-//            sleepMode = true;
-//        }
-//    },10000)
-//}
 
 window.addEventListener('keydown', (event) => {
     
@@ -110,23 +82,11 @@ window.addEventListener('keyup', (event) =>{
 
 });
 
-window.addEventListener('keydown', ()=>{
-    anyKeyPressed = true;
-    //clearTimeout(inactivityTimer);
-    //clearTimeout(sleepTimer);
-    //startInteractivTimer();
-    //startSleepTimer();
-    //chillMode = false;
-    //sleepMode = false;  
-});
-
-window.addEventListener('keyup', ()=>{
-    anyKeyPressed = false;
-    //clearTimeout(inactivityTimer);
-    //clearTimeout(sleepTimer);
-    //startInteractivTimer();
-    //startSleepTimer()
-    //chillMode = false;
-    //sleepMode = false;
-});
+//window.addEventListener('keydown', ()=>{
+//    anyKeyPressed = true;
+//});
+//
+//window.addEventListener('keyup', ()=>{
+//    anyKeyPressed = false;
+//});
 

@@ -3,7 +3,7 @@ class World {
     
     inactivityTimer;
     sleepTimer;
-    TIMEOUT;
+    anyKeyPressed = false;
     timeStamp1 = false;
     chillMode =false;
     sleepMode = false;
@@ -35,9 +35,10 @@ class World {
         this.draw();
         this.setWorld();
         this.endbossSounds();
+        this.checkPlayerActivity();
         this.run();
-        this.startInteractivTimer();
-        this.startSleepTimer();
+       
+     
         
         
     }
@@ -54,19 +55,44 @@ class World {
         this.checkThrowObjects();
         this.checkCollectibleBottle();
         this.checkCoinCollision();
+        
         //this.checkEndbossAudio();
             
            
         },100)
     }
 
+    checkPlayerActivity(){
+
+        window.addEventListener('keydown', ()=>{
+            this.anyKeyPressed = true;
+            this.resetTimers();
+        });
+
+        window.addEventListener('keyup', ()=>{
+            this.anyKeyPressed = false;
+            this.startInteractivTimer();
+            this.startSleepTimer();
+        });
+        //this.startInteractivTimer();
+        //this.startSleepTimer();
+
+        //window.addEventListener('keydown', )
+    }
+
+    resetTimers(){
+        clearTimeout(this.inactivityTimer);
+        clearTimeout(this.sleepTimer);
+        this.chillMode = false;
+        this.sleepMode = false;
+    }
+
     startInteractivTimer(){
-        inactivityTimer = setTimeout(()=>{
+        this.inactivityTimer = setTimeout(()=>{
             if(!this.anyKeyPressed){
-                console.log('Keine taste gedrückt');
-                this.timeStamp1 = true;
+                console.log('chill Modus aktiv');
                 this.chillMode = true;
-                this.sleepMode = true; 
+                this.sleepMode = false; 
                 console.log(this.chillMode);
             }
         },5000);
@@ -74,10 +100,9 @@ class World {
     }
 
     startSleepTimer(){
-        sleepTimer = setTimeout(()=>{
-            if(!this.anyKeyPressed && this.timeStamp1){
+        this.sleepTimer = setTimeout(()=>{
+            if(!this.anyKeyPressed){
                 console.log('character schläft');
-                this.timeStamp1=false;
                 this.chillMode = false;
                 this.sleepMode = true;
                 console.log(this.sleepMode);
