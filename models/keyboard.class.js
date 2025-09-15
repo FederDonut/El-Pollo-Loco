@@ -6,4 +6,5 @@ class Keyboard {
     down = false;
     attack = false;
     space = false;
+    anyKeyPressed = false;
 }

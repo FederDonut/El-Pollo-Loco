@@ -3,6 +3,7 @@ class Character extends MovableObject{
     height = 300
     y = 95 //395
     speed = 8
+    
 
     
     IMAGES_walking =[
@@ -50,6 +51,19 @@ class Character extends MovableObject{
                     'audio/character_is_dead.mp3',
                     'audio/character_damage.mp3'
     ];
+
+    IMAGES_inactiv =[
+                    'img/2_character_pepe/1_idle/idle/I-1.png',
+                    'img/2_character_pepe/1_idle/idle/I-2.png',
+                    'img/2_character_pepe/1_idle/idle/I-3.png',
+                    'img/2_character_pepe/1_idle/idle/I-4.png',
+                    'img/2_character_pepe/1_idle/idle/I-5.png',
+                    'img/2_character_pepe/1_idle/idle/I-6.png',
+                    'img/2_character_pepe/1_idle/idle/I-7.png',
+                    'img/2_character_pepe/1_idle/idle/I-8.png',
+                    'img/2_character_pepe/1_idle/idle/I-9.png',
+                    'img/2_character_pepe/1_idle/idle/I-10.png',
+    ];
     
     world;
    
@@ -60,9 +74,11 @@ class Character extends MovableObject{
         this.loadImages(this.IMAGES_jumping);
         this.loadImages(this.IMAGES_death);
         this.loadImages(this.IMAGES_damage);
+        this.loadImages(this.IMAGES_inactiv);
         this.characterSounds();
         this.applyGravity();
         this.animate();
+        //this.getIdle();
        
        
         
@@ -75,15 +91,20 @@ class Character extends MovableObject{
                 
                 this.moveRight();
                 this.otherDirection = false;
+                
+                
             }
              if(this.world.keyboard.left && this.x > 0){
                 this.moveLeft();
                 this.otherDirection = true;
+                
             }
             if(this.world.keyboard.up && !this.isAboveGround()){
                this.jump();
                let jumpSound = new Audio(this.Character_audio[1]);
                jumpSound.play();
+               this.wakeUp();
+               
             }
 
             this.world.camera_x = -this.x + 100
@@ -154,6 +175,28 @@ class Character extends MovableObject{
             this.damageSound.currentTime = 0;
         },500);
     }
+
+    //getIdle(){
+    //    setInterval(() =>{
+    //        if(this.chillMode && this.world.anyKeyPressed){
+    //            console.log('test');
+    //            this.playAnimation(this.IMAGES_inactiv);
+    //        }
+    //    },100)
+    //}
+   wakeUp(){
+    if(this.world.sleepMode){
+        this.world.sleepMode = false;
+        this.world.chillMode = false;
+        this.world.startInteractivTimer();
+        console.log(this.world.chillMode);
+        this.world.startSleepTimer();
+        console.log(this.world.sleepMode);
+    }    
+   }
+
+   
+    
     
 
     

@@ -25,7 +25,8 @@ class Missile extends MovableObject{
         this.width = 50;
         this.x = x;
         this.y = y;
-        this.throw();         
+        this.throw(); 
+                
     }
 
    
@@ -36,10 +37,7 @@ class Missile extends MovableObject{
             this.throwInterval = setInterval(() =>{
                 this.playAnimation(this.IMAGE_missile);
                 this.x += 35;
-            },85)
-        
-       
-        
+            },85)    
     }
 
     

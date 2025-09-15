@@ -23,7 +23,7 @@ class MovableObject extends DrawableObject{
     isCollidingFromAbove(mo){
         const collision = this.isColliding(mo);
         const comingFromAbove = this.speedY < 0 &&  this.y < 400 ; // positve Beschleunigung = Fallen
-        //console.log(collision);
+          
        return collision && comingFromAbove; // Rückgabewert = true
        
         
@@ -90,7 +90,7 @@ class MovableObject extends DrawableObject{
 
     dead(){
         if(this.energy <= 0){
-            this.y -= this.speedY*20;
+            this.y -= this.speedY;
             this.speedY -= this.acceleration *20;
         }
         

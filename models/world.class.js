@@ -1,11 +1,13 @@
 class World {
 
-    character = new Character();
-    //explosion = new Explosion();
-    health_bar = new Statusbar();
-    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 2870, 30);
-    coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
-    bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
+    
+    inactivityTimer;
+    sleepTimer;
+    TIMEOUT;
+    timeStamp1 = false;
+    chillMode =false;
+    sleepMode = false;
+   
    
     level = level1
     canvas;
@@ -17,8 +19,16 @@ class World {
     bossThemePlayed = false;
     throable_objects = [];
     firePower = [];
+
+
+    character = new Character();
+    //explosion = new Explosion();
+    health_bar = new Statusbar();
+    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 2870, 30);
+    coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
+    bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
      
-    constructor(canvas, keyboard,){
+    constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -26,6 +36,8 @@ class World {
         this.setWorld();
         this.endbossSounds();
         this.run();
+        this.startInteractivTimer();
+        this.startSleepTimer();
         
         
     }
@@ -42,16 +54,45 @@ class World {
         this.checkThrowObjects();
         this.checkCollectibleBottle();
         this.checkCoinCollision();
-        //this.checkEndbossAudio();    
+        //this.checkEndbossAudio();
+            
            
         },100)
     }
 
+    startInteractivTimer(){
+        inactivityTimer = setTimeout(()=>{
+            if(!this.anyKeyPressed){
+                console.log('Keine taste gedrückt');
+                this.timeStamp1 = true;
+                this.chillMode = true;
+                this.sleepMode = true; 
+                console.log(this.chillMode);
+            }
+        },5000);
+    
+    }
+
+    startSleepTimer(){
+        sleepTimer = setTimeout(()=>{
+            if(!this.anyKeyPressed && this.timeStamp1){
+                console.log('character schläft');
+                this.timeStamp1=false;
+                this.chillMode = false;
+                this.sleepMode = true;
+                console.log(this.sleepMode);
+            }
+        },10000)
+    }
 
     checkThrowObjects(){
         if(this.keyboard.attack&& this.bottle_counter !== 0){
+            
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle);
+           
+            // Hier flugbahn der Flasche ändern
+            
             // neue Funktion implementieren 
             console.log('peng')
             this.bottle_counter -=1;
@@ -65,28 +106,18 @@ class World {
         this.firePower.push(explosion)
     }
 
-    //checkCollisions(){
-    //    this.level.enemies.forEach((enemy) => {
-    //           if(this.character.isColliding(enemy)){
-    //                if(this.character.isCollidingFromAbove(enemy)){
-    //                    console.log('lalalala')
-    //                };
-    //                
-    //                //this.character.damage(); 
-    //                //this.health_bar.setPercentage(this.character.energy);
-    //            }
-    //            
-    //    });
-    //}  
+    
     
     checkCollisions(){
         this.level.enemies.forEach((enemy,i) =>{
             if(this.character.isCollidingFromAbove(enemy)){
                 console.log('gegner stirbt')
                 enemy.damage();
+                
+                
                 //setTimeout(() =>{
                 //     this.level.enemies.splice(i,1);
-                //},300)
+                //},100)
                 // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
                
             }else if(this.character.isColliding(enemy)){

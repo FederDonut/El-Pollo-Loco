@@ -5,7 +5,9 @@ const level1 = new Level(
         new Chicken(),
         new Endboss()
     ],
-    
+    //[
+    //    new Endboss()
+    //],
     [
         new Cloud(),
         new Cloud()
@@ -25,8 +27,18 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/3_third_layer/2.png',1720,0),
         new BackgroundObject('img/5_background/layers/2_second_layer/2.png',1720,0),
         new BackgroundObject('img/5_background/layers/1_first_layer/2.png',1720,0 ),
+
+        new BackgroundObject('img/5_background/layers/air.png',3440,0),
+        new BackgroundObject('img/5_background/layers/3_third_layer/1.png',3440,0),
+        new BackgroundObject('img/5_background/layers/2_second_layer/1.png',3440,0),
+        new BackgroundObject('img/5_background/layers/1_first_layer/1.png',3440,0 ),
+
+        new BackgroundObject('img/5_background/layers/air.png',5160,0),
+        new BackgroundObject('img/5_background/layers/3_third_layer/2.png',5160,0),
+        new BackgroundObject('img/5_background/layers/2_second_layer/2.png',5160,0),
+        new BackgroundObject('img/5_background/layers/1_first_layer/2.png',5160,0 ),
     ],
-        //Vorraussichtlich 10 Flaschen
+        //Vorraussichtlich 12 Flaschen min. 10 werden zum besigen des Endbosses benötigt
     [
         new Bottle(),
         new Bottle(),
