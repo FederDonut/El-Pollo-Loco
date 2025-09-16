@@ -71,13 +71,10 @@ class World {
 
         window.addEventListener('keyup', ()=>{
             this.anyKeyPressed = false;
+            this.resetTimers();
             this.startInteractivTimer();
             this.startSleepTimer();
         });
-        //this.startInteractivTimer();
-        //this.startSleepTimer();
-
-        //window.addEventListener('keydown', )
     }
 
     resetTimers(){
