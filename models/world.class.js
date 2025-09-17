@@ -24,7 +24,7 @@ class World {
     character = new Character();
     //explosion = new Explosion();
     health_bar = new Statusbar();
-    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 2870, 30);
+    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 9000, 30);
     coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
      
@@ -36,11 +36,7 @@ class World {
         this.setWorld();
         this.endbossSounds();
         this.checkPlayerActivity();
-        this.run();
-       
-     
-        
-        
+        this.run();   
     }
 
     setWorld(){
@@ -55,6 +51,7 @@ class World {
         this.checkThrowObjects();
         this.checkCollectibleBottle();
         this.checkCoinCollision();
+        this.endbossMovement();
         
         //this.checkEndbossAudio();
             
@@ -63,12 +60,10 @@ class World {
     }
 
     checkPlayerActivity(){
-
         window.addEventListener('keydown', ()=>{
             this.anyKeyPressed = true;
             this.resetTimers();
         });
-
         window.addEventListener('keyup', ()=>{
             this.anyKeyPressed = false;
             this.resetTimers();
@@ -135,11 +130,6 @@ class World {
             if(this.character.isCollidingFromAbove(enemy)){
                 console.log('gegner stirbt')
                 enemy.damage();
-                
-                
-                //setTimeout(() =>{
-                //     this.level.enemies.splice(i,1);
-                //},100)
                 // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
                
             }else if(this.character.isColliding(enemy)){
@@ -154,8 +144,8 @@ class World {
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
                 //Test
-                console.log('x = ',this.character.x ,'Größe = ' ,this.character.height , 'y = ',this.character.y,'breite = ' , this.character.width)
-                console.log('x = ',bottle.x,'größe = ', bottle.height,'y = ', bottle.y, 'breite = ',bottle.width)
+                //console.log('x = ',this.character.x ,'Größe = ' ,this.character.height , 'y = ',this.character.y,'breite = ' , this.character.width)
+                //console.log('x = ',bottle.x,'größe = ', bottle.height,'y = ', bottle.y, 'breite = ',bottle.width)
 
 
                 bottle.collectBottle = true;
@@ -173,7 +163,6 @@ class World {
     checkCoinCollision(){
         this.level.coins.forEach((coin,i) =>{
             if(this.character.isColliding(coin)){
-                console.log('pling pling');
                 coin.collectCoin = true;
                 if(coin.collectCoin){
                     let targetCoin = this.level.coins;
@@ -210,10 +199,10 @@ class World {
     
     missileExplosion(bottle){
             
-            bottle.damage();
-            console.log(bottle.x , bottle.y);
-            //Explosion
-            this.addExplosion(bottle.x, bottle.y);
+        bottle.damage();
+        console.log(bottle.x , bottle.y);
+        //Explosion
+        this.addExplosion(bottle.x, bottle.y);
           
     }
 
@@ -231,6 +220,14 @@ class World {
     endbossSounds(){
         this.bossTheme1 = new Audio('audio/endBoss.mp3');
     }
+    endbossMovement(){
+        let endboss =this.level.enemies[3];
+            if(endboss && this.character.x >= 7300 && !endboss.isdetectionX){
+                endboss.detectionX = true;
+                //endboss.isAlert = true;
+            }
+    }
+   
 
     checkEndbossAudio(){
         if(this.character.x > 1500 && ! this.bossThemePlayed){

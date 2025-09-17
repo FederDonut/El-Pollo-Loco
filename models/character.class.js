@@ -92,7 +92,7 @@ class Character extends MovableObject{
         this.characterSounds();
         this.applyGravity();
         this.animate();
-        //this.getIdle();
+       
        
        
         
@@ -104,13 +104,12 @@ class Character extends MovableObject{
             if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
                 
                 this.moveRight();
-                this.otherDirection = false;
-                
-                
+                this.otherDirection = false; 
             }
-             if(this.world.keyboard.left && this.x > 0){
+            if(this.world.keyboard.left && this.x > 0){
                 this.moveLeft();
                 this.otherDirection = true;
+                
                 
             }
             if(this.world.keyboard.up && !this.isAboveGround()){
@@ -130,6 +129,7 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_death);
                 this.dead();
                 this.wastedSound();
+                
             }     
             else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
@@ -146,6 +146,7 @@ class Character extends MovableObject{
             else if(this.world.sleepMode){
                 this.playAnimation(this.IMAGES_long_inactivity);
             }
+           
             else{
                 //console.log('animation folgt');    
                 if(this.world.keyboard.right || this.world.keyboard.left){
@@ -193,6 +194,7 @@ class Character extends MovableObject{
 
     gotDamage(){
         this.damageSound.play()
+        this.world.resetTimers();
         setTimeout(()=> {
             this.damageSound.pause();
             this.damageSound.currentTime = 0;

@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject{
     acceleration = 2;
     energy = 100;
     lastHit = 0; 
+   
 
     
 
@@ -63,13 +64,20 @@ class MovableObject extends DrawableObject{
     moveLeft(){
         this.x -= this.speed
     }
+    stop(){
+        this.speed = 0;
+    }
+
+    //mo = movable-object
+    
+
 
     jump(){
         this.speedY = 25;
     }
 
     damage(){
-        this.energy -= 5;
+        this.energy -= 10;//5
         if(this.energy < 0){
             this.energy = 0;
         }else{
@@ -88,6 +96,7 @@ class MovableObject extends DrawableObject{
         return this.energy === 0;
     }
 
+    
     dead(){
         if(this.energy <= 0){
             this.y -= this.speedY;
