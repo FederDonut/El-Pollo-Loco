@@ -3,6 +3,7 @@ class MovableObject extends DrawableObject{
    
   
     speed = 0.15;
+    attackSpeed = 50;
     otherDirection = false;
     speedY = 0;
     speedX = 0;
@@ -63,6 +64,10 @@ class MovableObject extends DrawableObject{
 
     moveLeft(){
         this.x -= this.speed
+    }
+
+    bossAttack(){
+        this.x -= this.attackSpeed
     }
     stop(){
         this.speed = 0;

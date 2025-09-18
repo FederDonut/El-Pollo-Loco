@@ -52,6 +52,7 @@ class World {
         this.checkCollectibleBottle();
         this.checkCoinCollision();
         this.endbossMovement();
+        this.endbossAttack();
         
         //this.checkEndbossAudio();
             
@@ -154,7 +155,7 @@ class World {
                     targetBottle.splice(i,1)
                     this.bottle_counter ++;
                     this.bottle_bar.setCollection(this.bottle_counter);
-                    console.log(targetBottle, this.bottle_counter);
+                    //console.log(targetBottle, this.bottle_counter);
                 }
             }
         })
@@ -197,10 +198,9 @@ class World {
     
     
     
-    missileExplosion(bottle){
-            
+    missileExplosion(bottle){   
         bottle.damage();
-        console.log(bottle.x , bottle.y);
+        //console.log(bottle.x , bottle.y);
         //Explosion
         this.addExplosion(bottle.x, bottle.y);
           
@@ -224,10 +224,17 @@ class World {
         let endboss =this.level.enemies[3];
             if(endboss && this.character.x >= 7300 && !endboss.isdetectionX){
                 endboss.detectionX = true;
-                //endboss.isAlert = true;
             }
     }
    
+    endbossAttack(){
+        let endboss = this.level.enemies[3];
+        let distanze = Math.abs((this.character.x + this.character.width) - endboss.x);
+        if(distanze <= 200 && !endboss.isAttacking){
+            //console.log('boss führt Angriff aus');
+            endboss.bossAttackMovement();
+        }
+    }
 
     checkEndbossAudio(){
         if(this.character.x > 1500 && ! this.bossThemePlayed){
@@ -265,8 +272,6 @@ class World {
         //this.addObjectsToMap(this.detonation, 0);
         
         this.addToMap(this.enemy_health_bar);
-        
-
         
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);

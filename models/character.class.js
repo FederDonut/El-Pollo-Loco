@@ -105,6 +105,8 @@ class Character extends MovableObject{
                 
                 this.moveRight();
                 this.otherDirection = false; 
+                //console.log('This.x',this.x);
+                //console.log('this.x & this.width', this.x+this.width);
             }
             if(this.world.keyboard.left && this.x > 0){
                 this.moveLeft();
@@ -193,7 +195,7 @@ class Character extends MovableObject{
     }
 
     gotDamage(){
-        this.damageSound.play()
+        this.damageSound.play();
         this.world.resetTimers();
         setTimeout(()=> {
             this.damageSound.pause();

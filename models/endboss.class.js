@@ -7,9 +7,7 @@ class Endboss extends MovableObject{
     detectionX = false;
     isWalking = false;
     isAlert = false;
-    //Schlatet zwischen den zusänden 0 = start 1 = alert 2 = walking
-   
-    
+    isAttacking = false;
     
 
     IMAGES_walking =[
@@ -29,6 +27,17 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/2_alert/G10.png',
         'img/4_enemie_boss_chicken/2_alert/G11.png',
     ]
+
+    IMAGES_attack = [
+        'img/4_enemie_boss_chicken/3_attack/G13.png',
+        'img/4_enemie_boss_chicken/3_attack/G14.png',
+        'img/4_enemie_boss_chicken/3_attack/G15.png',
+        'img/4_enemie_boss_chicken/3_attack/G16.png',
+        'img/4_enemie_boss_chicken/3_attack/G17.png',
+        'img/4_enemie_boss_chicken/3_attack/G18.png',
+        'img/4_enemie_boss_chicken/3_attack/G19.png',
+        'img/4_enemie_boss_chicken/3_attack/G20.png',
+    ];
 
     IMAGES_damage = [
         'img/4_enemie_boss_chicken/4_hurt/G21.png',
@@ -53,9 +62,11 @@ class Endboss extends MovableObject{
         this.loadImages(this.IMAGES_alert);
         this.loadImages(this.IMAGES_damage);
         this.loadImages(this.IMAGES_dead);
+        this.loadImages(this.IMAGES_attack);
         this.x = 9000//2600
         this.animate();
         this.bossMovement();
+        //this.bossAttackMovement();
     }
 
   
@@ -85,6 +96,11 @@ class Endboss extends MovableObject{
                     //console.log(this.isWalking)
                     this.playAnimation(this.IMAGES_walking)
                     this.moveLeft();
+                }else if(this.isAttacking){
+                    //console.log('attack')
+                    this.playAnimation(this.IMAGES_attack);
+                    this.bossAttack();
+
                 }
             }
         },200);
@@ -92,8 +108,12 @@ class Endboss extends MovableObject{
     }  
 
     bossMovement(){
+        if(this.isAttacking){
+            setTimeout(()=> this.bossMovement(),this.IMAGES_attack.length);
+            return;
+        }
             
-        if(!this.detectionX){
+        else if(!this.detectionX){
             setTimeout(() => this.bossMovement(),1000);
             return;
         }else{
@@ -112,5 +132,16 @@ class Endboss extends MovableObject{
             }
         }
               
+    }
+    bossAttackMovement(){
+        if(!this.isAttacking && !this.isDead()){
+            this.isAttacking = true;
+            this.isWalking = false; 
+            this.isAlert = false;
+            setTimeout(()=> {
+                this.isAttacking = false;
+                this.isAlert = true; 
+            },this.IMAGES_attack.length *100);
+        }
     }    
 }  
