@@ -105,21 +105,22 @@ class Character extends MovableObject{
             if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
                 
                 this.moveRight();
-                this.otherDirection = false; 
+                this.otherDirection = false;
+                this.world.resetTimers(); 
                 //console.log('This.x',this.x);
                 //console.log('this.x & this.width', this.x+this.width);
             }
             if(this.world.keyboard.left && this.x > 0){
                 this.moveLeft();
                 this.otherDirection = true;
-                
+                this.world.resetTimers(); 
                 
             }
             if(this.world.keyboard.up && !this.isAboveGround()){
                this.jump();
                let jumpSound = new Audio(this.Character_audio[1]);
                jumpSound.play();
-               
+               this.world.resetTimers();
                
             }
 

@@ -7,7 +7,6 @@ class World {
     timeStamp1 = false;
     chillMode =false;
     sleepMode = false;
-    //apex = false;
    
    
     level = level1
@@ -130,8 +129,9 @@ class World {
     
     
     checkCollisions(){
+        let endboss = this.level.enemies[3];
         this.level.enemies.forEach((enemy,i) =>{
-            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)){
+            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(endboss)){
                 console.log('gegner stirbt')
                 enemy.damage();
                 // test
@@ -146,7 +146,30 @@ class World {
         })
     }
     
-    
+    // hier weitermachen
+    //checkEnemyCollision(){
+    //    let endboss = this.level.enemies[3];
+//
+    //    this.level.enemies.forEach((enemy)=>){
+    //        if(this.character.isColliding(enemy[3],this.character.lastPositionY)){
+    //            
+    //        }else{
+    //            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)){
+    //                console.log('gegner stirbt')
+    //                enemy.damage();
+    //                // test
+    //                this.character.jump();
+    //                // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
+    //               enemies.splice
+    //            }else if(this.character.isColliding(enemy)){
+    //                console.log('normaler Schaden für den character')
+    //                this.character.damage();
+    //                this.health_bar.setPercentage(this.character.energy);
+    //            } 
+    //        }
+    //    })
+    //}
+
     checkCollectibleBottle(){
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
