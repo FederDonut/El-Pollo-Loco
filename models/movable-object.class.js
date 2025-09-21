@@ -9,7 +9,7 @@ class MovableObject extends DrawableObject{
     speedX = 0;
     acceleration = 2;
     energy = 100;
-    lastHit = 0; 
+    lastHit = 0;
    
 
     
@@ -22,25 +22,34 @@ class MovableObject extends DrawableObject{
             this.y < mo.y + mo.height
     }
 
-    isCollidingFromAbove(mo){
+    isCollidingFromAbove(mo, lastPositionY){
         const collision = this.isColliding(mo);
-        const comingFromAbove = this.speedY < 0 &&  this.y < 400 ; // positve Beschleunigung = Fallen
-          
-       return collision && comingFromAbove; // Rückgabewert = true
-       
+        const isFalling = this.speedY < 0;
+        const yPosition = lastPositionY+this.height
+        //const comingFromAbove = lastPositionY + this.height < mo.y
+        const comingFromAbove = lastPositionY < 401;
+        //console.log(lastPositionY , this.height);
+        //console.log( lastPositionY+this.height);
+      if(comingFromAbove&& isFalling && collision){
+        console.log(true)
+      }
+        
+       return collision &&  comingFromAbove && isFalling;
         
     }
+
 
     applyGravity(){
         setInterval(() =>{
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                //console.log(this.speedY);
-                //console.log(this.y);
+               
             }
         },1000/25);
     }
+
+   
 
     isAboveGround(){
         if((this instanceof Missile) ){ // Missile should always fall

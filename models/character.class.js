@@ -3,6 +3,7 @@ class Character extends MovableObject{
     height = 300
     y = 95 //395
     speed = 8
+    lastPositionY;
     
 
     

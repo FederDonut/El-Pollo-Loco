@@ -7,6 +7,7 @@ class World {
     timeStamp1 = false;
     chillMode =false;
     sleepMode = false;
+    //apex = false;
    
    
     level = level1
@@ -45,6 +46,8 @@ class World {
 
     run(){
         setInterval(()=>{
+
+        this.character.lastPositionY = this.character.y;
 
         this.checkCollisions();
         this.checkMissileCollision()
@@ -128,9 +131,11 @@ class World {
     
     checkCollisions(){
         this.level.enemies.forEach((enemy,i) =>{
-            if(this.character.isCollidingFromAbove(enemy)){
+            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)){
                 console.log('gegner stirbt')
                 enemy.damage();
+                // test
+                this.character.jump();
                 // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
                
             }else if(this.character.isColliding(enemy)){
@@ -140,6 +145,7 @@ class World {
             }
         })
     }
+    
     
     checkCollectibleBottle(){
         this.level.bottles.forEach((bottle, i) =>{
