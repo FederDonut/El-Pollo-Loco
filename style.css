@@ -52,8 +52,21 @@ button{
     left: 0;
     height: 100%;
     width: 100%;
-    
+    background-color: black;
+    display: flex;    
+    flex-direction: column;
+    align-items: center;
 }
+.gameOverPosition{
+    height: 75%;
+    width: 100%;
+    background-image: url(/img/You\ won\,\ you\ lost/GameOverA.png);
+    background-position: center;
+    background-size: 1100px;
+    background-repeat: no-repeat;
+
+}
+
 .Game-Manual{
     height: 500px;
     width: 1720px;

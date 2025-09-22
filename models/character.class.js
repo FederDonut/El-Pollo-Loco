@@ -4,7 +4,7 @@ class Character extends MovableObject{
     y = 95 //395
     speed = 8
     lastPositionY;
-    
+    intervalId = [];
 
     
     IMAGES_walking =[
@@ -101,7 +101,7 @@ class Character extends MovableObject{
 
     animate(){
 
-        setInterval(() =>{
+        this.intervalId.push(setInterval(() =>{
             if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
                 
                 this.moveRight();
@@ -129,9 +129,9 @@ class Character extends MovableObject{
 
             this.world.camera_x = -this.x + 100
 
-        },1000/60);
+        },1000/60));
 
-        setInterval(() =>{
+        this.intervalId.push(setInterval(() =>{
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_death);
                 this.dead();
@@ -160,10 +160,10 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_walking);
                 }
             }    
-        },100)
-        setInterval(() =>{
+        },100))
+        this.intervalId.push(setInterval(() =>{
             this.movementSounds();
-        },250);
+        },250));
         
     }
 
@@ -235,5 +235,10 @@ class Character extends MovableObject{
         this.world.sleepMode = false;
         this.world.checkPlayerActivity();
         
-    };  
+    };
+    
+    stopIntervals(){
+        this.intervalId.forEach(interval => {clearInterval(interval)});
+        this.intervalId = [];
+    }
 }

@@ -10,7 +10,7 @@ class MovableObject extends DrawableObject{
     acceleration = 2;
     energy = 100;
     lastHit = 0;
-   
+    intervalId = [];
 
     
 
@@ -40,13 +40,13 @@ class MovableObject extends DrawableObject{
 
 
     applyGravity(){
-        setInterval(() =>{
+        this.intervalId.push(setInterval(() =>{
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
                
             }
-        },1000/25);
+        },1000/25));
     }
 
    
@@ -119,6 +119,10 @@ class MovableObject extends DrawableObject{
         
     }
     
+    stopIntervals(){
+        this.intervalId.forEach(interval => {clearInterval(interval)});
+        this.intervalId = [];
+    }
     
    
 }

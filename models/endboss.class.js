@@ -8,7 +8,7 @@ class Endboss extends MovableObject{
     isWalking = false;
     isAlert = false;
     isAttacking = false;
-    
+    intervalId = [];
 
     IMAGES_walking =[
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -73,7 +73,7 @@ class Endboss extends MovableObject{
 
     animate(){
         //this.moveLeft();
-        setInterval(() =>{
+        this.intervalId.push(setInterval(() =>{
 
 
             if(this.isHurt()){
@@ -103,7 +103,7 @@ class Endboss extends MovableObject{
 
                 }
             }
-        },200);
+        },200));
         
     }  
 
@@ -143,5 +143,10 @@ class Endboss extends MovableObject{
                 this.isAlert = true; 
             },this.IMAGES_attack.length *100);
         }
-    }    
+    } 
+    
+    stopIntervals(){
+        this.intervalId.forEach(interval => {clearInterval(interval)});
+        this.intervalId = [];
+    }
 }  

@@ -15,14 +15,30 @@ function init(){
 
 function startGame(){
     let overlayRef = document.getElementById('startScreen');
-    console.log('start');
     overlayRef.classList.toggle('d-none');
     canvas = document.getElementById('canvas');
+    if(world){
+        world.stopGame();
+    }
     world = new World(canvas, keyboard,);
    
     
 }
+function gameIsOver(){
+    let endScreen = document.getElementById('gameOver');
+    endScreen.classList.remove('d-none');
+    if(world){
+        world.stopGame();
+    }
+    world = null;
+}
+function tryAgain(){
+    let endScreen = document.getElementById('gameOver');
+    endScreen.classList.add('d-none');
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
 
+}
 
 window.addEventListener('keydown', (event) => {
     

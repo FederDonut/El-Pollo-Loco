@@ -1,14 +1,11 @@
 class World {
 
-    
     inactivityTimer;
     sleepTimer;
     anyKeyPressed = false;
-    timeStamp1 = false;
     chillMode =false;
     sleepMode = false;
     isObjectVisible = false;
-   
     level = level1
     canvas;
     ctx;
@@ -19,7 +16,7 @@ class World {
     bossThemePlayed = false;
     throable_objects = [];
     firePower = [];
-
+    intervalId =[];
     endboss = this.level.enemies[3];
     character = new Character();
     health_bar = new Statusbar();
@@ -44,7 +41,7 @@ class World {
     }
 
     run(){
-        setInterval(()=>{
+        this.intervalId.push(setInterval(()=>{
 
         this.character.lastPositionY = this.character.y;
 
@@ -59,7 +56,7 @@ class World {
         //this.checkEndbossAudio();
             
            
-        },100)
+        },100))
     }
 
     checkPlayerActivity(){
@@ -329,8 +326,32 @@ class World {
         this.ctx.restore();
     }
 
-    gameOver(){
-        console.log('gameOver');
+
+    stopIntervals(){
+        this.intervalId.forEach(interval => {clearInterval(interval)});
+        this.intervalId = [];
     }
+
+    stopGame(){
+        this.stopIntervals();
+        this.character.stopIntervals();
+        this.level.enemies.forEach((enemy)=>{
+            enemy.stopIntervals();
+        })
+        this.level.clouds.forEach((cloud)=>{
+            cloud.stopIntervals();
+        })
+    }
+
+
+    gameOver(){
+        //this.character.speed = 0
+        //this.level.enemies.forEach((enemy) =>{
+        //    enemy.speed = 0
+        //})
+        this.stopGame();
+        //gameIsOver();
+    }
+       
 
 }
