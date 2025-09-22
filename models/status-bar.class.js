@@ -2,6 +2,7 @@ class Statusbar extends DrawableObject{
 
     height = 100
     width = 300
+    moving = false;
     
     
 
@@ -74,6 +75,10 @@ class Statusbar extends DrawableObject{
         this.img = this.imageCache[path];
     }
 
+    
+
+    
+
     itemCollection(){
         if(this.collection === 10){
             return 5;
@@ -115,4 +120,12 @@ class Statusbar extends DrawableObject{
             return 5;
         }
     }
+
+    //animate(){
+    //    setInterval(()=>{
+    //        if(this.moving){
+    //            
+    //        }
+    //    },200);
+    //}
 }

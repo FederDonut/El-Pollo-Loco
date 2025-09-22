@@ -7,7 +7,7 @@ class World {
     timeStamp1 = false;
     chillMode =false;
     sleepMode = false;
-   
+    isObjectVisible = false;
    
     level = level1
     canvas;
@@ -20,11 +20,10 @@ class World {
     throable_objects = [];
     firePower = [];
 
-
+    endboss = this.level.enemies[3];
     character = new Character();
-    //explosion = new Explosion();
     health_bar = new Statusbar();
-    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 9000, 30);
+    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1300, 30);
     coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
      
@@ -129,46 +128,24 @@ class World {
     
     
     checkCollisions(){
-        let endboss = this.level.enemies[3];
+        //let endboss = this.level.enemies[3];
         this.level.enemies.forEach((enemy,i) =>{
-            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(endboss)){
-                console.log('gegner stirbt')
+            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
+                //console.log('gegner stirbt')
                 enemy.damage();
                 // test
                 this.character.jump();
                 // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
                
             }else if(this.character.isColliding(enemy)){
-                console.log('normaler Schaden für den character')
+                //console.log('normaler Schaden für den character')
                 this.character.damage();
                 this.health_bar.setPercentage(this.character.energy);
             }
         })
     }
     
-    // hier weitermachen
-    //checkEnemyCollision(){
-    //    let endboss = this.level.enemies[3];
-//
-    //    this.level.enemies.forEach((enemy)=>){
-    //        if(this.character.isColliding(enemy[3],this.character.lastPositionY)){
-    //            
-    //        }else{
-    //            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)){
-    //                console.log('gegner stirbt')
-    //                enemy.damage();
-    //                // test
-    //                this.character.jump();
-    //                // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
-    //               enemies.splice
-    //            }else if(this.character.isColliding(enemy)){
-    //                console.log('normaler Schaden für den character')
-    //                this.character.damage();
-    //                this.health_bar.setPercentage(this.character.energy);
-    //            } 
-    //        }
-    //    })
-    //}
+    
 
     checkCollectibleBottle(){
         this.level.bottles.forEach((bottle, i) =>{
@@ -209,7 +186,7 @@ class World {
         this.throable_objects.forEach((bottle) =>{
             this.level.enemies.forEach((enemy) =>{
                  if(bottle.isColliding(enemy)){
-                    console.log('collision detected');
+                    //console.log('collision detected');
                     this.endbossDamage(enemy);
                     bottle.removeMissile = true;
                     this.missileExplosion(bottle);
@@ -236,7 +213,7 @@ class World {
     }
 
     endbossDamage(enemy){
-        if(enemy === this.level.enemies[3]){
+        if(enemy === this.endboss){// //this.level.enemies[3]
             console.log(true);
             enemy.damage();
             console.log(enemy.energy);
@@ -250,18 +227,20 @@ class World {
         this.bossTheme1 = new Audio('audio/endBoss.mp3');
     }
     endbossMovement(){
-        let endboss =this.level.enemies[3];
-            if(endboss && this.character.x >= 7300 && !endboss.isdetectionX){
-                endboss.detectionX = true;
+        //let endboss =this.level.enemies[3];
+            if(this.endboss && this.character.x >= 7300 && !this.endboss.isdetectionX){
+                this.endboss.detectionX = true;
+                this.isObjectVisible = true;
+               
             }
     }
    
     endbossAttack(){
-        let endboss = this.level.enemies[3];
-        let distanze = Math.abs((this.character.x + this.character.width) - endboss.x);
-        if(distanze <= 200 && !endboss.isAttacking){
+        //let endboss = this.level.enemies[3];
+        let distanze = Math.abs((this.character.x + this.character.width) - this.endboss.x);
+        if(distanze <= 200 && !this.endboss.isAttacking){
             //console.log('boss führt Angriff aus');
-            endboss.bossAttackMovement();
+            this.endboss.bossAttackMovement();
         }
     }
 
@@ -299,8 +278,15 @@ class World {
          
 
         //this.addObjectsToMap(this.detonation, 0);
+        //this.endboss.x +100
+        //statusbar 
+        if(this.isObjectVisible){
+            this.ctx.translate(-this.camera_x , 0);
+            this.addToMap(this.enemy_health_bar);
+            this.ctx.translate(this.camera_x , 0);
+        }
         
-        this.addToMap(this.enemy_health_bar);
+        
         
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);

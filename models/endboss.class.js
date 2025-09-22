@@ -83,7 +83,7 @@ class Endboss extends MovableObject{
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
                 let deathSound = new Audio(this.Endboss_audio[1]);
-                deathSound.play();
+                //deathSound.play();
            
             }else{
                  

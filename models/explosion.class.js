@@ -18,7 +18,7 @@ class Explosion extends MovableObject{
     constructor(x,y){
         super().loadImage(this.IMAGE_detonation[0]);
         this.loadImages(this.IMAGE_detonation);
-        this.x = x + 100;
+        this.x = x; //+ 100; Hier noch anpassen
         this.y = y;
         this.animate();
         
