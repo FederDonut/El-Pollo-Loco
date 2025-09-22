@@ -23,7 +23,7 @@ class World {
     endboss = this.level.enemies[3];
     character = new Character();
     health_bar = new Statusbar();
-    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1300, 30);
+    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
     coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
      
@@ -35,6 +35,7 @@ class World {
         this.setWorld();
         this.endbossSounds();
         this.checkPlayerActivity();
+        this.startInteractivTimer();
         this.run();   
     }
 
@@ -84,35 +85,30 @@ class World {
     startInteractivTimer(){
         this.inactivityTimer = setTimeout(()=>{
             if(!this.anyKeyPressed){
-                console.log('chill Modus aktiv');
+                //console.log('chill Modus aktiv');
                 this.chillMode = true;
                 this.sleepMode = false; 
-                console.log(this.chillMode);
+                //console.log(this.chillMode);
             }
-        },5000);
+        },100);
     
     }
 
     startSleepTimer(){
         this.sleepTimer = setTimeout(()=>{
             if(!this.anyKeyPressed){
-                console.log('character schläft');
+                //console.log('character schläft');
                 this.chillMode = false;
                 this.sleepMode = true;
-                console.log(this.sleepMode);
+                //console.log(this.sleepMode);
             }
         },10000)
     }
 
     checkThrowObjects(){
         if(this.keyboard.attack&& this.bottle_counter !== 0){
-            
             let bottle = new Missile(this.character.x +100, this.character.y +30);
-            this.throable_objects.push(bottle);
-           
-            // Hier flugbahn der Flasche ändern
-            
-            // neue Funktion implementieren 
+            this.throable_objects.push(bottle); 
             console.log('peng')
             this.bottle_counter -=1;
             console.log(this.bottle_counter)
@@ -128,18 +124,15 @@ class World {
     
     
     checkCollisions(){
-        //let endboss = this.level.enemies[3];
         this.level.enemies.forEach((enemy,i) =>{
             if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
-                //console.log('gegner stirbt')
                 enemy.damage();
-                // test
                 this.character.jump();
-                // Es wird ein Mechanismus benötigt, welcher dem character keinen Schaden berechnet
                
             }else if(this.character.isColliding(enemy)){
                 //console.log('normaler Schaden für den character')
                 this.character.damage();
+                this.resetTimers();
                 this.health_bar.setPercentage(this.character.energy);
             }
         })
@@ -334,6 +327,10 @@ class World {
     flipImgaeBack(mo){
         mo.x = mo.x * -1
         this.ctx.restore();
+    }
+
+    gameOver(){
+        console.log('gameOver');
     }
 
 }

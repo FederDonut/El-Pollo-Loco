@@ -117,10 +117,13 @@ class Character extends MovableObject{
                 
             }
             if(this.world.keyboard.up && !this.isAboveGround()){
-               this.jump();
-               let jumpSound = new Audio(this.Character_audio[1]);
-               jumpSound.play();
+               
+                this.jump();
+                let jumpSound = new Audio(this.Character_audio[1]);
+                jumpSound.play();
+               
                this.world.resetTimers();
+               
                
             }
 
@@ -193,7 +196,9 @@ class Character extends MovableObject{
         setTimeout(() =>{
             this.deathSound.pause()
             this.deathSound.currentTime = 0;
+            this.world.gameOver();
         },7000)
+       
     }
 
     gotDamage(){
