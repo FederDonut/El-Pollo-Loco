@@ -136,6 +136,7 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_death);
                 this.dead();
                 this.wastedSound();
+                this.world.gameOver();
                 
             }     
             else if(this.isHurt()){
@@ -196,7 +197,7 @@ class Character extends MovableObject{
         setTimeout(() =>{
             this.deathSound.pause()
             this.deathSound.currentTime = 0;
-            this.world.gameOver();
+            
         },7000)
        
     }

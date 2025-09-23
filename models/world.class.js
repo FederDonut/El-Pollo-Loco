@@ -6,7 +6,7 @@ class World {
     chillMode =false;
     sleepMode = false;
     isObjectVisible = false;
-    level = level1
+    //level //= level1
     canvas;
     ctx;
     keyboard;
@@ -17,17 +17,19 @@ class World {
     throable_objects = [];
     firePower = [];
     intervalId =[];
-    endboss = this.level.enemies[3];
+    endboss = null; 
     character = new Character();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
     coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
      
-    constructor(canvas, keyboard){
+    constructor(canvas, keyboard,level){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.level = level
+        this.endboss = this.level.enemies[3];
         this.draw();
         this.setWorld();
         this.endbossSounds();
@@ -38,6 +40,7 @@ class World {
 
     setWorld(){
         this.character.world = this;
+        this.level.enemies.forEach((enemy)=> enemy.world = this);
     }
 
     run(){
@@ -326,14 +329,23 @@ class World {
         this.ctx.restore();
     }
 
+    stopGame(){
+        this.stopIntervals();
+        this.clearArrays();
+    }
 
-    stopIntervals(){
-        this.intervalId.forEach(interval => {clearInterval(interval)});
+    clearArrays(){
+        this.level.enemies = []
+        this.level.clouds = []
+        this.level.coins = []
+        this.level.bottles = []
+        this.firePower = []
+        this.throable_objects=[];
         this.intervalId = [];
     }
 
-    stopGame(){
-        this.stopIntervals();
+    stopIntervals(){
+        this.intervalId.forEach(interval => {clearInterval(interval)});
         this.character.stopIntervals();
         this.level.enemies.forEach((enemy)=>{
             enemy.stopIntervals();
@@ -343,14 +355,13 @@ class World {
         })
     }
 
-
     gameOver(){
-        //this.character.speed = 0
-        //this.level.enemies.forEach((enemy) =>{
-        //    enemy.speed = 0
-        //})
+        this.character.speed = 0
+        this.level.enemies.forEach((enemy) =>{
+            enemy.speed = 0
+        })
         this.stopGame();
-        //gameIsOver();
+        gameIsOver();
     }
        
 

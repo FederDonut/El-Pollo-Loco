@@ -8,36 +8,45 @@ let keyboard = new Keyboard();
 
 
 function init(){
-  
-   
+    canvas = document.getElementById('canvas');
+    if(world){
+        world.stopGame();
+        world = null;
+    }
+    const level = level1()  
+    world = new World(canvas, keyboard, level);
     //console.log('my Character is', world.character);
 }
 
 function startGame(){
     let overlayRef = document.getElementById('startScreen');
     overlayRef.classList.toggle('d-none');
-    canvas = document.getElementById('canvas');
-    if(world){
-        world.stopGame();
-    }
-    world = new World(canvas, keyboard,);
+    
+    //if(world){
+    //    world.stopGame();
+    //}
+    init();
+    //world = new World(canvas, keyboard, level);
    
     
 }
 function gameIsOver(){
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.remove('d-none');
-    if(world){
-        world.stopGame();
-    }
-    world = null;
+    //if(world){
+    //    world.stopGame();
+    //}
+    
+   
 }
+
 function tryAgain(){
     let endScreen = document.getElementById('gameOver');
-    endScreen.classList.add('d-none');
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-
+    endScreen.classList.toggle('d-none');
+    //canvas = document.getElementById('canvas');
+    //world = new World(canvas, keyboard,);
+    //startGame();
+    init();
 }
 
 window.addEventListener('keydown', (event) => {
