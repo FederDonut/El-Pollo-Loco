@@ -5,16 +5,16 @@ const level1 = () =>{
             new Chicken(),
             new Chicken(),
             new Endboss(),// Hier muss immer der Endboss plaziert sein. Aktuell sehr starre Strucktur
-            new Chick(),
-            new Chicken(),
-            new Chick(),
-            new Chicken(),
-            new Chick(),
-            new Chicken(),
-            new Chick(),
-            new Chicken(),
-            new Chick(),
-            new Chicken()
+            //new Chick(),
+            //new Chicken(),
+            //new Chick(),
+            //new Chicken(),
+            //new Chick(),
+            //new Chicken(),
+            //new Chick(),
+            //new Chicken(),
+            //new Chick(),
+            //new Chicken()
         ],
         //[
         //    new Endboss()

@@ -132,11 +132,15 @@ class Character extends MovableObject{
         },1000/60));
 
         this.intervalId.push(setInterval(() =>{
+            
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_death);
                 this.dead();
                 this.wastedSound();
-                this.world.gameOver();
+                //Test
+                //this.world.gameOver();
+                this.loseGame();
+               
                 
             }     
             else if(this.isHurt()){
@@ -166,6 +170,10 @@ class Character extends MovableObject{
             this.movementSounds();
         },250));
         
+    }
+
+    loseGame(){
+        setTimeout(()=>{this.world.gameOver()},7500);
     }
 
     characterSounds(){
@@ -199,8 +207,10 @@ class Character extends MovableObject{
             this.deathSound.currentTime = 0;
             
         },7000)
-       
+       //this.world.gameOver();
     }
+    //Test
+   
 
     gotDamage(){
         this.damageSound.play();

@@ -329,6 +329,20 @@ class World {
         this.ctx.restore();
     }
 
+    gameOver(){
+        this.character.speed = 0
+        this.level.enemies.forEach((enemy) =>{
+            enemy.speed = 0
+        })
+        this.stopGame();
+        if(this.character.energy === 0 ){
+            gameIsOver();
+        }
+        if(this.endboss.energy===0){
+            YouWonTheGame();
+        }        
+    }
+    
     stopGame(){
         this.stopIntervals();
         this.clearArrays();
@@ -353,15 +367,6 @@ class World {
         this.level.clouds.forEach((cloud)=>{
             cloud.stopIntervals();
         })
-    }
-
-    gameOver(){
-        this.character.speed = 0
-        this.level.enemies.forEach((enemy) =>{
-            enemy.speed = 0
-        })
-        this.stopGame();
-        gameIsOver();
     }
        
 

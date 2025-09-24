@@ -84,6 +84,7 @@ class Endboss extends MovableObject{
                 this.dead();
                 let deathSound = new Audio(this.Endboss_audio[1]);
                 //deathSound.play();
+                setTimeout(()=>{this.world.gameOver()},4000);
            
             }else{
                  

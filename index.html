@@ -34,18 +34,19 @@
 
     <section class="startScreen" id="startScreen">
         <div class="startPosition">
-            <h1> El Pollo Loco</h1>
-            <button class="Start-Game" onclick="startGame()">Start Game</button>
+            <button class="Start-Game btn" onclick="startGame()">Start Game</button>
         </div>
     </section>
 
     <section class="gameOverScreen d-none" id="gameOver">
         <div class="gameOverPosition"></div>
-        <button class="Try-Again" onclick="tryAgain()">Try again</button>
+        <button class="Try-Again btn" onclick="tryAgain()">Try again</button>
     </section>
 
-    <h1>El pollo loco</h1>
-
+    <section class="YouWon d-none" id="YouWon">
+        <button class="btn winBtn" onclick="tryAgainAfterWin()">Try again</button>
+    </section>
+    <h1>EL POLLO LOCO</h1>
     <canvas id="canvas" width="1720" height="780"></canvas>
     <section class="Game-Manual">
         <div class="img-1">

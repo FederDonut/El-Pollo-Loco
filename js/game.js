@@ -2,11 +2,6 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-//let inactivityTimer;
-//let sleepTimer;
-
-
-
 function init(){
     canvas = document.getElementById('canvas');
     if(world){
@@ -15,45 +10,36 @@ function init(){
     }
     const level = level1()  
     world = new World(canvas, keyboard, level);
-    //console.log('my Character is', world.character);
 }
 
 function startGame(){
     let overlayRef = document.getElementById('startScreen');
     overlayRef.classList.toggle('d-none');
-    
-    //if(world){
-    //    world.stopGame();
-    //}
     init();
-    //world = new World(canvas, keyboard, level);
-   
-    
 }
 function gameIsOver(){
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.remove('d-none');
-    //if(world){
-    //    world.stopGame();
-    //}
-    
-   
 }
 
 function tryAgain(){
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.toggle('d-none');
-    //canvas = document.getElementById('canvas');
-    //world = new World(canvas, keyboard,);
-    //startGame();
     init();
+}
+function tryAgainAfterWin(){
+    let endScreen = document.getElementById('YouWon');
+    endScreen.classList.toggle('d-none');
+    init();
+}
+
+function YouWonTheGame(){
+    let endScreen = document.getElementById('YouWon');
+    endScreen.classList.remove('d-none');
 }
 
 window.addEventListener('keydown', (event) => {
     
-    //console.log(event.code);
-    //console.log(event.key);
-
     if (event.key == "ArrowRight"){
         keyboard.right = true;
         
