@@ -8,6 +8,8 @@ class Endboss extends MovableObject{
     isWalking = false;
     isAlert = false;
     isAttacking = false;
+    bossThemePlayed = false;
+    distanceX = false;
     intervalId = [];
 
     IMAGES_walking =[
@@ -53,7 +55,8 @@ class Endboss extends MovableObject{
 
     Endboss_audio =[
         'audio/endBoss.mp3',
-        'audio/endboss died.mp3'
+        'audio/endboss died.mp3',
+        'audio/strongpunch.mp3',
     ]
 
     constructor(){
@@ -63,9 +66,11 @@ class Endboss extends MovableObject{
         this.loadImages(this.IMAGES_damage);
         this.loadImages(this.IMAGES_dead);
         this.loadImages(this.IMAGES_attack);
+        this.endbossSounds();
         this.x = 9000//2600
         this.animate();
         this.bossMovement();
+        this.playEndbossSounds();
         //this.bossAttackMovement();
     }
 
@@ -78,34 +83,45 @@ class Endboss extends MovableObject{
 
             if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
+                //this.stopEndbossTheme();
+                this.playDamageSound();
 
             }else if(this.isDead()){
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
-                let deathSound = new Audio(this.Endboss_audio[1]);
+                
                 //deathSound.play();
                 setTimeout(()=>{this.world.gameOver()},4000);
            
             }else{
                  
                 if(this.isAlert){//this.isAlert
-                    //console.log('alarm')
-                    //console.log(this.isAlert)
                     this.playAnimation(this.IMAGES_alert)
                 }else if(this.isWalking){
-                    //console.log('Boss lauft jetzt los ')
-                    //console.log(this.isWalking)
                     this.playAnimation(this.IMAGES_walking)
                     this.moveLeft();
                 }else if(this.isAttacking){
-                    //console.log('attack')
                     this.playAnimation(this.IMAGES_attack);
                     this.bossAttack();
 
                 }
             }
         },200));
+        //this.intervalId.push(setInterval(()=>{
+        //    this.manageEndbossTheme();
+        //},1000))
         
+    }
+
+    playEndbossSounds(){
+        this.intervalId.push(setInterval(()=>{
+            if(this.distanceX && !this.isHurt()&& !this.isDead()){
+                this.startEndbossTheme();
+            }
+            else{
+                this.stopEndbossTheme();
+            }  
+        },200))
     }  
 
     bossMovement(){
@@ -121,7 +137,7 @@ class Endboss extends MovableObject{
             if(this.isAlert){
                 //console.log(1)
                 this.isAlert = false;
-                this.isWalking = true;
+                this.isWalking = true; // beginnt zu laufen 
                 //console.log('IsAlert = ',this.isAlert);
                 setTimeout(() => this.bossMovement(),2000);
             }else{
@@ -134,6 +150,7 @@ class Endboss extends MovableObject{
         }
               
     }
+
     bossAttackMovement(){
         if(!this.isAttacking && !this.isDead()){
             this.isAttacking = true;
@@ -144,7 +161,34 @@ class Endboss extends MovableObject{
                 this.isAlert = true; 
             },this.IMAGES_attack.length *100);
         }
-    } 
+    }
+    
+    endbossSounds(){
+        this.bossSound = new Audio(this.Endboss_audio[0]);
+        this.deathSound = new Audio(this.Endboss_audio[1]);
+        this.damageSound = new Audio(this.Endboss_audio[2])
+    }
+
+
+    startEndbossTheme(){
+        if(!this.bossThemePlayed){
+            this.bossSound.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
+            this.bossSound.play();
+            this.bossThemePlayed = true;
+        }
+        
+    }
+
+    stopEndbossTheme(){
+        if(this.bossThemePlayed){
+            this.bossThemePlayed=false;
+            this.bossSound.pause();
+            this.bossSound.currentTime=0
+            console.log('sound-Off');
+        }
+    }
+
+    playDamageSound(){setTimeout(this.damageSound.play(),1000)}
     
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});

@@ -15,6 +15,10 @@ class Chick extends MovableObject{
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
     ];
 
+    CHICK_sounds =[
+        'audio/strongpunch.mp3'
+    ];
+
     constructor(){
         super().loadImage(this.IMAGES_walking[0]);
         this.loadImages(this.IMAGES_walking);
@@ -33,6 +37,7 @@ class Chick extends MovableObject{
 
         this.intervalId.push(setInterval(()=>{
                 if(this.isHurt()){
+                    //this.damageTheme();
                     this.playAnimation(this.IMAGES_dead);
                     this.dead();
                 }else{
@@ -40,6 +45,12 @@ class Chick extends MovableObject{
                 }     
             },100));
     }
+
+    //damageTheme(){
+    //    this.damageSound = new Audio(this.CHICK_sounds[0]);
+    //    this.damageSound.loop = true;
+    //    this.damageSound.play();
+    //}
 
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});

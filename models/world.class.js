@@ -5,15 +5,15 @@ class World {
     anyKeyPressed = false;
     chillMode =false;
     sleepMode = false;
-    isObjectVisible = false;
-    //level //= level1
+    isObjectVisible = false; // fixiert statusbar Bossgegener
+
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
     bottle_counter = 0;
     coin_counter = 0;
-    bossThemePlayed = false;
+   
     throable_objects = [];
     firePower = [];
     intervalId =[];
@@ -32,9 +32,9 @@ class World {
         this.endboss = this.level.enemies[3];
         this.draw();
         this.setWorld();
-        this.endbossSounds();
         this.checkPlayerActivity();
         this.startInteractivTimer();
+        this.startSleepTimer();
         this.run();   
     }
 
@@ -54,9 +54,9 @@ class World {
         this.checkCollectibleBottle();
         this.checkCoinCollision();
         this.endbossMovement();
-        this.endbossAttack();
+        //this.endbossAttack();
         
-        //this.checkEndbossAudio();
+        this.checkEndbossDistance();
             
            
         },100))
@@ -216,37 +216,24 @@ class World {
             // funktioniert aber explosions-animation muss noch angepasst werden. 
         }
     }
-    endbossSounds(){
-        this.bossTheme1 = new Audio('audio/endBoss.mp3');
-    }
-    endbossMovement(){
-        //let endboss =this.level.enemies[3];
-            if(this.endboss && this.character.x >= 7300 && !this.endboss.isdetectionX){
-                this.endboss.detectionX = true;
-                this.isObjectVisible = true;
-               
-            }
-    }
    
-    endbossAttack(){
-        //let endboss = this.level.enemies[3];
-        let distanze = Math.abs((this.character.x + this.character.width) - this.endboss.x);
-        if(distanze <= 200 && !this.endboss.isAttacking){
-            //console.log('boss führt Angriff aus');
-            this.endboss.bossAttackMovement();
+    endbossMovement(){
+        if(this.endboss && this.character.x >= 7300 && !this.endboss.isdetectionX){
+            this.endboss.detectionX = true;
+            this.isObjectVisible = true;   
         }
     }
-
-    checkEndbossAudio(){
-        if(this.character.x > 1500 && ! this.bossThemePlayed){
-            this.bossTheme1.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
-            this.bossTheme1.play();
-            this.bossThemePlayed = true;
-        }else if(this.character.x < 1490 && this.bossThemePlayed){
-            this.bossThemePlayed=false;
-            this.bossTheme1.pause();
-            this.bossTheme1.currentTime=0
-
+   
+    checkEndbossDistance(){
+        let distance = Math.abs((this.character.x + this.character.width)-this.endboss.x);
+        if(distance <= 200 && !this.endboss.isAttacking){
+            this.endboss.bossAttackMovement();
+        }else if(distance <= 1350 ){
+            this.endboss.distanceX = true;
+            console.log('distanceX ist true');
+        }else if(distance >=1351){
+            this.endboss.distanceX = false;
+            console.log('distance ist false')
         }
     }
 
@@ -367,7 +354,5 @@ class World {
         this.level.clouds.forEach((cloud)=>{
             cloud.stopIntervals();
         })
-    }
-       
-
+    }   
 }
