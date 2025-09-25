@@ -159,8 +159,7 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_long_inactivity);
             }
            
-            else{
-                //console.log('animation folgt');    
+            else{    
                 if(this.world.keyboard.right || this.world.keyboard.left){
                 this.playAnimation(this.IMAGES_walking);
                 }

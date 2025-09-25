@@ -89,7 +89,7 @@ class Endboss extends MovableObject{
             }else if(this.isDead()){
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
-                
+                this.stopEndbossTheme();
                 //deathSound.play();
                 setTimeout(()=>{this.world.gameOver()},4000);
            
@@ -107,10 +107,6 @@ class Endboss extends MovableObject{
                 }
             }
         },200));
-        //this.intervalId.push(setInterval(()=>{
-        //    this.manageEndbossTheme();
-        //},1000))
-        
     }
 
     playEndbossSounds(){
@@ -184,11 +180,14 @@ class Endboss extends MovableObject{
             this.bossThemePlayed=false;
             this.bossSound.pause();
             this.bossSound.currentTime=0
-            console.log('sound-Off');
         }
     }
 
-    playDamageSound(){setTimeout(this.damageSound.play(),1000)}
+    playDamageSound(){
+        setTimeout(() =>{
+            this.damageSound.play()
+        },20)
+    }
     
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});

@@ -17,13 +17,15 @@ class World {
     throable_objects = [];
     firePower = [];
     intervalId =[];
-    endboss = null; 
+    endboss = null;
+    worldSundTrack = false; 
     character = new Character();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
     coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
      
+
     constructor(canvas, keyboard,level){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -35,7 +37,8 @@ class World {
         this.checkPlayerActivity();
         this.startInteractivTimer();
         this.startSleepTimer();
-        this.run();   
+        this.run();
+        this.worldSound();   
     }
 
     setWorld(){
@@ -47,7 +50,7 @@ class World {
         this.intervalId.push(setInterval(()=>{
 
         this.character.lastPositionY = this.character.y;
-
+        
         this.checkCollisions();
         this.checkMissileCollision()
         this.checkThrowObjects();
@@ -120,15 +123,14 @@ class World {
         let explosion = new Explosion(x,y);
         this.firePower.push(explosion)
     }
-
-    
     
     checkCollisions(){
         this.level.enemies.forEach((enemy,i) =>{
             if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
                 enemy.damage();
                 this.character.jump();
-               
+                //this.startInteractivTimer();
+               this.checkPlayerActivity();
             }else if(this.character.isColliding(enemy)){
                 //console.log('normaler Schaden für den character')
                 this.character.damage();
@@ -138,16 +140,9 @@ class World {
         })
     }
     
-    
-
     checkCollectibleBottle(){
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
-                //Test
-                //console.log('x = ',this.character.x ,'Größe = ' ,this.character.height , 'y = ',this.character.y,'breite = ' , this.character.width)
-                //console.log('x = ',bottle.x,'größe = ', bottle.height,'y = ', bottle.y, 'breite = ',bottle.width)
-
-
                 bottle.collectBottle = true;
                 if(bottle.collectBottle){
                     let targetBottle = this.level.bottles
@@ -172,7 +167,6 @@ class World {
                 }
             }
         })    
-    
     }
 
     checkMissileCollision(){
@@ -185,9 +179,6 @@ class World {
                     this.missileExplosion(bottle);
                     //explosion.removeExplosion = true;
                     bottle.detonateAndDamage(enemy);
-                    
-                    
-                    //wichtiger Verweis zu 
                 }
             });
         });
@@ -228,12 +219,16 @@ class World {
         let distance = Math.abs((this.character.x + this.character.width)-this.endboss.x);
         if(distance <= 200 && !this.endboss.isAttacking){
             this.endboss.bossAttackMovement();
-        }else if(distance <= 1350 ){
+        }else if(distance <= 1400 ){
             this.endboss.distanceX = true;
-            console.log('distanceX ist true');
-        }else if(distance >=1351){
+            if(this.worldSundTrack){
+                this.stopWorldSound();
+            }
+        }else if(distance >=1401){
             this.endboss.distanceX = false;
-            console.log('distance ist false')
+            if(!this.worldSundTrack){
+                this.worldSound();
+            }
         }
     }
 
@@ -294,11 +289,9 @@ class World {
     addToMap(mo){
         if(mo.otherDirection){
             this.flipImgae(mo);
-            
         }
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-
         if(mo.otherDirection){
             this.flipImgaeBack(mo);    
         }
@@ -317,22 +310,25 @@ class World {
     }
 
     gameOver(){
-        this.character.speed = 0
-        this.level.enemies.forEach((enemy) =>{
-            enemy.speed = 0
-        })
         this.stopGame();
         if(this.character.energy === 0 ){
+            this.endboss.speed = 0;
+            this.endboss.stopEndbossTheme();
             gameIsOver();
         }
         if(this.endboss.energy===0){
+            this.character.speed = 0;
             YouWonTheGame();
         }        
     }
     
+    
     stopGame(){
         this.stopIntervals();
         this.clearArrays();
+        this.stopWorldSound();
+
+        
     }
 
     clearArrays(){
@@ -354,5 +350,21 @@ class World {
         this.level.clouds.forEach((cloud)=>{
             cloud.stopIntervals();
         })
-    }   
+    }
+    
+    worldSound(){
+        this.soundtrack = new Audio('audio/better-call-saul-theme.mp3');
+        this.soundtrack.volume = 0.7;
+        if(this.character.energy > 0 || this.endboss.energy > 0 && !this.worldSundTrack){
+            this,this.soundtrack.loop = true;
+            this.soundtrack.play();
+            this.worldSundTrack = true;
+        }
+    }
+
+    stopWorldSound(){
+        this.soundtrack.pause();
+        this.soundtrack.currentTime = 0;
+        this.worldSundTrack = false;
+    }
 }
