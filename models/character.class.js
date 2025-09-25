@@ -137,16 +137,13 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_death);
                 this.dead();
                 this.wastedSound();
-                //Test
-                //this.world.gameOver();
                 this.loseGame();
                
                 
             }     
             else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
-               //this.damageSound.play();
-               this.gotDamage();
+                this.gotDamage();
             }
 
             else if(this.isAboveGround()){
@@ -206,11 +203,8 @@ class Character extends MovableObject{
             this.deathSound.currentTime = 0;
             
         },7000)
-       //this.world.gameOver();
     }
-    //Test
-   
-
+    
     gotDamage(){
         this.damageSound.play();
         this.world.resetTimers();
@@ -228,16 +222,6 @@ class Character extends MovableObject{
         },2000)
     }
 
-    sleep(){
-        this.sleepInterval = setInterval(()=>{
-            if(this.world.sleepMode){
-                //this.playAnimation()
-                console.log('ZZZZZZZ');
-
-            }
-        },2000)
-    }
-   
     wakeUp(){
         clearTimeout(this.world.inactivityTimer);
         clearTimeout(this.sleepTimer);

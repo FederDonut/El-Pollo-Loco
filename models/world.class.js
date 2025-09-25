@@ -6,19 +6,18 @@ class World {
     chillMode =false;
     sleepMode = false;
     isObjectVisible = false; // fixiert statusbar Bossgegener
-
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
     bottle_counter = 0;
     coin_counter = 0;
-   
     throable_objects = [];
     firePower = [];
     intervalId =[];
     endboss = null;
-    worldSundTrack = false; 
+    worldSundTrack = false;
+    attackSoundTrack = false; 
     character = new Character();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
@@ -32,6 +31,8 @@ class World {
         this.keyboard = keyboard;
         this.level = level
         this.endboss = this.level.enemies[3];
+        this.soundtrack = new Audio('audio/better-call-saul-theme.mp3');
+        this. attackSound = new Audio('audio/hawk-tuah_SRaUp2L.mp3');
         this.draw();
         this.setWorld();
         this.checkPlayerActivity();
@@ -48,20 +49,14 @@ class World {
 
     run(){
         this.intervalId.push(setInterval(()=>{
-
         this.character.lastPositionY = this.character.y;
-        
         this.checkCollisions();
         this.checkMissileCollision()
         this.checkThrowObjects();
         this.checkCollectibleBottle();
         this.checkCoinCollision();
         this.endbossMovement();
-        //this.endbossAttack();
-        
         this.checkEndbossDistance();
-            
-           
         },100))
     }
 
@@ -110,6 +105,11 @@ class World {
 
     checkThrowObjects(){
         if(this.keyboard.attack&& this.bottle_counter !== 0){
+            if(!this.attackSoundTrack){
+                this.attackSound.play();
+                this.attackSoundTrack = true
+            }
+            this.attackSoundTrack = false;
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle); 
             console.log('peng')
@@ -144,6 +144,8 @@ class World {
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
                 bottle.collectBottle = true;
+                bottle.reloadSound();
+                bottle.playReloadSound = false;
                 if(bottle.collectBottle){
                     let targetBottle = this.level.bottles
                     targetBottle.splice(i,1)
@@ -159,6 +161,8 @@ class World {
         this.level.coins.forEach((coin,i) =>{
             if(this.character.isColliding(coin)){
                 coin.collectCoin = true;
+                coin.coinSound();
+                coin.playCoinSound = false;
                 if(coin.collectCoin){
                     let targetCoin = this.level.coins;
                     targetCoin.splice(i,1);
@@ -185,8 +189,6 @@ class World {
         this.throable_objects = this.throable_objects.filter(bottle => !bottle.removeMissile);
         this.firePower = this.firePower.filter(explosion => !explosion.removeExplosion);
     }
-    
-    
     
     missileExplosion(bottle){   
         bottle.damage();
@@ -247,11 +249,6 @@ class World {
         this.addToMap(this.coin_bar);
         this.addToMap(this.bottle_bar);
         this.ctx.translate(this.camera_x , 0);
-        
-        //Coin_bar position
-       
-         
-
         //this.addObjectsToMap(this.detonation, 0);
         //this.endboss.x +100
         //statusbar 
@@ -260,19 +257,12 @@ class World {
             this.addToMap(this.enemy_health_bar);
             this.ctx.translate(this.camera_x , 0);
         }
-        
-        
-        
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.throable_objects);
         this.addObjectsToMap(this.firePower);
-        
-       this.ctx.translate(-this.camera_x , 0);
-
-        
-
+        this.ctx.translate(-this.camera_x , 0);
         // Draw() wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(function(){
@@ -353,7 +343,6 @@ class World {
     }
     
     worldSound(){
-        this.soundtrack = new Audio('audio/better-call-saul-theme.mp3');
         this.soundtrack.volume = 0.7;
         if(this.character.energy > 0 || this.endboss.energy > 0 && !this.worldSundTrack){
             this,this.soundtrack.loop = true;

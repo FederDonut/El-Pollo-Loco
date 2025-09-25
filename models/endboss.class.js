@@ -10,6 +10,7 @@ class Endboss extends MovableObject{
     isAttacking = false;
     bossThemePlayed = false;
     distanceX = false;
+    zeroEnergy = false;
     intervalId = [];
 
     IMAGES_walking =[
@@ -90,7 +91,9 @@ class Endboss extends MovableObject{
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
                 this.stopEndbossTheme();
-                //deathSound.play();
+                this.playDeadSound();
+                this.zeroEnergy = false;
+
                 setTimeout(()=>{this.world.gameOver()},4000);
            
             }else{
@@ -165,7 +168,6 @@ class Endboss extends MovableObject{
         this.damageSound = new Audio(this.Endboss_audio[2])
     }
 
-
     startEndbossTheme(){
         if(!this.bossThemePlayed){
             this.bossSound.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
@@ -187,6 +189,13 @@ class Endboss extends MovableObject{
         setTimeout(() =>{
             this.damageSound.play()
         },20)
+    }
+
+    playDeadSound(){
+        if(!this.zeroEnergy){
+            this.deathSound.play();
+            this.zeroEnergy = true;
+        }
     }
     
     stopIntervals(){
