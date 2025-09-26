@@ -23,6 +23,7 @@ class World {
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
     coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
+    audio = new AudioController();
      
 
     constructor(canvas, keyboard,level){
@@ -45,6 +46,7 @@ class World {
     setWorld(){
         this.character.world = this;
         this.level.enemies.forEach((enemy)=> enemy.world = this);
+        this.audio.world = this;
     }
 
     run(){
@@ -123,8 +125,9 @@ class World {
             if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
                 enemy.damage();
                 this.character.jump();
-                enemy.playEnemyDamageSound();
-                enemy.gotDamage = false;
+                // Neues Audio Object
+                this.audio.playEnemyDamageSound();
+                this.audio.gotDamage = false;
                 this.checkPlayerActivity();
             }else if(this.character.isColliding(enemy)){
                 //console.log('normaler Schaden für den character')
@@ -139,8 +142,8 @@ class World {
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
                 bottle.collectBottle = true;
-                bottle.playReloadingSound();
-                bottle.reloading = false;
+                this.audio.playReloadingSound();
+                this.audio.reloading = false;
                 if(bottle.collectBottle){
                     let targetBottle = this.level.bottles
                     targetBottle.splice(i,1)
@@ -156,8 +159,8 @@ class World {
         this.level.coins.forEach((coin,i) =>{
             if(this.character.isColliding(coin)){
                 coin.collectCoin = true;
-                coin.playCoinSound();
-                coin.takeCoin = false;
+                this.audio.playCoinSound();
+                this.audio.takeCoin = false;
                 if(coin.collectCoin){
                     let targetCoin = this.level.coins;
                     targetCoin.splice(i,1);
@@ -176,12 +179,12 @@ class World {
                     this.missileExplosion(bottle);
                     if(enemy === this.endboss){
                         this.endbossDamage(enemy);
-                        this.endboss.playEnemyDamageSound();
-                        this.endboss.gotDamage = false;   
+                        this.audio.playEnemyDamageSound();
+                        this.audio.gotDamage = false;   
                     }else if(enemy !== this.endboss){
                         enemy.damage();
-                        enemy.playEnemyDamageSound();
-                        enemy.gotDamage = false;
+                        this.audio.playEnemyDamageSound();
+                        this.audio.gotDamage = false;
                     }
                 }
             });
