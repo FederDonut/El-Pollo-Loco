@@ -143,7 +143,7 @@ class Character extends MovableObject{
             }     
             else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
-                this.gotDamage();
+                this.takeDamage();
             }
 
             else if(this.isAboveGround()){
@@ -205,7 +205,7 @@ class Character extends MovableObject{
         },7000)
     }
     
-    gotDamage(){
+    takeDamage(){
         this.damageSound.play();
         this.world.resetTimers();
         setTimeout(()=> {

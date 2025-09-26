@@ -38,23 +38,18 @@ class Chick extends MovableObject{
 
         this.intervalId.push(setInterval(()=>{
                 if(this.isHurt()){
-                    if(!this.soundIsPlaying){
-                        this.gotDamage();
-                        this.soundIsPlaying = true;
-                    }
                     this.playAnimation(this.IMAGES_dead);
                     this.dead();
                 }else{
                     this.playAnimation(this.IMAGES_walking);
-                    this.soundIsPlaying = false;
                 }     
             },100));
     }
 
-    gotDamage(){
-        this.damageSound = new Audio(this.CHICK_sound[0]);
-        this.damageSound.play();
-    }
+    //gotDamage(){
+    //    this.damageSound = new Audio(this.CHICK_sound[0]);
+    //    this.damageSound.play();
+    //}
 
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});

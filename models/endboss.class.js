@@ -80,12 +80,8 @@ class Endboss extends MovableObject{
     animate(){
         //this.moveLeft();
         this.intervalId.push(setInterval(() =>{
-
-
             if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
-                this.playDamageSound();
-
             }else if(this.isDead()){
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
@@ -182,13 +178,6 @@ class Endboss extends MovableObject{
             this.bossSound.pause();
             this.bossSound.currentTime=0
         }
-    }
-
-    playDamageSound(){
-        this.damageSound.volume = 0.8;
-        setTimeout(() =>{
-            this.damageSound.play()
-        },20)
     }
 
     playDeadSound(){

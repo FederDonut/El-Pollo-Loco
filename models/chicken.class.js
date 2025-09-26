@@ -42,28 +42,15 @@ class Chicken extends MovableObject{
 
         this.intervalId.push(setInterval(()=>{
             if(this.isHurt()){
-               
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
-                if(!this.soundIsPlaying){
-                    this.gotDamageSound();
-                    this.soundIsPlaying = true;
-                }
                 
             }else{
-                this.playAnimation(this.IMAGES_walking);
-                this.soundIsPlaying = false;
+                this.playAnimation(this.IMAGES_walking);   
             }     
         },100));
-
     }
-
-    gotDamageSound(){
-        this.damageSound = new Audio(this.CHICKEN_sound[0]);
-        this.damageSound.play();
-    }
-
-
+    
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});
         this.intervalId = [];

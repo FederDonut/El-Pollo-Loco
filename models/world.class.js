@@ -123,8 +123,9 @@ class World {
             if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
                 enemy.damage();
                 this.character.jump();
-                //this.startInteractivTimer();
-               this.checkPlayerActivity();
+                enemy.playEnemyDamageSound();
+                enemy.gotDamage = false;
+                this.checkPlayerActivity();
             }else if(this.character.isColliding(enemy)){
                 //console.log('normaler Schaden für den character')
                 this.character.damage();
@@ -138,8 +139,8 @@ class World {
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
                 bottle.collectBottle = true;
-                bottle.reloadSound();
-                bottle.playReloadSound = false;
+                bottle.playReloadingSound();
+                bottle.reloading = false;
                 if(bottle.collectBottle){
                     let targetBottle = this.level.bottles
                     targetBottle.splice(i,1)
@@ -155,8 +156,8 @@ class World {
         this.level.coins.forEach((coin,i) =>{
             if(this.character.isColliding(coin)){
                 coin.collectCoin = true;
-                coin.coinSound();
-                coin.playCoinSound = false;
+                coin.playCoinSound();
+                coin.takeCoin = false;
                 if(coin.collectCoin){
                     let targetCoin = this.level.coins;
                     targetCoin.splice(i,1);
@@ -171,12 +172,17 @@ class World {
         this.throable_objects.forEach((bottle) =>{
             this.level.enemies.forEach((enemy) =>{
                  if(bottle.isColliding(enemy)){
-                    //console.log('collision detected');
-                    this.endbossDamage(enemy);
                     bottle.removeMissile = true;
                     this.missileExplosion(bottle);
-                    //explosion.removeExplosion = true;
-                    bottle.detonateAndDamage(enemy);
+                    if(enemy === this.endboss){
+                        this.endbossDamage(enemy);
+                        this.endboss.playEnemyDamageSound();
+                        this.endboss.gotDamage = false;   
+                    }else if(enemy !== this.endboss){
+                        enemy.damage();
+                        enemy.playEnemyDamageSound();
+                        enemy.gotDamage = false;
+                    }
                 }
             });
         });
