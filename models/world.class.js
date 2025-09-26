@@ -39,7 +39,7 @@ class World {
         this.startInteractivTimer();
         this.startSleepTimer();
         this.run();
-        this.worldSound();   
+        //this.worldSound();   
     }
 
     setWorld(){
@@ -218,12 +218,12 @@ class World {
         }else if(distance <= 1400 ){
             this.endboss.distanceX = true;
             if(this.worldSundTrack){
-                this.stopWorldSound();
+                //this.stopWorldSound();
             }
         }else if(distance >=1401){
             this.endboss.distanceX = false;
             if(!this.worldSundTrack){
-                this.worldSound();
+                //this.worldSound();
             }
         }
     }

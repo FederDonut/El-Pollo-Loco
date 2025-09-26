@@ -9,7 +9,58 @@ body{
     height: 100vh;
     width: 100%;
 }
+.Canvas-Container{
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.Canvas-Control{
+    height: 80px;
+    width: 1970px;
+    z-index: 10;
+    position: absolute;
+    top: 788px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 50px;
+
+}
+
+.canvasBtn{
+    height: 80%;
+    width: 80px;
+    z-index: 100;
+}
+
+.canvasBtn:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+}
+
+.fullscreen{
+    
+    background-image: url(/img/You\ won\,\ you\ lost/FullScreen.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60px;
+    
+}
+
+.sound-control{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-image: url(/img/You\ won\,\ you\ lost/sound_muted.png);
+}
+
 canvas{
+    height: 780px;
+    width: 1970px;
     background-color: black;
 }
 .d-none{
