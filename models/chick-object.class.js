@@ -54,10 +54,6 @@ class Chick extends MovableObject{
     gotDamage(){
         this.damageSound = new Audio(this.CHICK_sound[0]);
         this.damageSound.play();
-        //setTimeout(()=>{
-        //    this.damageSound.pause();
-        //    this.damageSound.currentTime = 0;
-        //},100);
     }
 
     stopIntervals(){

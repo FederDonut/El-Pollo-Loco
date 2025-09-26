@@ -84,7 +84,6 @@ class Endboss extends MovableObject{
 
             if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
-                //this.stopEndbossTheme();
                 this.playDamageSound();
 
             }else if(this.isDead()){
@@ -186,6 +185,7 @@ class Endboss extends MovableObject{
     }
 
     playDamageSound(){
+        this.damageSound.volume = 0.8;
         setTimeout(() =>{
             this.damageSound.play()
         },20)

@@ -32,7 +32,7 @@ class World {
         this.level = level
         this.endboss = this.level.enemies[3];
         this.soundtrack = new Audio('audio/better-call-saul-theme.mp3');
-        this. attackSound = new Audio('audio/hawk-tuah_SRaUp2L.mp3');
+        this. attackSound = new Audio('audio/star-wars-tie-fighter-blaster-sound-effect.mp3');
         this.draw();
         this.setWorld();
         this.checkPlayerActivity();
@@ -95,26 +95,20 @@ class World {
     startSleepTimer(){
         this.sleepTimer = setTimeout(()=>{
             if(!this.anyKeyPressed){
-                //console.log('character schläft');
                 this.chillMode = false;
                 this.sleepMode = true;
-                //console.log(this.sleepMode);
             }
         },10000)
     }
 
     checkThrowObjects(){
         if(this.keyboard.attack&& this.bottle_counter !== 0){
-            if(!this.attackSoundTrack){
-                this.attackSound.play();
-                this.attackSoundTrack = true
-            }
-            this.attackSoundTrack = false;
+            this.playAttackSound();
+            this.stopAttackSound();
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle); 
-            console.log('peng')
             this.bottle_counter -=1;
-            console.log(this.bottle_counter)
+            //console.log(this.bottle_counter)
             this.bottle_bar.setCollection(this.bottle_counter);
         }
     }
@@ -125,7 +119,7 @@ class World {
     }
     
     checkCollisions(){
-        this.level.enemies.forEach((enemy,i) =>{
+        this.level.enemies.forEach((enemy) =>{
             if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
                 enemy.damage();
                 this.character.jump();
@@ -348,6 +342,20 @@ class World {
             this,this.soundtrack.loop = true;
             this.soundtrack.play();
             this.worldSundTrack = true;
+        }
+    }
+
+    playAttackSound(){
+        if(!this.attackSoundTrack){
+            this.attackSound.play();
+            this.attackSoundTrack = true
+        }
+    }
+
+    stopAttackSound(){
+        if(this.attackSoundTrack){
+            this.attackSoundTrack =false;
+            this.attackSound.currentTime = 0;
         }
     }
 
