@@ -306,7 +306,8 @@ class World {
         this.stopGame();
         if(this.character.energy === 0 ){
             this.endboss.speed = 0;
-            this.endboss.stopEndbossTheme();
+            // !!Audio Controler
+            //this.endboss.stopEndbossTheme();
             gameIsOver();
         }
         if(this.endboss.energy===0){

@@ -21,9 +21,12 @@ class AudioController{
     takeCoin = false;
     reloading = false;
     bossThemePlayed = false;
+
     zeroEnergy = false;
-    //jumping = false;
-    //movement = false;
+    charIsDead = false;
+    charGotDamage = false;
+    jumping = false;
+    characterMovement = false;
 
     //characterSounds(){
     //    this.runSound = new Audio(this.Character_audio[0]);
@@ -40,10 +43,10 @@ class AudioController{
         this.bossDamageSound = new Audio(this.Endboss_audio[2]);
 
         //Character
-        this.runSound = new Audio(this.Character_audio[0]);
-        this.jumpSound = new Audio(this.Character_audio[1]);
-        this.deathSound = new Audio(this.Character_audio[3]);
-        this.damageSound = new Audio(this.Character_audio[4]);
+        this.charRunSound = new Audio(this.Character_audio[0]);
+        this.charJumpSound = new Audio(this.Character_audio[1]);
+        this.charDeathSound = new Audio(this.Character_audio[3]);
+        this.charDamageSound = new Audio(this.Character_audio[4]);
 
 
     }
@@ -101,7 +104,36 @@ class AudioController{
 
     //Character Audio
 
-    
+    wastedSound(){
+        if(!this.charIsDead){
+            this.charDeathSound.play();
+            this.charIsDead = true;
+        }
+    }
+
+    characterTakeDamageSound(){
+        if(!this.charGotDamage){
+            this.charDamageSound.play();
+            this.charGotDamage = true;
+        }
+    }
+
+    characterJumpSound(){
+        if(!this.jumping){
+            this.charJumpSound.play();
+            this.jumping = true;
+        }
+    }
+
+    characterRunSound(){
+        if(!this.characterMovement){
+            this.charRunSound.playbackRate = 1.3;
+            this.charRunSound.volume = 1;
+            this.charRunSound.play();
+            this.characterMovement = true;
+        }
+    }
+
     muteAllWorldSounds(){
 
     }

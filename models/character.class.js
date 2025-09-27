@@ -5,7 +5,7 @@ class Character extends MovableObject{
     speed = 8
     lastPositionY;
     intervalId = [];
-    //isMoving = false;
+    
     
     IMAGES_walking =[
                     'img/2_character_pepe/2_walk/W-21.png',
@@ -45,14 +45,6 @@ class Character extends MovableObject{
                     'img/2_character_pepe/5_dead/D-57.png',
     ];
 
-    Character_audio =[
-                    'audio/run.mp3',
-                    'audio/jump.mp3',
-                    'audio/attack_sound.mp3',
-                    'audio/character_is_dead.mp3',
-                    'audio/character_damage.mp3'
-    ];
-
     IMAGES_inactiv =[
                     'img/2_character_pepe/1_idle/idle/I-1.png',
                     'img/2_character_pepe/1_idle/idle/I-2.png',
@@ -90,13 +82,8 @@ class Character extends MovableObject{
         this.loadImages(this.IMAGES_damage);
         this.loadImages(this.IMAGES_inactiv);
         this.loadImages(this.IMAGES_long_inactivity);
-        this.characterSounds();
         this.applyGravity();
         this.animate();
-       
-       
-       
-        
     }
 
     animate(){
@@ -109,18 +96,13 @@ class Character extends MovableObject{
                 this.goLeft(); 
             }
             if(this.world.keyboard.up && !this.isAboveGround()){
-               
+                this.world.audio.characterJumpSound();
+                //console.log('JUMPP') //<-- hier weitermachen 
+                this.world.audio.jumping = false;
                 this.jump();
-                let jumpSound = new Audio(this.Character_audio[1]);
-                jumpSound.play();
-               
-               this.world.resetTimers();
-               
-               
+                this.world.resetTimers();
             }
-
             this.world.camera_x = -this.x + 100
-
         },1000/60));
 
         this.intervalId.push(setInterval(() =>{
@@ -128,14 +110,14 @@ class Character extends MovableObject{
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_death);
                 this.dead();
-                this.wastedSound();
+                this.world.audio.wastedSound();
                 this.loseGame();
-               
-                
+                this.world.audio.charIsDead = false;
             }     
             else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
-                this.takeDamage();
+                this.world.audio.characterTakeDamageSound();
+                this.world.audio.charGotDamage = false;
             }
 
             else if(this.isAboveGround()){
@@ -154,9 +136,10 @@ class Character extends MovableObject{
                 }
             }    
         },100))
+
         this.intervalId.push(setInterval(() =>{
             this.movementSounds();
-        },200));
+        },100));
         
     }
 
@@ -164,14 +147,6 @@ class Character extends MovableObject{
         setTimeout(()=>{this.world.gameOver()},7500);
     }
 
-    characterSounds(){
-        this.runSound = new Audio(this.Character_audio[0]);
-        this.jumpSound = new Audio(this.Character_audio[1]);
-        this.deathSound = new Audio(this.Character_audio[3]);
-        this.damageSound = new Audio(this.Character_audio[4]);
-    }
-
-    // Funktioniert so nicht 
     goLeft(){
         this.moveLeft();
         this.otherDirection = true;
@@ -185,39 +160,11 @@ class Character extends MovableObject{
     }
 
     movementSounds(){
-            if(this.world.keyboard.up && !this.isAboveGround()){   
-               if(this.jumpSound.paused){
-                this.jumpSound.currentTime = 0;
-                this.jumpSound.play(); 
-               }
-            }
-            else if(!this.isAboveGround() && this.world.keyboard.left || this.world.keyboard.right && !this.isAboveGround()){
-                if(this.runSound.paused){
-                    this.runSound.play()
-                }else{
-                    this.runSound.pause();
-                    this.runSound.currentTime=0;
-                }   
-            }   
+        if(!this.isAboveGround() && this.world.keyboard.left || this.world.keyboard.right && !this.isAboveGround()){
+            this.world.audio.characterRunSound();
+            this.world.audio.characterMovement = false;
+        }   
     };
-
-    wastedSound(){
-        this.deathSound.play()
-        setTimeout(() =>{
-            this.deathSound.pause()
-            this.deathSound.currentTime = 0;
-            
-        },7000)
-    }
-    
-    takeDamage(){
-        this.damageSound.play();
-        this.world.resetTimers();
-        setTimeout(()=> {
-            this.damageSound.pause();
-            this.damageSound.currentTime = 0;
-        },500);
-    }
 
     chill(){
         this.chillInterval = setInterval(() =>{
