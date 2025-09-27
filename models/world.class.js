@@ -16,8 +16,6 @@ class World {
     firePower = [];
     intervalId =[];
     endboss = null;
-    worldSundTrack = false;
-    attackSoundTrack = false; 
     character = new Character();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
@@ -32,15 +30,13 @@ class World {
         this.keyboard = keyboard;
         this.level = level
         this.endboss = this.level.enemies[3];
-        this.soundtrack = new Audio('audio/better-call-saul-theme.mp3');
-        this. attackSound = new Audio('audio/star-wars-tie-fighter-blaster-sound-effect.mp3');
         this.draw();
         this.setWorld();
         this.checkPlayerActivity();
         this.startInteractivTimer();
         this.startSleepTimer();
         this.run();
-        //this.worldSound();   
+      
     }
 
     setWorld(){
@@ -105,12 +101,11 @@ class World {
 
     checkThrowObjects(){
         if(this.keyboard.attack&& this.bottle_counter !== 0){
-            this.playAttackSound();
-            this.stopAttackSound();
+            this.audio.playLaserShotSound();
+            this.audio.stopLaserShotSound();
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle); 
             this.bottle_counter -=1;
-            //console.log(this.bottle_counter)
             this.bottle_bar.setCollection(this.bottle_counter);
         }
     }
@@ -127,7 +122,7 @@ class World {
                 this.character.jump();
                 // Neues Audio Object
                 this.audio.playEnemyDamageSound();
-                this.audio.gotDamage = false;
+                this.audio.stopEnemyDamageSound();
                 this.checkPlayerActivity();
             }else if(this.character.isColliding(enemy)){
                 //console.log('normaler Schaden für den character')
@@ -143,7 +138,7 @@ class World {
             if(this.character.isColliding(bottle)){
                 bottle.collectBottle = true;
                 this.audio.playReloadingSound();
-                this.audio.reloading = false;
+                this.audio.stopReloadingSound();
                 if(bottle.collectBottle){
                     let targetBottle = this.level.bottles
                     targetBottle.splice(i,1)
@@ -160,7 +155,7 @@ class World {
             if(this.character.isColliding(coin)){
                 coin.collectCoin = true;
                 this.audio.playCoinSound();
-                this.audio.takeCoin = false;
+                this.audio.stopCoinSound();
                 if(coin.collectCoin){
                     let targetCoin = this.level.coins;
                     targetCoin.splice(i,1);
@@ -180,11 +175,11 @@ class World {
                     if(enemy === this.endboss){
                         this.endbossDamage(enemy);
                         this.audio.playEnemyDamageSound();
-                        this.audio.gotDamage = false;   
+                        this.audio.stopEnemyDamageSound();
                     }else if(enemy !== this.endboss){
                         enemy.damage();
                         this.audio.playEnemyDamageSound();
-                        this.audio.gotDamage = false;
+                        this.audio.stopEnemyDamageSound();
                     }
                 }
             });
@@ -226,14 +221,10 @@ class World {
             this.endboss.bossAttackMovement();
         }else if(distance <= 1400 ){
             this.endboss.distanceX = true;
-            if(this.worldSundTrack){
-                //this.stopWorldSound();
-            }
+            this.audio.stopWorldBackgroundSound();
         }else if(distance >=1401){
             this.endboss.distanceX = false;
-            if(!this.worldSundTrack){
-                //this.worldSound();
-            }
+            this.audio.playWorldBackgroundSound();
         }
     }
 
@@ -346,34 +337,34 @@ class World {
         })
     }
     
-    worldSound(){
-        this.soundtrack.volume = 0.7;
-        if(this.character.energy > 0 || this.endboss.energy > 0 && !this.worldSundTrack){
-            this,this.soundtrack.loop = true;
-            this.soundtrack.play();
-            this.worldSundTrack = true;
-        }
-    }
-
-    playAttackSound(){
-        if(!this.attackSoundTrack){
-            this.attackSound.play();
-            this.attackSoundTrack = true
-        }
-    }
-
-    stopAttackSound(){
-        if(this.attackSoundTrack){
-            this.attackSoundTrack =false;
-            this.attackSound.currentTime = 0;
-        }
-    }
-
-    stopWorldSound(){
-        this.soundtrack.pause();
-        this.soundtrack.currentTime = 0;
-        this.worldSundTrack = false;
-    }
+    //worldSound(){
+    //    this.soundtrack.volume = 0.7;
+    //    if(this.character.energy > 0 || this.endboss.energy > 0 && !this.worldSundTrack){
+    //        this,this.soundtrack.loop = true;
+    //        this.soundtrack.play();
+    //        this.worldSundTrack = true;
+    //    }
+    //}
+//
+    //playAttackSound(){
+    //    if(!this.attackSoundTrack){
+    //        this.attackSound.play();
+    //        this.attackSoundTrack = true
+    //    }
+    //}
+//
+    //stopAttackSound(){
+    //    if(this.attackSoundTrack){
+    //        this.attackSoundTrack =false;
+    //        this.attackSound.currentTime = 0;
+    //    }
+    //}
+//
+    //stopWorldSound(){
+    //    this.soundtrack.pause();
+    //    this.soundtrack.currentTime = 0;
+    //    this.worldSundTrack = false;
+    //}
 
     muteAllSounds(){
         

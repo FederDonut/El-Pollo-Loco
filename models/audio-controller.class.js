@@ -16,25 +16,27 @@ class AudioController{
         'audio/strongpunch.mp3',
     ]
 
+    World_audio = [
+        'audio/better-call-saul-theme.mp3',
+        'audio/star-wars-tie-fighter-blaster-sound-effect.mp3',
+        'audio/strongpunch.mp3',
+        'audio/hee-hee_tTMj1yC.mp3',
+        'audio/reload.mp3'
+    ]
+
     isMuted = false;
     gotDamage = false;
     takeCoin = false;
     reloading = false;
     bossThemePlayed = false;
-
+    worldSundTrack = false;
     zeroEnergy = false;
     charIsDead = false;
     charGotDamage = false;
     jumping = false;
     characterMovement = false;
+    shot = false;
 
-    //characterSounds(){
-    //    this.runSound = new Audio(this.Character_audio[0]);
-    //    this.jumpSound = new Audio(this.Character_audio[1]);
-    //    this.deathSound = new Audio(this.Character_audio[3]);
-    //    this.damageSound = new Audio(this.Character_audio[4]);
-
-    //}
 
     constructor(){
         //Endboss
@@ -48,30 +50,89 @@ class AudioController{
         this.charDeathSound = new Audio(this.Character_audio[3]);
         this.charDamageSound = new Audio(this.Character_audio[4]);
 
+        //World
+        this.worldSound = new Audio(this.World_audio[0]);
+        this.laserShotSound = new Audio(this.World_audio[1]);
+        this.damageSond = new Audio(this.World_audio[2]);
+        this.coinSound = new Audio(this.World_audio[3])
+        this.reloadSound = new Audio(this.World_audio[4]);
 
+
+
+    }
+
+    playWorldBackgroundSound(){
+        if(!this.worldSundTrack){
+            this.worldSound.volume = 0.7;
+            this.worldSound.loop = true;
+            this.worldSound.play();
+            this.worldSundTrack = true;
+        }
+       
+    }
+
+    stopWorldBackgroundSound(){
+        if(this.worldSundTrack){
+            this.worldSundTrack = false;
+            this.worldSound.loop = false;
+            this.worldSound.pause();
+            this.worldSound.currentTime = 0;
+        }
+    }
+
+    playLaserShotSound(){
+        if(!this.shot){
+            this.laserShotSound.play();
+            this.shot = true;
+        }
+    }
+
+    stopLaserShotSound(){
+        if(this.shot){
+            this.shot = false;
+            this.laserShotSound.currentTime = 0;
+        }
     }
 
     playEnemyDamageSound(){
         if(!this.gotDamage){
-            this.damageSond = new Audio('audio/strongpunch.mp3');
             this.damageSond.play()
             this.gotDamage =true 
         }
     }
 
+    stopEnemyDamageSound(){
+        if(this.gotDamage){
+            this.gotDamage = false;
+            this.damageSond.currentTime = 0;
+        }
+    }
+
     playCoinSound(){
         if(!this.takeCoin){
-            this.coinSound = new Audio('audio/hee-hee_tTMj1yC.mp3');
             this.coinSound.play();
             this.takeCoin = true;
         }
     }
 
+    stopCoinSound(){
+        if(this.takeCoin){
+            this.takeCoin = false;
+            this.coinSound.currentTime = 0;
+        }
+    }
+
     playReloadingSound(){
         if(!this.reloading){
-            this.reloadSound = new Audio('audio/reload.mp3');
             this.reloadSound.play();
             this.reloading = true;
+        }
+    }
+
+    stopReloadingSound(){
+        if(this.reloading){
+            this.reloading = false;
+            this.reloadSound.currentTime = 0;
         }
     }
 
