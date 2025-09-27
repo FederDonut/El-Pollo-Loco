@@ -5,7 +5,7 @@ class Character extends MovableObject{
     speed = 8
     lastPositionY;
     intervalId = [];
-
+    //isMoving = false;
     
     IMAGES_walking =[
                     'img/2_character_pepe/2_walk/W-21.png',
@@ -103,18 +103,10 @@ class Character extends MovableObject{
 
         this.intervalId.push(setInterval(() =>{
             if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
-                
-                this.moveRight();
-                this.otherDirection = false;
-                this.world.resetTimers(); 
-                //console.log('This.x',this.x);
-                //console.log('this.x & this.width', this.x+this.width);
+                this.goRight();
             }
             if(this.world.keyboard.left && this.x > 0){
-                this.moveLeft();
-                this.otherDirection = true;
-                this.world.resetTimers(); 
-                
+                this.goLeft(); 
             }
             if(this.world.keyboard.up && !this.isAboveGround()){
                
@@ -164,7 +156,7 @@ class Character extends MovableObject{
         },100))
         this.intervalId.push(setInterval(() =>{
             this.movementSounds();
-        },250));
+        },200));
         
     }
 
@@ -177,6 +169,19 @@ class Character extends MovableObject{
         this.jumpSound = new Audio(this.Character_audio[1]);
         this.deathSound = new Audio(this.Character_audio[3]);
         this.damageSound = new Audio(this.Character_audio[4]);
+    }
+
+    // Funktioniert so nicht 
+    goLeft(){
+        this.moveLeft();
+        this.otherDirection = true;
+        this.world.resetTimers();
+    }
+
+    goRight(){
+        this.moveRight();
+        this.otherDirection = false;
+        this.world.resetTimers();
     }
 
     movementSounds(){

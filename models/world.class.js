@@ -373,4 +373,8 @@ class World {
         this.soundtrack.currentTime = 0;
         this.worldSundTrack = false;
     }
+
+    muteAllSounds(){
+        
+    }
 }

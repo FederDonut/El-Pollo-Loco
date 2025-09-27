@@ -8,10 +8,12 @@ class Endboss extends MovableObject{
     isWalking = false;
     isAlert = false;
     isAttacking = false;
-    bossThemePlayed = false;
+    //bossThemePlayed = false;
     distanceX = false;
-    zeroEnergy = false;
+    //zeroEnergy = false;
     intervalId = [];
+    world;
+    audio;
 
     IMAGES_walking =[
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -54,11 +56,11 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
-    Endboss_audio =[
-        'audio/endBoss.mp3',
-        'audio/endboss died.mp3',
-        'audio/strongpunch.mp3',
-    ]
+    //Endboss_audio =[
+    //    'audio/endBoss.mp3',
+    //    'audio/endboss died.mp3',
+    //    'audio/strongpunch.mp3',
+    //]
 
     constructor(){
         super().loadImage(this.IMAGES_walking[0]);
@@ -67,7 +69,7 @@ class Endboss extends MovableObject{
         this.loadImages(this.IMAGES_damage);
         this.loadImages(this.IMAGES_dead);
         this.loadImages(this.IMAGES_attack);
-        this.endbossSounds();
+        //this.endbossSounds();
         this.x = 9000//2600
         this.animate();
         this.bossMovement();
@@ -85,9 +87,11 @@ class Endboss extends MovableObject{
             }else if(this.isDead()){
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
-                this.stopEndbossTheme();
-                this.playDeadSound();
-                this.zeroEnergy = false;
+                //this.stopEndbossTheme();
+                //this.playDeadSound();
+                this.world.audio.stopEndbossTheme();
+                this.world.audio.playEndbossDeadSound();
+                this.world.audio.zeroEnergy = false;
 
                 setTimeout(()=>{this.world.gameOver()},4000);
            
@@ -110,10 +114,15 @@ class Endboss extends MovableObject{
     playEndbossSounds(){
         this.intervalId.push(setInterval(()=>{
             if(this.distanceX && !this.isHurt()&& !this.isDead()){
-                this.startEndbossTheme();
+                //this.startEndbossTheme();
+                this.world.audio.startEndbossTheme();
+                console.log(true);
             }
             else{
-                this.stopEndbossTheme();
+                //this.stopEndbossTheme();
+                this.world.audio.stopEndbossTheme();
+                console.log(false)
+
             }  
         },200))
     }  
@@ -157,35 +166,35 @@ class Endboss extends MovableObject{
         }
     }
     
-    endbossSounds(){
-        this.bossSound = new Audio(this.Endboss_audio[0]);
-        this.deathSound = new Audio(this.Endboss_audio[1]);
-        this.damageSound = new Audio(this.Endboss_audio[2])
-    }
-
-    startEndbossTheme(){
-        if(!this.bossThemePlayed){
-            this.bossSound.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
-            this.bossSound.play();
-            this.bossThemePlayed = true;
-        }
-        
-    }
-
-    stopEndbossTheme(){
-        if(this.bossThemePlayed){
-            this.bossThemePlayed=false;
-            this.bossSound.pause();
-            this.bossSound.currentTime=0
-        }
-    }
-
-    playDeadSound(){
-        if(!this.zeroEnergy){
-            this.deathSound.play();
-            this.zeroEnergy = true;
-        }
-    }
+    //endbossSounds(){
+    //    this.bossSound = new Audio(this.Endboss_audio[0]);
+    //    this.deathSound = new Audio(this.Endboss_audio[1]);
+    //    this.damageSound = new Audio(this.Endboss_audio[2])
+    //}
+//
+    //startEndbossTheme(){
+    //    if(!this.bossThemePlayed){
+    //        this.bossSound.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
+    //        this.bossSound.play();
+    //        this.bossThemePlayed = true;
+    //    }
+    //    
+    //}
+//
+    //stopEndbossTheme(){
+    //    if(this.bossThemePlayed){
+    //        this.bossThemePlayed=false;
+    //        this.bossSound.pause();
+    //        this.bossSound.currentTime=0
+    //    }
+    //}
+//
+    //playDeadSound(){
+    //    if(!this.zeroEnergy){
+    //        this.deathSound.play();
+    //        this.zeroEnergy = true;
+    //    }
+    //}
     
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});
