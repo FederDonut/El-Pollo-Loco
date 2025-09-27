@@ -196,6 +196,17 @@ class AudioController{
     }
 
     muteAllWorldSounds(){
+        //this.World_audio.forEach((worldSound)=>{
+        //    worldSound.muted = true;
+        //})
+        //this.Character_audio.forEach((charSound)=>{
+        //    charSound.muted = true;
+        //})
+        //this.Endboss_audio.forEach((bossSound)=>{
+        //    bossSound.muted = true;
+        //})
+        this.worldSound.muted = true;
+        this.charJumpSound.muted = true;
 
     }
 }

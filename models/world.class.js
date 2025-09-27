@@ -337,36 +337,8 @@ class World {
         })
     }
     
-    //worldSound(){
-    //    this.soundtrack.volume = 0.7;
-    //    if(this.character.energy > 0 || this.endboss.energy > 0 && !this.worldSundTrack){
-    //        this,this.soundtrack.loop = true;
-    //        this.soundtrack.play();
-    //        this.worldSundTrack = true;
-    //    }
-    //}
-//
-    //playAttackSound(){
-    //    if(!this.attackSoundTrack){
-    //        this.attackSound.play();
-    //        this.attackSoundTrack = true
-    //    }
-    //}
-//
-    //stopAttackSound(){
-    //    if(this.attackSoundTrack){
-    //        this.attackSoundTrack =false;
-    //        this.attackSound.currentTime = 0;
-    //    }
-    //}
-//
-    //stopWorldSound(){
-    //    this.soundtrack.pause();
-    //    this.soundtrack.currentTime = 0;
-    //    this.worldSundTrack = false;
-    //}
 
     muteAllSounds(){
-        
+        this.audio.muteAllWorldSounds();
     }
 }

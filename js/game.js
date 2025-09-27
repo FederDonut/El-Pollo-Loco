@@ -38,6 +38,12 @@ function YouWonTheGame(){
     endScreen.classList.remove('d-none');
 }
 
+function muteSounds(){
+    console.log('mute sounds');
+    //world.audio.muteAllWorldSounds();
+    world.muteAllSounds();
+}
+
 window.addEventListener('keydown', (event) => {
     
     if (event.key == "ArrowRight"){
