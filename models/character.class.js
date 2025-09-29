@@ -111,7 +111,8 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_death);
                 this.dead();
                 this.world.audio.wastedSound();
-                this.loseGame();
+                this.speed = 0;
+                
                 this.world.audio.charIsDead = false;
             }     
             else if(this.isHurt()){

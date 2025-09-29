@@ -13,31 +13,40 @@ function init(){
     world = new World(canvas, keyboard, level);
 }
 
-function startGame(){
+function startGame(){ // check
     let overlayRef = document.getElementById('startScreen');
     overlayRef.classList.toggle('d-none');
-    btnVisabillity();
+    addBtnVisabillity();
     init();
 }
-function gameIsOver(){
+
+function gameIsOver(){ // check
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.remove('d-none');
+    removeBtnVisabillity()
+    
 }
 
 function tryAgain(){
     let endScreen = document.getElementById('gameOver');
-    endScreen.classList.toggle('d-none');
+    endScreen.classList.add('d-none');
     init();
+    addBtnVisabillity();
+   
+   
 }
 function tryAgainAfterWin(){
     let endScreen = document.getElementById('YouWon');
     endScreen.classList.toggle('d-none');
+    removeBtnVisabillity();
     init();
+    addBtnVisabillity();
 }
 
 function YouWonTheGame(){
     let endScreen = document.getElementById('YouWon');
     endScreen.classList.remove('d-none');
+    removeBtnVisabillity();
 }
 
 function muteSounds(){
@@ -53,11 +62,18 @@ function muteSounds(){
     
 }
 
-function btnVisabillity(){
+function removeBtnVisabillity(){
     let soundBtn = document.getElementById('sound-control');
     let displayBtn = document.getElementById('fullscreen');
-    soundBtn.classList.toggle('d-none');
-    displayBtn.classList.toggle('d-none');
+    soundBtn.classList.add('d-none');
+    displayBtn.classList.add('d-none');
+}
+
+function addBtnVisabillity(){
+    let soundBtn = document.getElementById('sound-control');
+    let displayBtn = document.getElementById('fullscreen');
+    soundBtn.classList.remove('d-none');
+    displayBtn.classList.remove('d-none');
 }
 
 function changeSoundImg(){

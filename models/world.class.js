@@ -16,6 +16,7 @@ class World {
     firePower = [];
     intervalId =[];
     endboss = null;
+    gameIsEnding = false;
     character = new Character();
     health_bar = new Statusbar();
     enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
@@ -57,6 +58,7 @@ class World {
         this.endbossMovement();
         this.checkEndbossDistance();
         this.gameOver();
+        //this.stopGame();
         },100))
     }
 
@@ -302,28 +304,35 @@ class World {
     }
 
     gameOver(){
+        if(this.gameIsEnding){
+            return
+        }
         if(this.character.energy === 0){
-            this.endboss.speed = 0;    
+            this.gameIsEnding = true;
+            this.endboss.speed = 0;
+            //this.stopGame();        
             setTimeout(()=>{
+                console.log('test')
                 this.stopGame();
                 gameIsOver();
             },7000);
         }
         if(this.endboss.energy===0){
+            this.gameIsEnding = true;
             this.character.speed = 0;
+            //this.stopGame();
             setTimeout(()=>{
-                this.stopGame();
+               this.stopGame();
                 YouWonTheGame();
             },4000)
         }        
     }
     
     
-    stopGame(){
+    stopGame(){    
         this.stopIntervals();
         this.clearArrays();
-        this.audio.stopAllSounds();
-
+        this.audio.stopAllSounds();        
     }
 
     clearArrays(){
