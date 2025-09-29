@@ -92,10 +92,10 @@ class Character extends MovableObject{
             if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
                 this.goRight();
             }
-            if(this.world.keyboard.left && this.x > 0){
+            if(this.world.keyboard.left && this.x > 0 ){
                 this.goLeft(); 
             }
-            if(this.world.keyboard.up && !this.isAboveGround()){
+            if(this.world.keyboard.up && !this.isAboveGround()&& !this.isDead()){
                 this.world.audio.characterJumpSound();
                 //console.log('JUMPP') //<-- hier weitermachen 
                 this.world.audio.jumping = false;
@@ -112,7 +112,6 @@ class Character extends MovableObject{
                 this.dead();
                 this.world.audio.wastedSound();
                 this.speed = 0;
-                
                 this.world.audio.charIsDead = false;
             }     
             else if(this.isHurt()){
@@ -139,7 +138,9 @@ class Character extends MovableObject{
         },100))
 
         this.intervalId.push(setInterval(() =>{
-            this.movementSounds();
+            if(!this.isDead()){
+                this.movementSounds();
+            }
         },100));
         
     }

@@ -1,10 +1,10 @@
-class Coin extends DrawableObject{
+class Coin extends MovableObject{
 
     height = 150;
     width = 150;
     collectCoin = false;
     //playCoinSound = false;
-    
+    intervalId = [];
     y = 350;
 
     IMAGE_coin = [
@@ -15,7 +15,19 @@ class Coin extends DrawableObject{
     constructor(){
         super().loadImage(this.IMAGE_coin[0]);
         this.loadImages(this.IMAGE_coin);
-        this.x = 200 +Math.random()*7000;
-        this.y = 250 -Math.random()*100;
+        this.x = 500 + Math.random()*7000;
+        this.y = 250 - Math.random()*100;
+        this.animate();
+    }
+
+    animate(){
+        this.intervalId.push(setInterval(()=>{
+            this.playAnimation(this.IMAGE_coin);
+        },200))
+    }
+
+    stopIntervals(){
+        this.intervalId.forEach(interval => {clearInterval(interval)});
+        this.intervalId = [];
     }
 }

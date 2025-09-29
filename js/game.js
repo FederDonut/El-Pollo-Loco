@@ -87,6 +87,9 @@ function changeSoundImg(){
     }
 }
 
+function fullScreen(){
+    console.log('fullscreen');
+}
 window.addEventListener('keydown', (event) => {
     
     if (event.key == "ArrowRight"){

@@ -332,7 +332,7 @@ class World {
     stopGame(){    
         this.stopIntervals();
         this.clearArrays();
-        this.audio.stopAllSounds();        
+        this.audio.stopAllSounds();       
     }
 
     clearArrays(){

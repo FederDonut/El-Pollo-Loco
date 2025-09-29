@@ -69,6 +69,7 @@ canvas{
     height: 780px;
     width: 1970px;
     background-color: black;
+    display: block;
 }
 .d-none{
     display: none !important;
@@ -228,5 +229,18 @@ button{
     margin-bottom: 150px;
     margin-right: 150px;
     border-radius: 10px;  
+}
+
+@media (max-width: 1980px){
+    canvas{
+        width: 100%;
+    }
+    .Canvas-Control{
+        width: 100%;
+    }
+}
+
+@media (max-height: 780px){
+
 }
 

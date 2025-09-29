@@ -124,5 +124,12 @@ class MovableObject extends DrawableObject{
         this.intervalId = [];
     }
     
-   
+    antiJump(){
+        if(this.y > 760){
+            console.log('jetzt');
+            this.speedY = 0; 
+            this.acceleration = 0
+            this.y = 800;
+        }
+    }
 }
