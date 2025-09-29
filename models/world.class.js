@@ -56,6 +56,7 @@ class World {
         this.checkCoinCollision();
         this.endbossMovement();
         this.checkEndbossDistance();
+        this.gameOver();
         },100))
     }
 
@@ -301,16 +302,19 @@ class World {
     }
 
     gameOver(){
-        this.stopGame();
-        if(this.character.energy === 0 ){
-            this.endboss.speed = 0;
-            // !!Audio Controler
-            //this.endboss.stopEndbossTheme();
-            gameIsOver();
+        if(this.character.energy === 0){
+            this.endboss.speed = 0;    
+            setTimeout(()=>{
+                this.stopGame();
+                gameIsOver();
+            },7000);
         }
         if(this.endboss.energy===0){
             this.character.speed = 0;
-            YouWonTheGame();
+            setTimeout(()=>{
+                this.stopGame();
+                YouWonTheGame();
+            },4000)
         }        
     }
     
@@ -318,10 +322,8 @@ class World {
     stopGame(){
         this.stopIntervals();
         this.clearArrays();
-        // Muss angepasst werden 
-        //this.stopWorldSound();
+        this.audio.stopAllSounds();
 
-        
     }
 
     clearArrays(){
@@ -332,6 +334,7 @@ class World {
         this.firePower = []
         this.throable_objects=[];
         this.intervalId = [];
+        this.audio.soundLib = [];
     }
 
     stopIntervals(){

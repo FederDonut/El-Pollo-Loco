@@ -1,7 +1,7 @@
 class AudioController{
 
     world;
-    muted = false;
+    
 
     Character_audio =   [
         'audio/run.mp3',
@@ -201,15 +201,16 @@ class AudioController{
         }
     }
 
+    stopAllSounds(){
+        this.stopCoinSound();
+        this.stopEndbossTheme();
+        this.stopEnemyDamageSound();
+        this.stopLaserShotSound();
+        this.stopReloadingSound();
+        this.stopWorldBackgroundSound();
+    }
+
     muteAllWorldSounds(){
-        // 12 Sounds müssen gemutetd werden womöglich pushe ich alles in einem Array aber grundsätzlich funktioniert das alles 
-        //this.worldSound.muted = true;
-        //this.laserShotSound.muted = true
-        //this.damageSond.muted = true;
-        //this.coinSound.muted = true;
-        //this.reloadSound.muted = true;
-        //this.charJumpSound.muted = true;
-        //this.charDamageSound.muted = true;
         this.soundLib.forEach((sound)=>{
             sound.muted = true;
         })

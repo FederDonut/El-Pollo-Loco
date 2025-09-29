@@ -67,7 +67,6 @@ class Endboss extends MovableObject{
         this.animate();
         this.bossMovement();
         this.playEndbossSounds();
-        //this.bossAttackMovement();
     }
 
   
@@ -85,7 +84,7 @@ class Endboss extends MovableObject{
                 this.world.audio.playEndbossDeadSound();
                 this.world.audio.zeroEnergy = false;
 
-                setTimeout(()=>{this.world.gameOver()},4000);
+                //setTimeout(()=>{this.world.gameOver()},4000);
            
             }else{
                  
