@@ -1,6 +1,7 @@
 class AudioController{
 
     world;
+    muted = false;
 
     Character_audio =   [
         'audio/run.mp3',
@@ -37,6 +38,8 @@ class AudioController{
     characterMovement = false;
     shot = false;
 
+    soundLib = [];
+    soundId;
 
     constructor(){
         //Endboss
@@ -49,6 +52,7 @@ class AudioController{
         this.charJumpSound = new Audio(this.Character_audio[1]);
         this.charDeathSound = new Audio(this.Character_audio[3]);
         this.charDamageSound = new Audio(this.Character_audio[4]);
+        
 
         //World
         this.worldSound = new Audio(this.World_audio[0]);
@@ -57,7 +61,9 @@ class AudioController{
         this.coinSound = new Audio(this.World_audio[3])
         this.reloadSound = new Audio(this.World_audio[4]);
 
-
+        this.soundLib.push( this.bossSound,this.bossDeathSound,this.bossDamageSound,this.charRunSound,this.charJumpSound,this.charDeathSound,this.charDamageSound,
+                            this.worldSound,this.laserShotSound,this.damageSond,this.coinSound,this.reloadSound
+        );
 
     }
 
@@ -196,17 +202,23 @@ class AudioController{
     }
 
     muteAllWorldSounds(){
-        //this.World_audio.forEach((worldSound)=>{
-        //    worldSound.muted = true;
-        //})
-        //this.Character_audio.forEach((charSound)=>{
-        //    charSound.muted = true;
-        //})
-        //this.Endboss_audio.forEach((bossSound)=>{
-        //    bossSound.muted = true;
-        //})
-        this.worldSound.muted = true;
-        this.charJumpSound.muted = true;
-
+        // 12 Sounds müssen gemutetd werden womöglich pushe ich alles in einem Array aber grundsätzlich funktioniert das alles 
+        //this.worldSound.muted = true;
+        //this.laserShotSound.muted = true
+        //this.damageSond.muted = true;
+        //this.coinSound.muted = true;
+        //this.reloadSound.muted = true;
+        //this.charJumpSound.muted = true;
+        //this.charDamageSound.muted = true;
+        this.soundLib.forEach((sound)=>{
+            sound.muted = true;
+        })
     }
+
+    audibleAllWorldSounds(){
+        this.soundLib.forEach((sound)=>{
+            sound.muted = false;
+        })        
+    }
+
 }

@@ -36,6 +36,7 @@ class World {
         this.startInteractivTimer();
         this.startSleepTimer();
         this.run();
+        //this.checkAudioArray();
       
     }
 
@@ -57,6 +58,12 @@ class World {
         this.checkEndbossDistance();
         },100))
     }
+
+    //checkAudioArray(){
+    //    console.table(this.audio.soundLib);
+    //    let test = this.audio.soundLib[1];
+    //    test.play();
+    //}
 
     checkPlayerActivity(){
         window.addEventListener('keydown', ()=>{
@@ -311,7 +318,8 @@ class World {
     stopGame(){
         this.stopIntervals();
         this.clearArrays();
-        this.stopWorldSound();
+        // Muss angepasst werden 
+        //this.stopWorldSound();
 
         
     }
@@ -340,5 +348,8 @@ class World {
 
     muteAllSounds(){
         this.audio.muteAllWorldSounds();
+    }
+    audibleAllSounds(){
+        this.audio.audibleAllWorldSounds();
     }
 }

@@ -58,6 +58,13 @@ body{
     background-image: url(/img/You\ won\,\ you\ lost/sound_muted.png);
 }
 
+.sound-control-audible{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-image: url(/img/You\ won\,\ you\ lost/sound_audible.png);
+}
+
 canvas{
     height: 780px;
     width: 1970px;

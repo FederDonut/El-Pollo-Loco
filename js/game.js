@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let isMuted = false;
 
 function init(){
     canvas = document.getElementById('canvas');
@@ -15,6 +16,7 @@ function init(){
 function startGame(){
     let overlayRef = document.getElementById('startScreen');
     overlayRef.classList.toggle('d-none');
+    btnVisabillity();
     init();
 }
 function gameIsOver(){
@@ -39,9 +41,34 @@ function YouWonTheGame(){
 }
 
 function muteSounds(){
-    console.log('mute sounds');
-    //world.audio.muteAllWorldSounds();
-    world.muteAllSounds();
+    if(!isMuted){
+        world.muteAllSounds();
+        changeSoundImg();
+        isMuted = true;
+    }else if(isMuted){
+        world.audibleAllSounds();
+        changeSoundImg();
+        isMuted = false;
+    }
+    
+}
+
+function btnVisabillity(){
+    let soundBtn = document.getElementById('sound-control');
+    let displayBtn = document.getElementById('fullscreen');
+    soundBtn.classList.toggle('d-none');
+    displayBtn.classList.toggle('d-none');
+}
+
+function changeSoundImg(){
+    let soundBtn = document.getElementById('sound-control');
+    if(!isMuted){
+        soundBtn.classList.remove('sound-control-audible');
+        soundBtn.classList.add('sound-control');
+    }else if(isMuted){
+        soundBtn.classList.remove('sound-control');
+        soundBtn.classList.add('sound-control-audible');
+    }
 }
 
 window.addEventListener('keydown', (event) => {
