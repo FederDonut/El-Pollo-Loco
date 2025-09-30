@@ -317,6 +317,50 @@ button{
     margin-right: 150px;  
 }
 
+#rotateDeviceOverlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.95);
+    color: white;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.rotateOverlayContent{
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 20px; 
+}
+
+/**Overlay Querformat Logic **/
+
+@media (orientation: portrait) {
+    #rotateDeviceOverlay {
+        /* Überschreibt das standardmäßige 'display: none' der d-none Klasse */
+        display: flex !important; 
+    }
+    
+    .Canvas-Container {
+        visibility: hidden;
+    }
+}
+
+@media (orientation: landscape) {
+    #rotateDeviceOverlay {
+        display: none !important;
+    }
+    /* Optional: Zeige das Spiel wieder an, wenn die Warnung nicht sichtbar ist */
+    .Canvas-Container {
+        visibility: visible;
+    }
+}
+
 @media (max-width: 1980px){
     .Canvas-Container{
         width: 100%;
