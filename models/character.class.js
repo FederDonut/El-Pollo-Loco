@@ -141,8 +141,7 @@ class Character extends MovableObject{
             if(!this.isDead()){
                 this.movementSounds();
             }
-        },100));
-        
+        },100));  
     }
 
     loseGame(){

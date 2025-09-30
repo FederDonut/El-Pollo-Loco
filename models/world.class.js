@@ -36,9 +36,7 @@ class World {
         this.checkPlayerActivity();
         this.startInteractivTimer();
         this.startSleepTimer();
-        this.run();
-        //this.checkAudioArray();
-      
+        this.run();  
     }
 
     setWorld(){
@@ -355,6 +353,10 @@ class World {
         this.level.clouds.forEach((cloud)=>{
             cloud.stopIntervals();
         })
+        this.level.coins.forEach((coin)=>{
+            coin.stopIntervals();
+        })
+    
     }
     
 

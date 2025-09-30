@@ -10,6 +10,7 @@ body{
     width: 100%;
 }
 .Canvas-Container{
+    position: relative;
     height: 1000px;
     width: 100%;
     display: flex;
@@ -19,11 +20,11 @@ body{
 
 }
 .Canvas-Control{
+    position: absolute;
+    bottom: 0px;
     height: 80px;
     width: 1970px;
     z-index: 10;
-    position: absolute;
-    top: 788px;
     display: flex;
     flex-direction: row-reverse;
     gap: 50px;
@@ -232,15 +233,28 @@ button{
 }
 
 @media (max-width: 1980px){
+    .Canvas-Container{
+        width: 100%;
+        height: auto;
+    }
     canvas{
         width: 100%;
+        height: auto;
     }
     .Canvas-Control{
+        width: 100%;
+    }
+    .Game-Manual{
         width: 100%;
     }
 }
 
 @media (max-height: 780px){
-
+    canvas{
+        height: 100vh;
+    }
+    .Canvas-Container{
+        height: 100vh
+    }
 }
 

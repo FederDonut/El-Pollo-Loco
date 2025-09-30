@@ -201,14 +201,6 @@ class AudioController{
         }
     }
 
-    stopCharacterRunSound(){
-        if(this.characterMovement){
-            this.characterMovement = false;
-            this.charRunSound.pause();
-            this.charRunSound.currentTime = 0;
-        }
-    }
-
     stopAllSounds(){
         this.stopCoinSound();
         this.stopEndbossTheme();
