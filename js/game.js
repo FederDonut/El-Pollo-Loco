@@ -11,6 +11,7 @@ function init(){
     }
     const level = level1()  
     world = new World(canvas, keyboard, level);
+    keyboard.mobileButtons();
 }
 
 function startGame(){ // check
@@ -86,6 +87,8 @@ function changeSoundImg(){
         soundBtn.classList.add('sound-control-audible');
     }
 }
+
+
 
 function fullScreen(){
     console.log('fullscreen');

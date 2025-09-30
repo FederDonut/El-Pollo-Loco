@@ -30,7 +30,52 @@ body{
     gap: 50px;
 
 }
+.hud{
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    height: 80px;
+    width: 1970px;
+    display: none;
+}
 
+.hud-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+.hud-position{
+    width: 20%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.mobileBtn{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    
+}
+
+
+.btn{
+    background-image: url(/img/You\ won\,\ you\ lost/Play.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+.btn:hover{
+    cursor: pointer;
+    background-color: rgb(255, 218, 6);
+}
 .canvasBtn{
     height: 80%;
     width: 80px;
@@ -45,7 +90,8 @@ body{
 
 .fullscreen{
     
-    background-image: url(/img/You\ won\,\ you\ lost/FullScreen.png);
+    /**background-image: url(/img/You\ won\,\ you\ lost/FullScreen.png);**/
+    background-image: url(/img/You\ won\,\ you\ lost/simpleFullScreen.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60px;
@@ -82,6 +128,7 @@ canvas{
     left: 0;
     height: 100%;
     width: 100%;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,12 +137,12 @@ canvas{
     background-repeat: no-repeat;
     background-size: cover;
 }
-.startPosition{
+/**.startPosition{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
+}**/
 h1{
     color: rgb(210, 88, 22);
     font-size: 70px;
@@ -112,17 +159,19 @@ button{
     left: 0;
     height: 100%;
     width: 100%;
+    z-index: 1;
     background-color: black;
     display: flex;    
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 .gameOverPosition{
     height: 75%;
     width: 100%;
     background-image: url(/img/You\ won\,\ you\ lost/GameOverA.png);
     background-position: center;
-    background-size: 1100px;
+    background-size: contain;
     background-repeat: no-repeat;
 
 }
@@ -187,6 +236,36 @@ button{
     
 }
 
+.left{
+    background-image: url(/img/You\ won\,\ you\ lost/leftArrow.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40px;
+}
+
+.right{
+    background-image: url(/img/You\ won\,\ you\ lost/rightArrow.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40px;
+}
+
+.up{
+    background-image: url(/img/You\ won\,\ you\ lost/upArrow.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40px;
+
+}
+
+.attack{
+    background-image: url(/img/You\ won\,\ you\ lost/attack.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40px;
+
+}
+
 .img-2{
     height: 250px;
     width: 400px;
@@ -213,11 +292,12 @@ button{
     left: 0;
     height: 100%;
     width: 100%;
+    z-index: 1;
     background-color: black;
     background-image: url(img/You\ won\,\ you\ lost/YouWinA.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 1000px;
+    background-size: contain;
     display: flex;    
     flex-direction: column;
     align-items: flex-end;
@@ -225,11 +305,8 @@ button{
 }
 
 .winBtn{
-    height: 150px;
-    width: 300px;
     margin-bottom: 150px;
-    margin-right: 150px;
-    border-radius: 10px;  
+    margin-right: 150px;  
 }
 
 @media (max-width: 1980px){
@@ -242,6 +319,16 @@ button{
         height: auto;
     }
     .Canvas-Control{
+        width: 100%;
+        top: 0;
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+    .hud{
+        width: 100%;
+        display: block;
+    }
+    .hud-wrapper{
         width: 100%;
     }
     .Game-Manual{

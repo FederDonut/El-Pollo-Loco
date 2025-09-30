@@ -35,30 +35,40 @@
 <body>
     <section class="startScreen" id="startScreen">
         <div class="startPosition">
-            <button class="Start-Game btn" onclick="startGame()">Start Game</button>
+            <button class="Start-Game btn" onclick="startGame()"></button>
         </div>
     </section>
     <section class="gameOverScreen d-none" id="gameOver">
         <div class="gameOverPosition"></div>
-        <button class="Try-Again btn" onclick="tryAgain()">Try again</button>
+        <button class="Try-Again btn" onclick="tryAgain()"></button>
     </section>
     <section class="YouWon d-none" id="YouWon">
-        <button class="btn winBtn" onclick="tryAgainAfterWin()">Try again</button>
+        <button class="btn winBtn" onclick="tryAgainAfterWin()"></button>
     </section>
 
     
     <h1>EL POLLO LOCO</h1>
-    
-    
     <section class="Canvas-Container">
-
         <canvas id="canvas" width="1720" height="780"></canvas>
         <div class="Canvas-Control">
             <div id="fullscreen" class="canvasBtn fullscreen d-none" onclick="fullScreen()"></div>
             <div id="sound-control" class="canvasBtn sound-control-audible d-none" onclick="muteSounds()"></div>
         </div>
+        <div class="hud">
+            <div class="hud-wrapper">
+                <div class="hud-position">
+                    <button id="goLeft" class="mobileBtn left"></button>
+                    <button id="goRight" class="mobileBtn right"></button>
+                </div>
+                <div class="hud-position">
+                    <button id="jump" class="mobileBtn up"></button>
+                    <button id="attack" class="mobileBtn attack"></button>
+                </div>
+            </div>
+        </div>
     </section>
     
+
     <section class="Game-Manual">
         <div class="img-1">
             <div class="Item">
