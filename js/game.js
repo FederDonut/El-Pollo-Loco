@@ -91,7 +91,7 @@ function changeSoundImg(){
 
 
 function fullScreen(){
-    console.log('fullscreen');
+    let screenIcons = document.getElementById('Canvas-Container')
     let h1= document.querySelector('h1');
     let manual = document.getElementById('Game-Manual');
     let CanvasContainer = document.getElementById('CanvasDocker');
@@ -100,6 +100,7 @@ function fullScreen(){
     manual.classList.toggle('d-none');
     canvas.classList.toggle('goingToFullScreen');
     CanvasContainer.classList.toggle('goingToFullScreen');
+    screenIcons.classList.toggle('widthGrow');
 }
 
 

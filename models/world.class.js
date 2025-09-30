@@ -19,7 +19,7 @@ class World {
     gameIsEnding = false;
     character = new Character();
     health_bar = new Statusbar();
-    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1200, 30);
+    enemy_health_bar = new Statusbar(new Statusbar().IMAGES_endboss_bar, 1300, 30);
     coin_bar = new Statusbar(new Statusbar().IMAGE_coin_bar , 0, 80);
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
     audio = new AudioController();
