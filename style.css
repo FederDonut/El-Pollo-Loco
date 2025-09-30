@@ -249,6 +249,40 @@ button{
     }
 }
 
+@media (max-width: 1400px){
+    .Canvas-Control{
+        height: 40px;
+        padding-bottom: 10px;
+    }
+    .canvasBtn{
+        height: 40px;
+        width: 40px;
+    }
+    .sound-control{
+        background-size: 40px;
+    }
+    .fullscreen{
+       background-size: 40px;
+    }
+}
+
+@media (max-width: 700px){
+    .Canvas-Control{
+        height: 30px;
+        padding: 0;
+    }
+    .canvasBtn{
+        height: 30px;
+        width: 30px;
+    }
+    .sound-control{
+        background-size: 25px;
+    }
+    .fullscreen{
+       background-size: 25px;
+    }
+}
+
 @media (max-height: 780px){
     canvas{
         height: 100vh;
