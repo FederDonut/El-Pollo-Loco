@@ -43,6 +43,7 @@ class World {
         this.character.world = this;
         this.level.enemies.forEach((enemy)=> enemy.world = this);
         this.audio.world = this;
+        this.keyboard.world = this;
     }
 
     run(){
@@ -59,12 +60,6 @@ class World {
         //this.stopGame();
         },100))
     }
-
-    //checkAudioArray(){
-    //    console.table(this.audio.soundLib);
-    //    let test = this.audio.soundLib[1];
-    //    test.play();
-    //}
 
     checkPlayerActivity(){
         window.addEventListener('keydown', ()=>{

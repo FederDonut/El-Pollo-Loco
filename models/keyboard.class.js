@@ -6,27 +6,42 @@ class Keyboard {
     down = false;
     attack = false;
     space = false;
+
+    world = null;
     //anyKeyPressed = false;
 
+    startTimers(){
+        this.world.startInteractivTimer();
+        this.world.startSleepTimer();
+    }
+
+   
     mobileButtons(){
+        //this.world.checkPlayerActivity();
+        
     document.getElementById('goLeft').addEventListener('touchstart', (event) =>{
         event.preventDefault()
         this.left = true;
+        //this.startTimers();
         console.log('left')
+        
     });
 
     document.getElementById('goLeft').addEventListener('touchend', (event) =>{
         event.preventDefault();
+        this.startTimers();
         this.left = false;
     });
 
     document.getElementById('goRight').addEventListener('touchstart', (event) =>{
         event.preventDefault()
+       
         this.right = true;
     });
 
     document.getElementById('goRight').addEventListener('touchend', (event) =>{
         event.preventDefault();
+        this.startTimers();
         this.right = false;
     });
 
@@ -37,6 +52,7 @@ class Keyboard {
 
     document.getElementById('jump').addEventListener('touchend', (event) =>{
         event.preventDefault();
+        this.startTimers();
         this.up = false;
     });
 
@@ -47,6 +63,7 @@ class Keyboard {
 
     document.getElementById('attack').addEventListener('touchend', (event) =>{
         event.preventDefault();
+        this.startTimers();
         this.attack = false;
     });
 }

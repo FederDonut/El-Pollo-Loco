@@ -18,6 +18,7 @@ function startGame(){ // check
     let overlayRef = document.getElementById('startScreen');
     overlayRef.classList.toggle('d-none');
     addBtnVisabillity();
+    manageMobileHud();
     init();
 }
 
@@ -25,6 +26,7 @@ function gameIsOver(){ // check
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.remove('d-none');
     removeBtnVisabillity()
+    manageMobileHud();
     
 }
 
@@ -33,6 +35,7 @@ function tryAgain(){
     endScreen.classList.add('d-none');
     init();
     addBtnVisabillity();
+    manageMobileHud();
    
    
 }
@@ -42,12 +45,15 @@ function tryAgainAfterWin(){
     removeBtnVisabillity();
     init();
     addBtnVisabillity();
+    manageMobileHud();
+   
 }
 
 function YouWonTheGame(){
     let endScreen = document.getElementById('YouWon');
     endScreen.classList.remove('d-none');
     removeBtnVisabillity();
+    manageMobileHud();
 }
 
 function muteSounds(){
@@ -103,7 +109,12 @@ function fullScreen(){
     screenIcons.classList.toggle('widthGrow');
 }
 
+function manageMobileHud(){
+    let hud = document.getElementById('hud');
+    hud.classList.toggle('d-none');
+    console.log('Function aufgerufen')
 
+}
 
 window.addEventListener('keydown', (event) => {
     
@@ -161,11 +172,5 @@ window.addEventListener('keyup', (event) =>{
 
 });
 
-//window.addEventListener('keydown', ()=>{
-//    anyKeyPressed = true;
-//});
-//
-//window.addEventListener('keyup', ()=>{
-//    anyKeyPressed = false;
-//});
+
 
