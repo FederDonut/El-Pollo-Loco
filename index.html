@@ -40,7 +40,11 @@
     </section>
     <section class="gameOverScreen d-none" id="gameOver">
         <div class="gameOverPosition"></div>
-        <button class="Try-Again btn" onclick="tryAgain()"></button>
+        <div class="btnWrapper">
+            <button class="Try-Again btn" onclick="tryAgain()"></button>
+            <button class="backToMain btn"></button>
+        </div>
+        
     </section>
     <section class="YouWon d-none" id="YouWon">
         <button class="btn winBtn" onclick="tryAgainAfterWin()"></button>

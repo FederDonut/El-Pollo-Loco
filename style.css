@@ -82,6 +82,15 @@ body{
     width: 200px;
 }
 
+.backToMain{
+    background-image: url(/img/You\ won\,\ you\ lost/home.png);
+    background-position: center;
+    background-size: 100px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
 .btn:hover{
     cursor: pointer;
     background-color: rgb(255, 218, 6);
@@ -182,6 +191,10 @@ button{
     background-size: contain;
     background-repeat: no-repeat;
 
+}
+.btnWrapper{
+    display: flex;
+    gap: 50px;
 }
 
 .Game-Manual{
@@ -378,14 +391,7 @@ button{
         gap: 10px;
         
     }
-    /**.hud{
-        width: 100%;
-        height: 40px;
-        display: block;
-    }
-    .hud-wrapper{
-        width: 100%;
-    }**/
+    
     .Game-Manual{
         width: 100%;
     }
@@ -428,6 +434,9 @@ button{
         height: 80px;
         width: 80px;
         background-size: 70px;
+    }
+    .backToMain{
+        background-size: 50px;
     }
 }
 

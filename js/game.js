@@ -112,8 +112,6 @@ function fullScreen(){
 function manageMobileHud(){
     let hud = document.getElementById('hud');
     hud.classList.toggle('d-none');
-    console.log('Function aufgerufen')
-
 }
 
 window.addEventListener('keydown', (event) => {

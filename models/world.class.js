@@ -57,7 +57,6 @@ class World {
         this.endbossMovement();
         this.checkEndbossDistance();
         this.gameOver();
-        //this.stopGame();
         },100))
     }
 
