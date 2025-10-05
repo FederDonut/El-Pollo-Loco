@@ -311,6 +311,7 @@ class World {
         this.level.clouds = []
         this.level.coins = []
         this.level.bottles = []
+        this.level.backgroundObjects = [];
         this.firePower = []
         this.throable_objects=[];
         this.intervalId = [];

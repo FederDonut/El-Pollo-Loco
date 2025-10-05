@@ -120,6 +120,7 @@ function backToHomeMenu(){
     gameOver.classList.add('d-none');
     homeOverlay.classList.remove('d-none');
     
+    
 }
 
 function toggleManual(){
