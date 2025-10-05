@@ -30,24 +30,15 @@
     <script src="/levels/level1.js"></script>
     <script src="/models/world.class.js"></script>
    
+    <script src="/js/template.js"></script>
     <script src="/js/game.js"></script>
 </head>
 <body>
     <section class="startScreen" id="startScreen">
         <div class="startPosition">
             <button class="Start-Game btn" onclick="startGame()"></button>
-            <div id="manualOverlay" class="manualOverlay d-none">
-                <div class="manualWrapper">
-                    <div class="mobile-Controler">
-                        <h3>Mobile Device</h3>
-                        <div class="description">
-                        </div>
-                    </div>
-                    <div class="pc-Controler">
-                        <h3>PC </h3>
-                        <div class="description"></div>
-                    </div>
-                </div>
+            <div id="manualOverlay" class="manualOverlay d-none" onclick="toggleManual()">
+                <div id="manual-Wrapper" class="manualWrapper" onclick="preventBubbling(event)"></div>
             </div>
         </div>
         <div class="InfoBtnPosition">

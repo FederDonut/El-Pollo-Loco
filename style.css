@@ -219,32 +219,64 @@ canvas{
 
 .manualWrapper{
     height: 200px;
-    width: 800px;
-    background-color: blue;
-    border-radius: 10px;
-    border: 3px solid white;
+    width: 75%;
+    
+    border-radius: 5px;
+    border: 4px solid white;
     display: flex;
 
 }
 
 .mobile-Controler{
     height: 100%;
-    width: 50%;
-    background-color: white;
+    width: 100%;
+    background-image: url(/img/5_background/layers/air.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+
 }
 
-.pc-Controler{
+.controler-head{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 40%;
+    margin-right: 2%;
+}
+
+h3{
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
+.mobile-description{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    gap: 2%;
+}
+
+.movement{
+    width: 25%;
     height: 100%;
-    width: 50%;
-    background-color: red;
-    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.symbols{
-    height: 89%;
-    width: 40%;
-    border: 1px solid black
+.text{
+    font-size: 24px;
+    font-weight: 600;
+
 }
 
 h1{
@@ -284,6 +316,22 @@ button{
     gap: 50px;
 }
 
+.exitBtn{
+   
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #0000003b;
+    color: white;
+    border: 1px solid white;
+    background-image: url(/img/Overlay_assets/close.png);
+    background-position: center;
+
+}
+.exitBtn:hover{
+    cursor: pointer;
+    background-color: white;
+}
 .Game-Manual{
     height: 500px;
     width: 1720px;
@@ -342,6 +390,11 @@ button{
     align-items: center;
    
     
+}
+
+.space{
+    width: 40px;
+    height: 40px;
 }
 
 .left{

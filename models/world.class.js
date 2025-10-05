@@ -188,18 +188,15 @@ class World {
     
     missileExplosion(bottle){   
         bottle.damage();
-        //Explosion
         this.addExplosion(bottle.x, bottle.y);
-          
     }
 
     endbossDamage(enemy){
-        if(enemy === this.endboss){// //this.level.enemies[3]
+        if(enemy === this.endboss){
             enemy.damage();
             this.enemy_health_bar.setPercentage(enemy.energy);
         }else{
-            enemy.damage();
-            // funktioniert aber explosions-animation muss noch angepasst werden. 
+            enemy.damage(); 
         }
     }
    
@@ -286,8 +283,7 @@ class World {
         }
         if(this.character.energy === 0){
             this.gameIsEnding = true;
-            this.endboss.speed = 0;
-            //this.stopGame();        
+            this.endboss.speed = 0;        
             setTimeout(()=>{
                 this.stopGame();
                 gameIsOver();
@@ -296,7 +292,6 @@ class World {
         if(this.endboss.energy===0){
             this.gameIsEnding = true;
             this.character.speed = 0;
-            //this.stopGame();
             setTimeout(()=>{
                this.stopGame();
                 YouWonTheGame();
@@ -334,9 +329,7 @@ class World {
         this.level.coins.forEach((coin)=>{
             coin.stopIntervals();
         })
-    
     }
-    
 
     muteAllSounds(){
         this.audio.muteAllWorldSounds();

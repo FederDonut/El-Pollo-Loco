@@ -124,7 +124,13 @@ function backToHomeMenu(){
 
 function toggleManual(){
     let manual = document.getElementById('manualOverlay');
+    let content = document.getElementById('manual-Wrapper');
     manual.classList.toggle('d-none');
+    content.innerHTML = renderMobileManualTemplate();
+}
+
+function preventBubbling (event){
+    event.stopPropagation();   
 }
 
 window.addEventListener('keydown', (event) => {
