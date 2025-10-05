@@ -39,19 +39,17 @@
         </div>
         <div class="InfoBtnPosition">
             <a class ="InfoBtn impressumBtn" href="impressum.html">Impressum</a>
-            <!--<button class="InfoBtn impressumBtn" ><a href="impressum.html"></a>Impressum</button>-->
-            <!--<button class="InfoBtn manualBtn" >?</button>-->
-        </div>
-         
+        </div>   
     </section>
+
     <section class="gameOverScreen d-none" id="gameOver">
         <div class="gameOverPosition"></div>
         <div class="btnWrapper">
             <button class="Try-Again btn" onclick="tryAgain()"></button>
-            <button class="backToMain btn"></button>
+            <button  id="homeBtn" class="backToMain btn" onclick="backToHomeMenu()"></button>
         </div>
-        
     </section>
+
     <section class="YouWon d-none" id="YouWon">
         <button class="btn winBtn" onclick="tryAgainAfterWin()"></button>
     </section>
