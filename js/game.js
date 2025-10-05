@@ -114,6 +114,19 @@ function manageMobileHud(){
     hud.classList.toggle('d-none');
 }
 
+function backToHomeMenu(){
+    let gameOver = document.getElementById('gameOver');
+    let homeOverlay = document.getElementById('startScreen');
+    gameOver.classList.add('d-none');
+    homeOverlay.classList.remove('d-none');
+    
+}
+
+function toggleManual(){
+    let manual = document.getElementById('manualOverlay');
+    manual.classList.toggle('d-none');
+}
+
 window.addEventListener('keydown', (event) => {
     
     if (event.key == "ArrowRight"){

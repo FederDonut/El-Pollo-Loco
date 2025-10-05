@@ -83,10 +83,8 @@ class World {
     startInteractivTimer(){
         this.inactivityTimer = setTimeout(()=>{
             if(!this.anyKeyPressed){
-                //console.log('chill Modus aktiv');
                 this.chillMode = true;
                 this.sleepMode = false; 
-                //console.log(this.chillMode);
             }
         },100);
     
@@ -127,7 +125,6 @@ class World {
                 this.audio.stopEnemyDamageSound();
                 this.checkPlayerActivity();
             }else if(this.character.isColliding(enemy)){
-                //console.log('normaler Schaden für den character')
                 this.character.damage();
                 this.resetTimers();
                 this.health_bar.setPercentage(this.character.energy);
@@ -146,7 +143,6 @@ class World {
                     targetBottle.splice(i,1)
                     this.bottle_counter ++;
                     this.bottle_bar.setCollection(this.bottle_counter);
-                    //console.log(targetBottle, this.bottle_counter);
                 }
             }
         })
@@ -192,7 +188,6 @@ class World {
     
     missileExplosion(bottle){   
         bottle.damage();
-        //console.log(bottle.x , bottle.y);
         //Explosion
         this.addExplosion(bottle.x, bottle.y);
           
@@ -200,9 +195,7 @@ class World {
 
     endbossDamage(enemy){
         if(enemy === this.endboss){// //this.level.enemies[3]
-            console.log(true);
             enemy.damage();
-            console.log(enemy.energy);
             this.enemy_health_bar.setPercentage(enemy.energy);
         }else{
             enemy.damage();
@@ -232,22 +225,15 @@ class World {
 
     draw(){
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
-        
         this.ctx.translate(this.camera_x , 0); // transalte verschiebt die camera
-        // Y Achse muss angegeben werden, da dies sonst zu Fehlern führt. 
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
-
         this.ctx.translate(-this.camera_x , 0);
-        // Space for fixed Objects
         this.addToMap(this.health_bar);
         this.addToMap(this.coin_bar);
         this.addToMap(this.bottle_bar);
         this.ctx.translate(this.camera_x , 0);
-        //this.addObjectsToMap(this.detonation, 0);
-        //this.endboss.x +100
-        //statusbar 
         if(this.isObjectVisible){
             this.ctx.translate(-this.camera_x , 0);
             this.addToMap(this.enemy_health_bar);
@@ -259,7 +245,6 @@ class World {
         this.addObjectsToMap(this.throable_objects);
         this.addObjectsToMap(this.firePower);
         this.ctx.translate(-this.camera_x , 0);
-        // Draw() wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(function(){
             self.draw()
@@ -304,7 +289,6 @@ class World {
             this.endboss.speed = 0;
             //this.stopGame();        
             setTimeout(()=>{
-                console.log('test')
                 this.stopGame();
                 gameIsOver();
             },7000);

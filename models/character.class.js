@@ -97,7 +97,6 @@ class Character extends MovableObject{
             }
             if(this.world.keyboard.up && !this.isAboveGround()&& !this.isDead()){
                 this.world.audio.characterJumpSound();
-                //console.log('JUMPP') //<-- hier weitermachen 
                 this.world.audio.jumping = false;
                 this.jump();
                 this.world.resetTimers();

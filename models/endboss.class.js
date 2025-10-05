@@ -124,7 +124,6 @@ class Endboss extends MovableObject{
             return;
         }else{
             if(this.isAlert){
-                //console.log(1)
                 this.isAlert = false;
                 this.isWalking = true; // beginnt zu laufen 
                 setTimeout(() => this.bossMovement(),2000);

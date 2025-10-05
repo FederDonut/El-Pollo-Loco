@@ -22,9 +22,6 @@ class Keyboard {
     document.getElementById('goLeft').addEventListener('touchstart', (event) =>{
         event.preventDefault()
         this.left = true;
-        //this.startTimers();
-        console.log('left')
-        
     });
 
     document.getElementById('goLeft').addEventListener('touchend', (event) =>{

@@ -26,14 +26,11 @@ class MovableObject extends DrawableObject{
         const collision = this.isColliding(mo);
         const isFalling = this.speedY < 0;
         const yPosition = lastPositionY+this.height
-        //const comingFromAbove = lastPositionY + this.height < mo.y
         const comingFromAbove = lastPositionY < 401;
-        //console.log(lastPositionY , this.height);
-        //console.log( lastPositionY+this.height);
-      if(comingFromAbove&& isFalling && collision){
-        console.log(true)
-      }
-        
+      
+      //if(comingFromAbove&& isFalling && collision){
+      //}
+      //  
        return collision &&  comingFromAbove && isFalling;
         
     }
