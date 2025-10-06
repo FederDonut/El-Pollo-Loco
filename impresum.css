@@ -2,6 +2,14 @@
     margin: 0;
     box-sizing: border-box;
     font-size: 16px;
+    font-family: 'Comic Relief';
+}
+
+@font-face {
+    font-family: 'Comic Relief';
+    font-weight: 400;
+    font-style: normal;
+    src: url(/fonts/ComicRelief-Regular.ttf);
 }
 
 body{
@@ -78,6 +86,10 @@ h1{
 }
 .sub-content{
     color: white;
+}
+
+.wrapper::-webkit-scrollbar {
+    display: none; 
 }
 
 @media (max-width: 1529px){

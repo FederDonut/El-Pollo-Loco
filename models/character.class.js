@@ -1,3 +1,9 @@
+/**
+ * @extends MovableObject
+ * @class
+ * Represents the main player character in the game, handling all player-specific logic, 
+ * movement, animations, and sound interactions.
+ */
 class Character extends MovableObject{
 
     height = 300
@@ -73,7 +79,10 @@ class Character extends MovableObject{
     
     world;
    
-    
+    /**
+    * Creates an instance of Character.
+    * Loads all necessary images, applies gravity, and starts the animation loops.
+    */
     constructor(){
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_walking);
@@ -86,6 +95,9 @@ class Character extends MovableObject{
         this.animate();
     }
 
+    /**
+    * Sets up the main game loops for movement (60 FPS) and animation/sound (10 FPS).
+    */
     animate(){
 
         this.intervalId.push(setInterval(() =>{
@@ -143,22 +155,34 @@ class Character extends MovableObject{
         },100));  
     }
 
+    /**
+    * Initiates the 'Game Over' sequence after a short delay for the death animation to play out.
+    */
     loseGame(){
         setTimeout(()=>{this.world.gameOver()},7500);
     }
 
+    /**
+    * Moves the character left, sets the direction flag, and resets inactivity timers.
+    */
     goLeft(){
         this.moveLeft();
         this.otherDirection = true;
         this.world.resetTimers();
     }
 
+    /**
+    * Moves the character right, sets the direction flag, and resets inactivity timers.
+    */
     goRight(){
         this.moveRight();
         this.otherDirection = false;
         this.world.resetTimers();
     }
 
+    /**
+    * Plays the running sound if the character is moving left/right and is on the ground.
+    */
     movementSounds(){
         if(!this.isAboveGround() && this.world.keyboard.left || this.world.keyboard.right && !this.isAboveGround()){
             this.world.audio.characterRunSound();
@@ -166,6 +190,9 @@ class Character extends MovableObject{
         }   
     };
 
+    /**
+    * Starts an interval to play the inactive animation when in chill mode (currently redundant due to main animation loop).
+    */
     chill(){
         this.chillInterval = setInterval(() =>{
             if(this.world.chillMode){
@@ -174,6 +201,9 @@ class Character extends MovableObject{
         },2000)
     }
 
+    /**
+    * Wakes the character up: clears inactivity timers and flags, and restarts activity checking.
+    */
     wakeUp(){
         clearTimeout(this.world.inactivityTimer);
         clearTimeout(this.sleepTimer);
@@ -183,8 +213,13 @@ class Character extends MovableObject{
         
     };
     
+     
+    /**
+    * Clears all character-specific intervals stored in intervalId.
+    */
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});
         this.intervalId = [];
     }
 }
+

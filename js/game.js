@@ -3,6 +3,10 @@ let world;
 let keyboard = new Keyboard();
 let isMuted = false;
 
+/**
+ * Initializes the canvas and the game level. 
+ * Stops any previously running game if necessary.
+ */
 function init(){
     canvas = document.getElementById('canvas');
     if(world){
@@ -14,6 +18,9 @@ function init(){
     keyboard.mobileButtons();
 }
 
+/**
+ * Starts the game: hides the start screen, shows control buttons, and initializes the game.
+ */
 function startGame(){ // check
     let overlayRef = document.getElementById('startScreen');
     overlayRef.classList.toggle('d-none');
@@ -22,6 +29,9 @@ function startGame(){ // check
     init();
 }
 
+/**
+ * Displays the 'Game Over' screen and hides game control buttons.
+ */
 function gameIsOver(){ // check
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.remove('d-none');
@@ -30,6 +40,9 @@ function gameIsOver(){ // check
     
 }
 
+/**
+ * Resets the game after a loss: hides the 'Game Over' screen and re-initializes the game.
+ */
 function tryAgain(){
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.add('d-none');
@@ -39,6 +52,9 @@ function tryAgain(){
    
    
 }
+/**
+ * Resets the game after a win: toggles the 'You Won' screen and re-initializes the game.
+ */
 function tryAgainAfterWin(){
     let endScreen = document.getElementById('YouWon');
     endScreen.classList.toggle('d-none');
@@ -49,6 +65,9 @@ function tryAgainAfterWin(){
    
 }
 
+/**
+ * Displays the 'You Won The Game' screen and hides game control buttons.
+ */
 function YouWonTheGame(){
     let endScreen = document.getElementById('YouWon');
     endScreen.classList.remove('d-none');
@@ -56,6 +75,9 @@ function YouWonTheGame(){
     manageMobileHud();
 }
 
+/**
+ * Toggles sound on/off globally and changes the sound icon.
+ */
 function muteSounds(){
     if(!isMuted){
         world.muteAllSounds();
@@ -69,6 +91,9 @@ function muteSounds(){
     
 }
 
+/**
+ * Hides the sound control and fullscreen buttons.
+ */
 function removeBtnVisabillity(){
     let soundBtn = document.getElementById('sound-control');
     let displayBtn = document.getElementById('fullscreen');
@@ -76,6 +101,9 @@ function removeBtnVisabillity(){
     displayBtn.classList.add('d-none');
 }
 
+/**
+ * Shows the sound control and fullscreen buttons.
+ */
 function addBtnVisabillity(){
     let soundBtn = document.getElementById('sound-control');
     let displayBtn = document.getElementById('fullscreen');
@@ -83,6 +111,9 @@ function addBtnVisabillity(){
     displayBtn.classList.remove('d-none');
 }
 
+/**
+ * Changes the sound icon based on the current mute status.
+ */
 function changeSoundImg(){
     let soundBtn = document.getElementById('sound-control');
     if(!isMuted){
@@ -95,7 +126,10 @@ function changeSoundImg(){
 }
 
 
-
+/**
+ * Toggles fullscreen mode for the canvas and its containers.
+ * Hides the header and manual link.
+ */
 function fullScreen(){
     let screenIcons = document.getElementById('Canvas-Container')
     let h1= document.querySelector('h1');
@@ -109,20 +143,31 @@ function fullScreen(){
     screenIcons.classList.toggle('widthGrow');
 }
 
+/**
+ * Toggles the visibility of the mobile HUD (control elements).
+ */
 function manageMobileHud(){
     let hud = document.getElementById('hud');
     hud.classList.toggle('d-none');
 }
 
+/**
+ * Returns to the main menu: hides game over/win screens and displays the start screen.
+ */
 function backToHomeMenu(){
     let gameOver = document.getElementById('gameOver');
+    let youWon = document.getElementById('YouWon')
     let homeOverlay = document.getElementById('startScreen');
+    youWon.classList.add('d-none');
     gameOver.classList.add('d-none');
     homeOverlay.classList.remove('d-none');
     
     
 }
 
+/**
+ * Toggles the game manual overlay and renders its mobile content.
+ */
 function toggleManual(){
     let manual = document.getElementById('manualOverlay');
     let content = document.getElementById('manual-Wrapper');
@@ -130,6 +175,10 @@ function toggleManual(){
     content.innerHTML = renderMobileManualTemplate();
 }
 
+/**
+ * Prevents event bubbling (propagation) for the given event.
+ * @param {Event} event - The triggered event.
+ */
 function preventBubbling (event){
     event.stopPropagation();   
 }

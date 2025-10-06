@@ -1,3 +1,9 @@
+/**
+ * @extends MovableObject
+ * @class
+ * Represents a standard chicken enemy. It moves across the ground, 
+ * features walking and death animations, and poses a basic threat to the player.
+ */
 class Chicken extends MovableObject{
 
     height = 100;
@@ -16,6 +22,11 @@ class Chicken extends MovableObject{
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ]
 
+    /**
+    * Creates an instance of Chicken.
+    * Loads images, sets a random starting X position, assigns initial health (10), 
+    * and sets a randomized movement speed.
+    */
     constructor(){
         super().loadImage(this.IMAGES_walking[0]);
         this.loadImages(this.IMAGES_walking);
@@ -27,6 +38,9 @@ class Chicken extends MovableObject{
         
     }
 
+    /**
+    * Sets up the movement and animation loops for the chicken.
+    */
     animate(){
         this.intervalId.push(setInterval(() =>{
             this.moveLeft();
@@ -47,6 +61,9 @@ class Chicken extends MovableObject{
         },100));
     }
     
+    /**
+    * Clears all intervals associated with this chicken, stopping movement and animations.
+    */
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});
         this.intervalId = [];

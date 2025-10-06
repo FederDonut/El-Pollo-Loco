@@ -1,3 +1,9 @@
+/**
+ * @extends MovableObject
+ * @class
+ * Represents the final boss enemy, a large chicken. It features complex logic 
+ * for detection, alert, walking, attacking, and sound control.
+ */
 class Endboss extends MovableObject{
 
     height = 800;
@@ -56,6 +62,10 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    /**
+    * Creates an instance of Endboss.
+    * Loads all animation images, sets the initial X position, and starts the core loops.
+    */
     constructor(){
         super().loadImage(this.IMAGES_walking[0]);
         this.loadImages(this.IMAGES_walking);
@@ -70,7 +80,9 @@ class Endboss extends MovableObject{
     }
 
   
-
+    /**
+     * Controls the boss's animation based on its current state (Hurt, Dead, Alert, Walking, Attacking).
+    */
     animate(){
         this.intervalId.push(setInterval(() =>{
             if(this.isHurt()){
@@ -102,6 +114,9 @@ class Endboss extends MovableObject{
         },200));
     }
 
+    /**
+    * Controls the boss's theme music based on the player's proximity (`distanceX`).
+    */
     playEndbossSounds(){
         this.intervalId.push(setInterval(()=>{
             if(this.distanceX && !this.isHurt()&& !this.isDead()){
@@ -113,6 +128,9 @@ class Endboss extends MovableObject{
         },200))
     }  
 
+    /**
+    * Manages the boss's movement pattern (Alert <-> Walk) using time-delayed state changes.
+    */
     bossMovement(){
         if(this.isAttacking){
             setTimeout(()=> this.bossMovement(),this.IMAGES_attack.length);
@@ -135,7 +153,10 @@ class Endboss extends MovableObject{
         }
               
     }
-
+    /**
+    * Triggers the attack animation and movement for a short duration.
+    * Resets the state back to alert after the attack is complete.
+    */
     bossAttackMovement(){
         if(!this.isAttacking && !this.isDead()){
             this.isAttacking = true;
@@ -148,6 +169,9 @@ class Endboss extends MovableObject{
         }
     }
     
+    /**
+     * Clears all intervals associated with the Endboss, stopping all its processes.
+    */
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});
         this.intervalId = [];

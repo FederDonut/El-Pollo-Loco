@@ -1,11 +1,13 @@
+/**
+ * @extends DrawableObject
+ * @class
+ * Represents a graphical status bar used to display health percentage or collected item counts.
+ */
 class Statusbar extends DrawableObject{
 
     height = 100
     width = 300
     
-    
-    
-
     // Precentage
     IMAGES_health_bar = [
                     'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
@@ -46,6 +48,13 @@ class Statusbar extends DrawableObject{
     percentatge = 100;
     collection = 0;
 
+    /**
+    * Creates an instance of Statusbar.
+    * Loads the specific set of images and initializes the bar's position and value.
+    * @param {string[]|null} images - The array of image paths specific to this status bar (Health, Coin, Bottle, Boss).
+    * @param {number} [x=50] - The starting X-coordinate.
+    * @param {number} [y=20] - The starting Y-coordinate.
+    */
     constructor(images = null, x, y){
         super();
         this.images = images || this.IMAGES_health_bar
@@ -62,6 +71,10 @@ class Statusbar extends DrawableObject{
         }
     }
 
+    /**
+    * Updates the status bar's image based on a percentage value (used for Health/Energy bars).
+    * @param {number} percentatge - The new percentage value (0-100).
+    */
     setPercentage(percentatge){
         this.percentatge = percentatge;
         let path = this.images[this.resolveImageIndex()];
@@ -69,16 +82,21 @@ class Statusbar extends DrawableObject{
         
     }
 
+    /**
+    * Updates the status bar's image based on a collection count (used for Coin/Bottle bars).
+    * @param {number} collection - The new count of collected items (0-10).
+    */
     setCollection(collection){
         this.collection =collection;
         let path = this.images[this.itemCollection()];
         this.img = this.imageCache[path];
     }
 
-    
-
-    
-
+    /**
+    * Determines the correct index for the collection bar image based on the item count.
+    * Assumes a scale where 10 items = 100% (index 5).
+    * @returns {number} The index (0-5) corresponding to the collection count.
+    */
     itemCollection(){
         if(this.collection === 10){
             return 5;
@@ -100,6 +118,11 @@ class Statusbar extends DrawableObject{
         }
     }
 
+    /**
+    * Determines the correct index for the percentage bar image based on the percentage value.
+    * Maps percentage ranges to indices 0-5.
+    * @returns {number} The index (0-5) corresponding to the current percentage.
+    */
     resolveImageIndex(){
         if(this.percentatge === 100){
             return 0;

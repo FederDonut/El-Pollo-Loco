@@ -1,21 +1,41 @@
+/**
+ * @class
+ * Manages the state of all input controls (keys and mobile buttons) for the game.
+ */
 class Keyboard {
 
+    /** @type {boolean} State of the 'Left' control (e.g., ArrowLeft). */
     left = false;
+    /** @type {boolean} State of the 'Right' control (e.g., ArrowRight). */
     right = false;
+    /** @type {boolean} State of the 'Up' control (e.g., ArrowUp / Jump). */
     up = false;
+    /** @type {boolean} State of the 'Down' control (e.g., ArrowDown). */
     down = false;
+    /** @type {boolean} State of the 'Attack' control (e.g., 'D' key). */
     attack = false;
+    /** @type {boolean} State of the 'Space' control (e.g., Spacebar). */
     space = false;
 
+    /** @type {World|null} Reference to the game world instance for timer control. */
     world = null;
     //anyKeyPressed = false;
 
+    /**
+     * Starts the interactive and sleep timers in the associated game world.
+     * Used after an input action is completed (touchend).
+     */
     startTimers(){
         this.world.startInteractivTimer();
         this.world.startSleepTimer();
     }
 
    
+    /**
+     * Attaches touch event listeners to mobile control buttons (HUD).
+     * The listeners set the corresponding control state to true on 'touchstart'
+     * and false, along with starting the game timers, on 'touchend'.
+     */
     mobileButtons(){
         //this.world.checkPlayerActivity();
         

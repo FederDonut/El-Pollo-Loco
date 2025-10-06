@@ -1,3 +1,9 @@
+/**
+ * @extends MovableObject
+ * @class
+ * Represents a small chicken enemy. It moves horizontally, has basic walking and 
+ * death animations, and is characterized by a low energy level.
+ */
 class Chick extends MovableObject{
 
     height = 100;
@@ -20,6 +26,10 @@ class Chick extends MovableObject{
         'audio/strongpunch.mp3'
     ];
 
+    /**
+    * Creates an instance of Chick.
+    * Loads images, sets a random starting X position, and assigns initial properties.
+    */
     constructor(){
         super().loadImage(this.IMAGES_walking[0]);
         this.loadImages(this.IMAGES_walking);
@@ -30,6 +40,9 @@ class Chick extends MovableObject{
         this.animate();
     }
 
+    /**
+    * Sets up the movement and animation loops.
+    */
     animate(){
         this.intervalId.push(setInterval(()=>{
             this.moveLeft();
@@ -46,11 +59,10 @@ class Chick extends MovableObject{
             },100));
     }
 
-    //gotDamage(){
-    //    this.damageSound = new Audio(this.CHICK_sound[0]);
-    //    this.damageSound.play();
-    //}
-
+   
+    /**
+    * Clears all intervals associated with this chick, stopping movement and animations.
+    */
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});
         this.intervalId = [];
