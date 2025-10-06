@@ -1,3 +1,8 @@
+/**
+ * @class
+ * Represents the main game world, managing all objects, game logic, collisions, 
+ * rendering, and state (like timers and game flow).
+ */
 class World {
 
     inactivityTimer;
@@ -24,7 +29,13 @@ class World {
     bottle_bar = new Statusbar(new Statusbar().IMAGE_bottle_bar ,0, 150 )
     audio = new AudioController();
      
-
+     /**
+     * Creates an instance of World.
+     * Initializes the canvas, context, controls, level, and starts the game loops.
+     * @param {HTMLCanvasElement} canvas - The canvas element for drawing.
+     * @param {Keyboard} keyboard - The keyboard/input manager.
+     * @param {Level} level - The level data object.
+     */
     constructor(canvas, keyboard,level){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -39,6 +50,10 @@ class World {
         this.run();  
     }
 
+    /**
+     * Assigns the 'world' reference to all essential game components 
+     * (Character, Enemies, Audio, Keyboard).
+     */
     setWorld(){
         this.character.world = this;
         this.level.enemies.forEach((enemy)=> enemy.world = this);
@@ -46,6 +61,9 @@ class World {
         this.keyboard.world = this;
     }
 
+    /**
+    * Starts the main game loop (10 FPS) for checking game logic.
+    */
     run(){
         this.intervalId.push(setInterval(()=>{
         this.character.lastPositionY = this.character.y;
@@ -60,6 +78,10 @@ class World {
         },100))
     }
 
+
+    /**
+    * Sets up event listeners for key presses to monitor player activity.
+    */
     checkPlayerActivity(){
         window.addEventListener('keydown', ()=>{
             this.anyKeyPressed = true;
@@ -73,6 +95,9 @@ class World {
         });
     }
 
+    /**
+    * Clears existing inactivity timers and resets the idle flags.
+    */
     resetTimers(){
         clearTimeout(this.inactivityTimer);
         clearTimeout(this.sleepTimer);
@@ -80,6 +105,9 @@ class World {
         this.sleepMode = false;
     }
 
+    /**
+    * Starts the timer for short inactivity, leading to "chill" mode.
+    */
     startInteractivTimer(){
         this.inactivityTimer = setTimeout(()=>{
             if(!this.anyKeyPressed){
@@ -90,6 +118,9 @@ class World {
     
     }
 
+    /**
+    * Starts the timer for long inactivity, leading to "sleep" mode.
+    */
     startSleepTimer(){
         this.sleepTimer = setTimeout(()=>{
             if(!this.anyKeyPressed){
@@ -99,6 +130,9 @@ class World {
         },10000)
     }
 
+    /**
+    * Checks if the attack button is pressed and throws a missile if bottles are available.
+    */
     checkThrowObjects(){
         if(this.keyboard.attack&& this.bottle_counter !== 0){
             this.audio.playLaserShotSound();
@@ -110,11 +144,19 @@ class World {
         }
     }
 
+    /**
+     * Creates and adds an explosion object to the game world.
+     * @param {number} x - X-coordinate of the explosion.
+     * @param {number} y - Y-coordinate of the explosion.
+     */
     addExplosion(x,y){
         let explosion = new Explosion(x,y);
         this.firePower.push(explosion)
     }
     
+    /**
+    * Checks for collisions between the character and enemies.
+    */
     checkCollisions(){
         this.level.enemies.forEach((enemy) =>{
             if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
@@ -132,6 +174,9 @@ class World {
         })
     }
     
+    /**
+    * Checks for collisions between the character and collectible bottles.
+    */
     checkCollectibleBottle(){
         this.level.bottles.forEach((bottle, i) =>{
             if(this.character.isColliding(bottle)){
@@ -148,6 +193,9 @@ class World {
         })
     }
 
+    /**
+    * Checks for collisions between the character and collectible coins.
+    */
     checkCoinCollision(){
         this.level.coins.forEach((coin,i) =>{
             if(this.character.isColliding(coin)){
@@ -164,6 +212,9 @@ class World {
         })    
     }
 
+    /**
+    * Checks for collisions between thrown missiles and enemies.
+    */
     checkMissileCollision(){
         this.throable_objects.forEach((bottle) =>{
             this.level.enemies.forEach((enemy) =>{
@@ -186,11 +237,19 @@ class World {
         this.firePower = this.firePower.filter(explosion => !explosion.removeExplosion);
     }
     
+    /**
+    * Handles the visual and logical effect of a missile detonation.
+    * @param {Missile} bottle - The missile object that detonated.
+    */
     missileExplosion(bottle){   
         bottle.damage();
         this.addExplosion(bottle.x, bottle.y);
     }
 
+    /**
+    * Applies damage to the endboss and updates its health bar.
+    * @param {MovableObject} enemy - The enemy object that was hit.
+    */
     endbossDamage(enemy){
         if(enemy === this.endboss){
             enemy.damage();
@@ -200,6 +259,9 @@ class World {
         }
     }
    
+    /**
+    * Triggers the endboss's behavior when the character reaches a certain X position.
+    */
     endbossMovement(){
         if(this.endboss && this.character.x >= 7300 && !this.endboss.isdetectionX){
             this.endboss.detectionX = true;
@@ -207,6 +269,9 @@ class World {
         }
     }
    
+    /**
+    * Checks the distance to the endboss to trigger attack patterns and boss music.
+    */
     checkEndbossDistance(){
         let distance = Math.abs((this.character.x + this.character.width)-this.endboss.x);
         if(distance <= 200 && !this.endboss.isAttacking){
@@ -220,6 +285,10 @@ class World {
         }
     }
 
+    /**
+    * The main rendering function. Clears the canvas, draws all objects (handling camera/parallax), 
+    * and uses `requestAnimationFrame` for continuous drawing.
+    */
     draw(){
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x , 0); // transalte verschiebt die camera
@@ -248,6 +317,10 @@ class World {
         });
     }
 
+    /**
+    * Helper function to draw an array of objects.
+    * @param {DrawableObject[]} objects - An array of objects to draw.
+    */
     addObjectsToMap(objects){
         objects.forEach(o => {
             this.addToMap(o);
@@ -259,12 +332,16 @@ class World {
             this.flipImgae(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        //mo.drawFrame(this.ctx);
         if(mo.otherDirection){
             this.flipImgaeBack(mo);    
         }
     }
 
+    /**
+    * Flips the canvas context horizontally for drawing mirrored images.
+    * @param {MovableObject} mo - The object being flipped.
+    */
     flipImgae(mo){
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -272,11 +349,18 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Restores the canvas context to its original state after drawing a flipped image.
+     * @param {MovableObject} mo - The object that was flipped.
+     */
     flipImgaeBack(mo){
         mo.x = mo.x * -1
         this.ctx.restore();
     }
 
+    /**
+    * Checks the win/loss conditions and initiates the game over/you won sequence.
+    */
     gameOver(){
         if(this.gameIsEnding){
             return
@@ -299,13 +383,18 @@ class World {
         }        
     }
     
-    
+    /**
+     * Halts all game activity: stops intervals, clears arrays, and stops sounds.
+     */
     stopGame(){    
         this.stopIntervals();
         this.clearArrays();
         this.audio.stopAllSounds();       
     }
 
+    /**
+    * Halts all game activity: stops intervals, clears arrays, and stops sounds.
+    */
     clearArrays(){
         this.level.enemies = []
         this.level.clouds = []
@@ -318,6 +407,9 @@ class World {
         this.audio.soundLib = [];
     }
 
+     /**
+    * Stops all running intervals for the world, character, and all objects in the level.
+    */
     stopIntervals(){
         this.intervalId.forEach(interval => {clearInterval(interval)});
         this.character.stopIntervals();
@@ -332,9 +424,16 @@ class World {
         })
     }
 
+    /**
+    * Mutes all managed game sounds.
+    */
     muteAllSounds(){
         this.audio.muteAllWorldSounds();
     }
+
+    /**
+    * Restores sound volume for all managed game sounds.
+    */
     audibleAllSounds(){
         this.audio.audibleAllWorldSounds();
     }

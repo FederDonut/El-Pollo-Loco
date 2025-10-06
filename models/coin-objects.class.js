@@ -34,7 +34,7 @@ class Coin extends MovableObject{
         // Sets a random horizontal position.
         this.x = 500 + Math.random()*7000;
         // Sets a random vertical position (slight variation in height).
-        this.y = 250 - Math.random()*100;
+        this.y = 450 - Math.random()*100;
         this.animate();
     }
 
