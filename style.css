@@ -26,7 +26,7 @@
     font-family: 'Comic Relief';
     font-weight: 400;
     font-style: normal;
-    src: url(/fonts/ComicRelief-Regular.ttf);
+    src: url(./fonts/ComicRelief-Regular.ttf);
 }
 body{
     display: flex;
@@ -102,7 +102,7 @@ body{
 
 
 .btn{
-    background-image: url(/img/You\ won\,\ you\ lost/Play.png);
+    background-image: url(./img/You\ won\,\ you\ lost/Play.png);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -112,7 +112,7 @@ body{
 }
 
 .backToMain{
-    background-image: url(/img/You\ won\,\ you\ lost/home.png);
+    background-image: url(./img/You\ won\,\ you\ lost/home.png);
     background-position: center;
     background-size: 100px;
     background-repeat: no-repeat;
@@ -137,7 +137,7 @@ body{
 }
 
 .fullscreen{
-    background-image: url(/img/You\ won\,\ you\ lost/simpleFullScreen.png);
+    background-image: url(./img/You\ won\,\ you\ lost/simpleFullScreen.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60px;
@@ -148,14 +148,14 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60px;
-    background-image: url(/img/You\ won\,\ you\ lost/sound_muted.png);
+    background-image: url(./img/You\ won\,\ you\ lost/sound_muted.png);
 }
 
 .sound-control-audible{
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60px;
-    background-image: url(/img/You\ won\,\ you\ lost/sound_audible.png);
+    background-image: url(./img/You\ won\,\ you\ lost/sound_audible.png);
 }
 
 canvas{
@@ -180,7 +180,7 @@ canvas{
     justify-content: center;
     align-items: center;
     background-color: black;
-    background-image: url(img/9_intro_outro_screens/start/startscreen_1.png);
+    background-image: url(.img/9_intro_outro_screens/start/startscreen_1.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -270,7 +270,7 @@ canvas{
 .mobile-Controler{
     height: 100%;
     width: 100%;
-    background-image: url(/img/5_background/layers/air.png);
+    background-image: url(./img/5_background/layers/air.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -345,7 +345,7 @@ button{
 .gameOverPosition{
     height: 75%;
     width: 100%;
-    background-image: url(/img/You\ won\,\ you\ lost/GameOverA.png);
+    background-image: url(./img/You\ won\,\ you\ lost/GameOverA.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -364,7 +364,7 @@ button{
     background-color: #0000003b;
     color: white;
     border: 1px solid white;
-    background-image: url(/img/Overlay_assets/close.png);
+    background-image: url(./img/Overlay_assets/close.png);
     background-position: center;
 
 }
@@ -407,7 +407,7 @@ button{
    
 }
 .coin-img{
-    background-image: url(/img/8_coin/coin_1.png);
+    background-image: url(./img/8_coin/coin_1.png);
     background-size: 200px;
     background-repeat: no-repeat;
     background-position: center;
@@ -415,7 +415,7 @@ button{
 
 }
 .bottle-img{
-    background-image: url(/img/6_salsa_bottle/salsa_bottle.png);
+    background-image: url(./img/6_salsa_bottle/salsa_bottle.png);
     background-repeat: no-repeat;
     background-size: 100px;
     background-position: center;
@@ -438,21 +438,21 @@ button{
 }
 
 .left{
-    background-image: url(/img/You\ won\,\ you\ lost/leftArrow.png);
+    background-image: url(./img/You\ won\,\ you\ lost/leftArrow.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 40px;
 }
 
 .right{
-    background-image: url(/img/You\ won\,\ you\ lost/rightArrow.png);
+    background-image: url(./img/You\ won\,\ you\ lost/rightArrow.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 40px;
 }
 
 .up{
-    background-image: url(/img/You\ won\,\ you\ lost/upArrow.png);
+    background-image: url(./img/You\ won\,\ you\ lost/upArrow.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 40px;
@@ -460,7 +460,7 @@ button{
 }
 
 .attack{
-    background-image: url(/img/You\ won\,\ you\ lost/attack.png);
+    background-image: url(./img/You\ won\,\ you\ lost/attack.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 40px;
@@ -471,7 +471,7 @@ button{
     height: 250px;
     width: 400px;
     background-color: red;
-    background-image: url(/img/You\ won\,\ you\ lost/Tastatur.png);
+    background-image: url(./img/You\ won\,\ you\ lost/Tastatur.png);
     background-position: center;
     background-size: cover;
 }
@@ -480,7 +480,7 @@ button{
     height: 250px;
     width: 400px;
     background-color: rgb(247, 247, 247);
-    background-image: url(/img/You\ won\,\ you\ lost/TasteD.png);
+    background-image: url(./img/You\ won\,\ you\ lost/TasteD.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -495,7 +495,7 @@ button{
     width: 100%;
     z-index: 1;
     background-color: black;
-    background-image: url(img/You\ won\,\ you\ lost/YouWinA.png);
+    background-image: url(.img/You\ won\,\ you\ lost/YouWinA.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
