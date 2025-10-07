@@ -1,4 +1,22 @@
-*, *::before,*::after{
+/***, *::before,*::after{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Relief';
+}**/
+
+*::before{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Relief';
+}
+
+*::after{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Relief';
+}
+
+*{
     margin: 0;
     box-sizing: border-box;
     font-family: 'Comic Relief';
