@@ -167,12 +167,6 @@ canvas{
     background-repeat: no-repeat;
     background-size: cover;
 }
-/**.startPosition{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}**/
 
 .InfoBtnPosition{
     position: absolute;
