@@ -495,7 +495,7 @@ button{
     width: 100%;
     z-index: 1;
     background-color: black;
-    background-image: url(.img/You\ won\,\ you\ lost/YouWinA.png);
+    background-image: url(./img/You\ won\,\ you\ lost/YouWinA.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
