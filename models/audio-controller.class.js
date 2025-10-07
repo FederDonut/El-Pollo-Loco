@@ -1,3 +1,8 @@
+/**
+* @class
+* Manages all audio playback and sound effects within the game, 
+* including background music, character sounds, enemy sounds, and item effects.
+*/
 class AudioController{
 
     world;
@@ -41,6 +46,10 @@ class AudioController{
     soundLib = [];
     soundId;
 
+    /**
+    * Initializes the AudioController by instantiating all necessary Audio objects
+    * and populating the `soundLib` array.
+    */
     constructor(){
         //Endboss
         this.bossSound = new Audio(this.Endboss_audio[0]);
@@ -67,6 +76,9 @@ class AudioController{
 
     }
 
+    /**
+    * Plays the main world background music, ensuring it loops and only plays once.
+    */
     playWorldBackgroundSound(){
         if(!this.worldSundTrack){
             this.worldSound.volume = 0.7;
@@ -77,6 +89,9 @@ class AudioController{
        
     }
 
+    /**
+    * Stops the main world background music and resets its time.
+    */
     stopWorldBackgroundSound(){
         if(this.worldSundTrack){
             this.worldSundTrack = false;
@@ -86,6 +101,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Plays the laser shot sound effect once.
+     */
     playLaserShotSound(){
         if(!this.shot){
             this.laserShotSound.play();
@@ -93,6 +111,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Stops and resets the laser shot sound effect.
+     */
     stopLaserShotSound(){
         if(this.shot){
             this.shot = false;
@@ -100,6 +121,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Plays the general enemy damage sound effect once.
+     */
     playEnemyDamageSound(){
         if(!this.gotDamage){
             this.damageSond.play()
@@ -107,6 +131,9 @@ class AudioController{
         }
     }
 
+     /**
+     * Stops and resets the general enemy damage sound effect.
+     */
     stopEnemyDamageSound(){
         if(this.gotDamage){
             this.gotDamage = false;
@@ -114,6 +141,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Plays the coin collection sound effect once.
+     */
     playCoinSound(){
         if(!this.takeCoin){
             this.coinSound.play();
@@ -121,6 +151,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Stops and resets the coin collection sound effect.
+     */
     stopCoinSound(){
         if(this.takeCoin){
             this.takeCoin = false;
@@ -128,6 +161,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Plays the bottle reloading sound effect once.
+     */
     playReloadingSound(){
         if(!this.reloading){
             this.reloadSound.play();
@@ -135,6 +171,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Stops and resets the bottle reloading sound effect.
+     */
     stopReloadingSound(){
         if(this.reloading){
             this.reloading = false;
@@ -142,8 +181,9 @@ class AudioController{
         }
     }
 
-
-    // Enboss Audio
+    /**
+     * Starts the Endboss theme music, ensuring it loops and only plays once.
+     */
     startEndbossTheme(){
         if(!this.bossThemePlayed){
             this.bossSound.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
@@ -153,6 +193,10 @@ class AudioController{
         
     }
 
+
+    /**
+     * Stops the Endboss theme music and resets its time.
+     */
     stopEndbossTheme(){
         if(this.bossThemePlayed){
             this.bossThemePlayed=false;
@@ -161,6 +205,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Plays the Endboss death sound effect once.
+     */
     playEndbossDeadSound(){
         if(!this.zeroEnergy){
             this.bossDeathSound.play();
@@ -171,6 +218,9 @@ class AudioController{
 
     //Character Audio
 
+    /**
+     * Plays the character death sound effect once.
+     */
     wastedSound(){
         if(!this.charIsDead){
             this.charDeathSound.play();
@@ -178,6 +228,9 @@ class AudioController{
         }
     }
 
+    /**
+     * Plays the character damage sound effect once.
+     */
     characterTakeDamageSound(){
         if(!this.charGotDamage){
             this.charDamageSound.play();
@@ -185,13 +238,18 @@ class AudioController{
         }
     }
 
+    /**
+    * Plays the character jump sound effect once.
+    */
     characterJumpSound(){
         if(!this.jumping){
             this.charJumpSound.play();
             this.jumping = true;
         }
     }
-
+    /**
+    * Plays the character running sound effect once, with adjusted volume and playback rate.
+    */
     characterRunSound(){
         if(!this.characterMovement){
             this.charRunSound.playbackRate = 1.3;
@@ -201,6 +259,10 @@ class AudioController{
         }
     }
 
+
+    /**
+    * Stops all non-looping and currently looping sounds managed by specific stop methods.
+    */
     stopAllSounds(){
         this.stopCoinSound();
         this.stopEndbossTheme();
@@ -210,12 +272,18 @@ class AudioController{
         this.stopWorldBackgroundSound();
     }
 
+    /**
+    * Mutes all audio elements stored in the `soundLib`.
+    */
     muteAllWorldSounds(){
         this.soundLib.forEach((sound)=>{
             sound.muted = true;
         })
     }
 
+    /**
+    * Unmutes all audio elements stored in the `soundLib`.
+    */
     audibleAllWorldSounds(){
         this.soundLib.forEach((sound)=>{
             sound.muted = false;
