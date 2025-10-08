@@ -4,22 +4,15 @@
  */
 class Keyboard {
 
-    /** @type {boolean} State of the 'Left' control (e.g., ArrowLeft). */
     left = false;
-    /** @type {boolean} State of the 'Right' control (e.g., ArrowRight). */
     right = false;
-    /** @type {boolean} State of the 'Up' control (e.g., ArrowUp / Jump). */
     up = false;
-    /** @type {boolean} State of the 'Down' control (e.g., ArrowDown). */
     down = false;
-    /** @type {boolean} State of the 'Attack' control (e.g., 'D' key). */
     attack = false;
-    /** @type {boolean} State of the 'Space' control (e.g., Spacebar). */
     space = false;
 
     /** @type {World|null} Reference to the game world instance for timer control. */
     world = null;
-    //anyKeyPressed = false;
 
     /**
      * Starts the interactive and sleep timers in the associated game world.

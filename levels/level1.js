@@ -23,13 +23,8 @@ const level1 = () =>{
         new Chick(9500),
         new Chicken(),
         new Chick(),
-        //new Chicken(),
-        //new Chick(),
-        //new Chicken()
     ],
-    //[
-    //    new Endboss()
-    //],
+   
     [
         new Cloud(),
         new Cloud(),

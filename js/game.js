@@ -208,7 +208,6 @@ window.addEventListener('keydown', (event) => {
 
     if(event.key == "d"){
         keyboard.attack = true;
-       
     }
 });
 

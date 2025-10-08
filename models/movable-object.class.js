@@ -5,25 +5,14 @@
  */
 class MovableObject extends DrawableObject{
   
-   
-  
-    /** @type {number} The base movement speed. */
     speed = 0.15;
-    /** @type {number} Speed used for special attacks (e.g., boss movement). */
     attackSpeed = 50;
-    /** @type {boolean} Indicates if the object is facing the other direction (mirrored). */
     otherDirection = false;
-    /** @type {number} Vertical speed (used for jumping/falling). */
     speedY = 0;
-    /** @type {number} Horizontal speed (currently unused in favor of 'speed'). */
     speedX = 0;
-    /** @type {number} The rate of vertical acceleration (gravity). */
     acceleration = 2;
-    /** @type {number} The current health/life points. */
     energy = 100;
-    /** @type {number} Timestamp of the last time the object was hit. */
     lastHit = 0;
-    /** @type {number[]} Array to store IDs of all running intervals for cleanup. */
     intervalId = [];
 
     

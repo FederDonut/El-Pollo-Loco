@@ -11,6 +11,7 @@ class World {
     chillMode =false;
     sleepMode = false;
     isObjectVisible = false; // fixiert statusbar Bossgegener
+    canThrow = true; 
     canvas;
     ctx;
     keyboard;
@@ -134,13 +135,15 @@ class World {
     * Checks if the attack button is pressed and throws a missile if bottles are available.
     */
     checkThrowObjects(){
-        if(this.keyboard.attack&& this.bottle_counter !== 0){
+        if(this.keyboard.attack&& this.bottle_counter !== 0 && this.canThrow){
+            this.canThrow = false;
             this.audio.playLaserShotSound();
             this.audio.stopLaserShotSound();
             let bottle = new Missile(this.character.x +100, this.character.y +30);
             this.throable_objects.push(bottle); 
             this.bottle_counter -=1;
             this.bottle_bar.setCollection(this.bottle_counter);
+            setTimeout(()=>{this.canThrow = true},1000)
         }
     }
 
@@ -392,8 +395,9 @@ class World {
         this.audio.stopAllSounds();       
     }
 
+
     /**
-    * Halts all game activity: stops intervals, clears arrays, and stops sounds.
+    *  Clears all arrays, 
     */
     clearArrays(){
         this.level.enemies = []
