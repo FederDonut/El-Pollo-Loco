@@ -5,15 +5,11 @@
  */
 class Bottle extends DrawableObject{
 
-    /** @type {number} The fixed height of the bottle. */
+    
     height = 80;
-    /** @type {number} The fixed width of the bottle. */
     width = 50;
-    /** @type {number} The fixed vertical position (Y-coordinate) for bottles on the ground. */
     y = 605;
-    /** @type {boolean} Flag indicating if the bottle has been collected by the player. */
     collectBottle = false;
-    /** @type {boolean} Flag to ensure the reload sound only plays once upon collection/usage. */
     playReloadSound = false;
 
     /** @type {string[]} Array containing the path to the bottle image. */
@@ -25,6 +21,14 @@ class Bottle extends DrawableObject{
     Throw_sound = [
         'audio/reload.mp3'
     ];
+    
+    /**parameters for a more precisely collison detection */
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+        };
 
     /**
      * Creates an instance of Bottle.

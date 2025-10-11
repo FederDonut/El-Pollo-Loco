@@ -5,18 +5,12 @@
  */
 class Level{
 
-    /** @type {MovableObject[]} Array of all enemy objects in the level. */
     enemies;
     //endboss;
-    /** @type {Cloud[]} Array of all background cloud objects. */
     clouds;
-    /** @type {BackgroundObject[]} Array of all non-interactive background objects. */
     backgroundObjects;
-    /** @type {Bottle[]} Array of all collectible bottle objects. */
     bottles;
-    /** @type {Coin[]} Array of all collectible coin objects. */
     coins;
-    /** @type {number} The X-coordinate where the level officially ends (e.g., where the end boss is located). */
     level_end_x = 10000; 
    
     /**

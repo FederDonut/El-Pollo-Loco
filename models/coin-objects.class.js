@@ -6,16 +6,11 @@
  */
 class Coin extends MovableObject{
 
-    /** @type {number} The fixed height of the coin model. */
     height = 150;
-    /** @type {number} The fixed width of the coin model. */
     width = 150;
-    /** @type {boolean} Flag indicating if the coin has been collected by the player. */
     collectCoin = false;
     //playCoinSound = false;
-    /** @type {number[]} Array to store IDs of all running intervals. */
     intervalId = [];
-    /** @type {number} Default vertical position (Y-coordinate) if not randomized. */
     y = 350;
 
     /** @type {string[]} Image paths for the coin animation. */
@@ -23,6 +18,14 @@ class Coin extends MovableObject{
         'img/8_coin/coin_1.png',
         'img/8_coin/coin_2.png',
     ];
+
+    /**parameters for a more precisely collison detection */
+    offset = {
+        top: 50,
+        bottom: 50,
+        left: 30,
+        right: 30
+    };
 
     /**
      * Creates an instance of Coin.

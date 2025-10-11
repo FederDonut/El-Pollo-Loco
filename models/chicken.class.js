@@ -22,6 +22,13 @@ class Chicken extends MovableObject{
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ]
 
+    /**parameters for a more precisely collison detection */
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    };
     /**
     * Creates an instance of Chicken.
     * Loads images, sets a random starting X position, assigns initial health (10), 

@@ -26,6 +26,15 @@ class Chick extends MovableObject{
         'audio/strongpunch.mp3'
     ];
 
+
+    /**parameters for a more precisely collison detection */
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    };
+
     /**
     * Creates an instance of Chick.
     * Loads images, sets a random starting X position, and assigns initial properties.

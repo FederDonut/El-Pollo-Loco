@@ -15,18 +15,32 @@ class MovableObject extends DrawableObject{
     lastHit = 0;
     intervalId = [];
 
-    
 
     /**
      * Checks if this object is currently colliding with another object (AABB collision).
-     * @param {MovableObject} mo - The other movable object to check collision against.
+     * It uses 'offset' properties (Hitbox) only if they are explicitly defined on the object.
+     * Otherwise, it defaults to the full object dimensions (x, y, width, height).
+     * * @param {MovableObject} mo - The other movable object to check collision against.
      * @returns {boolean} True if a collision is detected.
      */
-    isColliding(mo){
-        return this.x + this.width > mo.x &&
-            this.y +this.height > mo.y && // target collision 
-            this.x < mo.x + mo.width &&
-            this.y < mo.y + mo.height
+    isColliding(mo) {
+        const senderOffset = this.offset || {top :0, bottom:0, left:0, right:0};        
+        const recipientOffset = mo.offset || {top :0, bottom:0, left:0, right:0};
+
+        const thisLeft = this.x + senderOffset.left;
+        const thisRight = this.x + this.width - senderOffset.right;
+        const thisTop = this.y + senderOffset.top;
+        const thisBottom = this.y + this.height - senderOffset.bottom;
+
+        const moLeft = mo.x + recipientOffset.left;
+        const moRight = mo.x + mo.width - recipientOffset.right;
+        const moTop = mo.y + recipientOffset.top;
+        const moBottom = mo.y + mo.height - recipientOffset.bottom;
+
+        return thisRight > moLeft &&
+               thisLeft < moRight &&
+               thisBottom > moTop &&
+               thisTop < moBottom;
     }
 
     /**

@@ -7,7 +7,7 @@
 class Character extends MovableObject{
 
     height = 300
-    y = 95 //395
+    y = 395//95 //395
     speed = 8
     lastPositionY;
     intervalId = [];
@@ -79,6 +79,12 @@ class Character extends MovableObject{
     
     world;
    
+    offset = {
+        top: 100,
+        bottom: 0,
+        left: 50,
+        right: 50
+    };
     /**
     * Creates an instance of Character.
     * Loads all necessary images, applies gravity, and starts the animation loops.

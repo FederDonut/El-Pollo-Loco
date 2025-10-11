@@ -57,12 +57,23 @@ class DrawableObject{
      */
     drawFrame(ctx){
 
-        if(this instanceof Chicken 
-            || this instanceof Missile || this instanceof Endboss || this instanceof Bottle || this instanceof Coin || this instanceof Chick){
+        if(this instanceof Chicken || this instanceof Missile ||  this instanceof Endboss || this instanceof Bottle || this instanceof Chick){
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }else if(this instanceof Character){
+            ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'red';
+            ctx.rect((this.x + 20), (this.y +100), (this.width - 40), (this.height -100));
+            ctx.stroke();
+        }else if (this instanceof Coin){
+            ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'red';
+            ctx.rect((this.x+50), (this.y +50), (this.width-100), (this.height -100));
             ctx.stroke();
         } 
     }    

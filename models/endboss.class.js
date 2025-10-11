@@ -62,6 +62,14 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    /**parameters for a more precisely collison detection */
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    };
+
     /**
     * Creates an instance of Endboss.
     * Loads all animation images, sets the initial X position, and starts the core loops.
