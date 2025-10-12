@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./img/Favicon/Skizze.png" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style/impresum.css">
     <title>Pollo Loco</title>
     
     <script src="./models/drawable-objekt.class.js"></script>
@@ -43,7 +44,7 @@
         </div>
         <div class="InfoBtnPosition">
             <div class="InfoBtn" onclick="toggleManual()">Manual</div>
-            <a class ="InfoBtn impressumBtn" href="./impressum.html">Impressum</a>
+            <div class ="InfoBtn impressumBtn" onclick="toggleImpressum()">Impressum</div>
         </div>   
     </section>
 
@@ -55,11 +56,15 @@
         </div>
     </section>
 
+    
     <section class="YouWon d-none" id="YouWon">
         <button class="btn winBtn" onclick="tryAgainAfterWin()"></button>
          <button  id="homeBtn" class="backToMain btn" onclick="backToHomeMenu()"></button>
     </section>
 
+    <section id="impressum" class="impressum d-none">
+        <section id="impressum-wrapper" class="impressum-wrapper"></section>
+    </section>
     <section  id="rotateDeviceOverlay" class="d-none">
         <div class="rotateOverlayContent">
             <h2>Bitte drehe dein Gerät !</h2>
@@ -103,7 +108,7 @@
         <div class="img-2"></div>
         <div class="img-3"></div> 
         <div class="Info-Wrapper">
-                <a class="InfoBtn impressumBtnInGame" href="./impressum.html">Impressum</a>
+                <div class="InfoBtn impressumBtnInGame" onclick="toggleImpressum()">Impressum</div>
         </div>
     </section>
    

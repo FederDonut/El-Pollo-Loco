@@ -203,6 +203,13 @@ function backToHomeMenu(){
     
 }
 
+function toggleImpressum(){
+    let impressum = document.getElementById('impressum');
+    let content = document.getElementById('impressum-wrapper');
+    content.innerHTML = renderImpressum();
+    impressum.classList.toggle('d-none');
+}
+
 /**
  * Toggles the game manual overlay and renders its mobile content.
  */
