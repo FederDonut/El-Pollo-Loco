@@ -16,13 +16,7 @@ class MovableObject extends DrawableObject{
     intervalId = [];
 
 
-    /**
-     * Checks if this object is currently colliding with another object (AABB collision).
-     * It uses 'offset' properties (Hitbox) only if they are explicitly defined on the object.
-     * Otherwise, it defaults to the full object dimensions (x, y, width, height).
-     * * @param {MovableObject} mo - The other movable object to check collision against.
-     * @returns {boolean} True if a collision is detected.
-     */
+   
     isColliding(mo) {
         const senderOffset = this.offset || {top :0, bottom:0, left:0, right:0};        
         const recipientOffset = mo.offset || {top :0, bottom:0, left:0, right:0};
@@ -43,31 +37,34 @@ class MovableObject extends DrawableObject{
                thisTop < moBottom;
     }
 
-    /**
-     * Checks for collision, specifically if this object is falling onto the other object (mo).
-     * @param {MovableObject} mo - The other movable object.
-     * @param {number} lastPositionY - The previous Y position of this object (before movement).
-     * @returns {boolean} True if a collision from above is detected.
-     */
-    isCollidingFromAbove(mo, lastPositionY){
+   
+    isCollidingFromAbove(mo){
+        let puffer = 65;
         const collision = this.isColliding(mo);
         const isFalling = this.speedY < 0; // Assuming positive Y is down, 'speedY < 0' means falling towards the ground
-        const comingFromAbove = lastPositionY < 401; // Simplified ground check
-       return collision &&  comingFromAbove && isFalling;
+        const characterBottom = this.y + this.height -(this.offset?.bottom || 0)
+        const enemyHead = mo.y + (mo.offset?.top || 0)
+        const comingFromAbove = characterBottom < enemyHead +puffer;
+        return collision &&  comingFromAbove && isFalling;
     }
 
 
-    /**
-     * Applies gravity (vertical acceleration) to the object.
-     * @fires {setInterval} Starts an interval to continuously update Y position and speedY.
-     */
     applyGravity(){
         this.intervalId.push(setInterval(() =>{
+            if(this.isDead()&& this instanceof Character){
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration *0.5;
+                return;
+            }
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
                
             }
+            if (!this.isAboveGround() && this.y > 395) { 
+            this.y = 395;
+            this.speedY = 0;
+        }
         },1000/25));
     }
 
@@ -78,12 +75,14 @@ class MovableObject extends DrawableObject{
      * @returns {boolean} True if the object is in the air.
      */
     isAboveGround(){
+        if(this.isDead()){
+            return true
+        }
         if((this instanceof Missile) ){ // Missile should always fall
             return true;
         }else{
-            return this.y < 395;
+           return this.y < 395;
         }
-        
     }
 
     /**
@@ -170,9 +169,8 @@ class MovableObject extends DrawableObject{
     dead(){
         if(this.energy <= 0){
             this.y -= this.speedY;
-            this.speedY -= this.acceleration *20;
-        }
-        
+            this.speedY -= this.acceleration *40;
+        }  
     }
     
     /**

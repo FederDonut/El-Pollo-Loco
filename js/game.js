@@ -1,7 +1,8 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let isMuted = false;
+let isMuted;
+
 
 /**
  * Initializes the canvas and the game level. 
@@ -16,6 +17,7 @@ function init(){
     const level = level1()  
     world = new World(canvas, keyboard, level);
     keyboard.mobileButtons();
+    checkMuteStatus();
 }
 
 /**
@@ -27,6 +29,7 @@ function startGame(){ // check
     addBtnVisabillity();
     manageMobileHud();
     init();
+    checkMuteStatus();
 }
 
 /**
@@ -46,9 +49,12 @@ function gameIsOver(){ // check
 function tryAgain(){
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.add('d-none');
+   
     init();
+    //checkMuteStatus();
     addBtnVisabillity();
     manageMobileHud();
+   
    
    
 }
@@ -76,19 +82,53 @@ function YouWonTheGame(){
 }
 
 /**
- * Toggles sound on/off globally and changes the sound icon.
- */
-function muteSounds(){
+* Saves the current mute state ('isMuted') to local storage.
+* @global
+*/
+function saveToLocalStorage(){
     if(!isMuted){
+        localStorage.setItem('isMuted', 'true');
+    }else{
+        localStorage.setItem('isMuted','false');
+    }
+}
+
+/**
+* Checks for a saved 'isMuted' status in local storage on page load
+* and applies the corresponding mute/unmute state to the game world.
+* @global
+*/
+function checkMuteStatus(){
+    const localStorageStatus = localStorage.getItem('isMuted');
+    if(localStorageStatus === 'true'){
         world.muteAllSounds();
-        changeSoundImg();
-        isMuted = true;
-    }else if(isMuted){
+        changeSoundImg(localStorageStatus);
+        isMuted = true
+    }else if(localStorageStatus === 'false'){
         world.audibleAllSounds();
-        changeSoundImg();
+        changeSoundImg(localStorageStatus);
+        isMuted = false
+    }else{
         isMuted = false;
     }
-    
+
+}
+
+/**
+* Toggles the mute state, saves the new state to local storage,
+* and updates the sound status in the game world.
+* @global
+*/
+function muteSounds(){    
+    saveToLocalStorage();
+    checkMuteStatus();    
+}
+
+function ImpressumBtn(){
+    let overlay = document.getElementById('startScreen');
+    overlay.classList.toggle('d-none');
+    init();
+    history.back();
 }
 
 /**
@@ -114,12 +154,12 @@ function addBtnVisabillity(){
 /**
  * Changes the sound icon based on the current mute status.
  */
-function changeSoundImg(){
+function changeSoundImg(localStorageStatus){
     let soundBtn = document.getElementById('sound-control');
-    if(!isMuted){
+    if(localStorageStatus === 'true'){
         soundBtn.classList.remove('sound-control-audible');
         soundBtn.classList.add('sound-control');
-    }else if(isMuted){
+    }else if(localStorageStatus === 'false'){
         soundBtn.classList.remove('sound-control');
         soundBtn.classList.add('sound-control-audible');
     }

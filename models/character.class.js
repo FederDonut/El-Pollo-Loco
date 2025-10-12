@@ -9,7 +9,6 @@ class Character extends MovableObject{
     height = 300
     y = 395//95 //395
     speed = 8
-    lastPositionY;
     intervalId = [];
     
     
@@ -109,15 +108,22 @@ class Character extends MovableObject{
         this.intervalId.push(setInterval(() =>{
             if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
                 this.goRight();
+                //console.log("speedX: ",this.speedX)
+                //console.log("speed: ",this.speed)
+                
             }
             if(this.world.keyboard.left && this.x > 0 ){
                 this.goLeft(); 
+                //console.log("speedX: ",this.speedX)
+                //console.log("speed: ",this.speed)
+
             }
             if(this.world.keyboard.up && !this.isAboveGround()&& !this.isDead()){
                 this.world.audio.characterJumpSound();
                 this.world.audio.jumping = false;
                 this.jump();
                 this.world.resetTimers();
+                //console.log("speedY: ",this.speedY)
             }
             this.world.camera_x = -this.x + 100
         },1000/60));
@@ -126,7 +132,8 @@ class Character extends MovableObject{
             
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_death);
-                this.dead();
+                //this.dead();
+               
                 this.world.audio.wastedSound();
                 this.speed = 0;
                 this.world.audio.charIsDead = false;
@@ -165,7 +172,7 @@ class Character extends MovableObject{
     * Initiates the 'Game Over' sequence after a short delay for the death animation to play out.
     */
     loseGame(){
-        setTimeout(()=>{this.world.gameOver()},7500);
+        setTimeout(()=>{this.world.gameOver()},2500);
     }
 
     /**

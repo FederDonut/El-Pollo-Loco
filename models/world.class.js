@@ -162,7 +162,7 @@ class World {
     */
     checkCollisions(){
         this.level.enemies.forEach((enemy) =>{
-            if(this.character.isCollidingFromAbove(enemy, this.character.lastPositionY)&& !this.character.isColliding(this.endboss)){
+            if(this.character.isCollidingFromAbove(enemy)&& !this.character.isColliding(this.endboss)){
                 enemy.damage();
                 this.character.jump();
                 // Neues Audio Object
@@ -374,7 +374,7 @@ class World {
             setTimeout(()=>{
                 this.stopGame();
                 gameIsOver();
-            },7000);
+            },4000);
         }
         if(this.endboss.energy===0){
             this.gameIsEnding = true;
@@ -395,7 +395,7 @@ class World {
         this.audio.stopAllSounds();       
     }
 
-
+    //Cut
     /**
     *  Clears all arrays, 
     */

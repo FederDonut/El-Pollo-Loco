@@ -5,8 +5,8 @@ function renderMobileManualTemplate(){
                 <h3>Mobile Device</h3>
                 <div class="exitBtn" onclick="toggleManual()"></div>
             </div>
-            *Um zu gewinnen muss Pepe das BossChicken besiegen, dies kann Ihm nur gelingen wenn er genug Tabasco-Flaschen einsammelt.<br>
-            *Tastenbelegungen für den PC findest du unter dem Canvas. 
+            *To win, Pepe must defeat BossChicken, which he can only do if he collects enough Tabasco bottles.<br>
+            *Key assignments for the PC can be found under Canvas. 
             <div class="mobile-description">
                 <div class="movement">
                     <div class="left space"></div>
