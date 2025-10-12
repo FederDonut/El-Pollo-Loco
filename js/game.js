@@ -49,9 +49,7 @@ function gameIsOver(){ // check
 function tryAgain(){
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.add('d-none');
-   
     init();
-    //checkMuteStatus();
     addBtnVisabillity();
     manageMobileHud();
    

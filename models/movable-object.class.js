@@ -16,7 +16,18 @@ class MovableObject extends DrawableObject{
     intervalId = [];
 
 
-   
+    /**
+    * Checks for a collision between this object and another movable object.
+    * It considers optional 'offset' properties on both objects to define collision boundaries.
+    *
+    * @param {object} mo - The other movable object, expected to have x, y, width, height, and optionally offset properties.
+    * @param {number} mo.x - The x-coordinate of the other object.
+    * @param {number} mo.y - The y-coordinate of the other object.
+    * @param {number} mo.width - The width of the other object.
+    * @param {number} mo.height - The height of the other object.
+    * @param {object} [mo.offset] - Optional collision boundary offsets (top, bottom, left, right).
+    * @returns {boolean} True if the two objects are colliding, false otherwise.
+    */
     isColliding(mo) {
         const senderOffset = this.offset || {top :0, bottom:0, left:0, right:0};        
         const recipientOffset = mo.offset || {top :0, bottom:0, left:0, right:0};
@@ -37,7 +48,13 @@ class MovableObject extends DrawableObject{
                thisTop < moBottom;
     }
 
-   
+    /**
+    * Checks if a collision with another object is occurring and is specifically an "above" collision.
+    * This is determined by a general collision, a vertical position check (with a buffer), and the object's vertical speed.
+    *
+    * @param {object} mo - The other movable object (recipient of the collision).
+    * @returns {boolean} True if the object is colliding with 'mo' while coming from above and falling.
+    */
     isCollidingFromAbove(mo){
         let puffer = 65;
         const collision = this.isColliding(mo);
@@ -48,7 +65,13 @@ class MovableObject extends DrawableObject{
         return collision &&  comingFromAbove && isFalling;
     }
 
-
+    /**
+    * Applies gravity to the object, updating its vertical position and speed over time.
+    * Vertical movement stops when the object hits the assumed ground level (y=395) or a boundary condition is met.
+    * It is managed via an interval and includes a modified gravity effect if the object is a dead Character.
+    *
+    * @returns {void}
+    */
     applyGravity(){
         this.intervalId.push(setInterval(() =>{
             if(this.isDead()&& this instanceof Character){
