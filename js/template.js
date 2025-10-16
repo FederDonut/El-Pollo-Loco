@@ -33,7 +33,7 @@ function renderImpressum(){
     return `
 
             <div class="siteHeadline">
-                <h1 class="impressumH1">Impressum</h1>
+                <h1 class="impressumH1">Imprint</h1>
                 <div class="exitBtn" onclick="toggleImpressum()"></div>
             </div>
 
@@ -81,7 +81,7 @@ function renderImpressum(){
                 <section class="content">
                     <div class="headline">5. Limitation of Liability</div>
                     <div class="sub-content">
-                        To the fullest extent permitted by law, the owner shall not be liable for any damages resulting from the use or inability to use the game, including but not limited to loss of data, device malfunction, or indirect damages
+                        To the fullest extent permitted by law, the owner shall not be liable for any damages resulting from the use or inability to use the game, including but not limited to loss of data, device malfunction, or indirect damages.
                     </div>
     
                 </section>
@@ -89,7 +89,7 @@ function renderImpressum(){
                 <section class="content">
                     <div class="headline">6. User Conduct</div>
                     <div class="sub-content">
-                        You agree not to use El Pollo Loco in any way that could damage, disable, or impair the servers, networks, or other infrastructure supporting it. Cheating, exploiting bugs, or using unauthorized third-party tools is strictly prohibited
+                        You agree not to use El Pollo Loco in any way that could damage, disable, or impair the servers, networks, or other infrastructure supporting it. Cheating, exploiting bugs, or using unauthorized third-party tools is strictly prohibited.
                     </div>
     
                 </section>

@@ -160,23 +160,50 @@ class World {
     /**
     * Checks for collisions between the character and enemies.
     */
-    checkCollisions(){
+    checkCollisions(){ 
         this.level.enemies.forEach((enemy) =>{
             if(this.character.isCollidingFromAbove(enemy)&& !this.character.isColliding(this.endboss)){
+                //invincible = true
+                this.character.invincible = true;
                 enemy.damage();
+                //this.character.lastHit = new Date().getTime(); 
                 this.character.jump();
+                console.log('jump')
+                console.log('Sprunghöhe durch gegener ',this.character.y)
+                console.log('Gegener größe',enemy.y)
                 // Neues Audio Object
                 this.audio.playEnemyDamageSound();
                 this.audio.stopEnemyDamageSound();
                 this.checkPlayerActivity();
-            }else if(this.character.isColliding(enemy)){
+            }else if(this.character.isColliding(enemy)&& !this.character.invincible && !this.character.isHurt()){
+                console.log('autsch')
                 this.character.damage();
                 this.resetTimers();
                 this.health_bar.setPercentage(this.character.energy);
+                console.log("erleide schade")
+                console.log(this.character.energy)
             }
         })
+        this.checkInvincibility();
     }
     
+    checkInvincibility(){
+    // Sicherer Schwellenwert, deutlich unter dem Boden (395). 
+    // Der höchste beobachtete Stomp-Wert war ~348. Wir wählen 350 als sichere Grenze.
+    const Y_STOMP_THRESHOLD = 350; 
+    
+    // Wenn das Flag aktiv ist UND die Y-Position TIEFER (größerer Y-Wert) als der Schwellenwert ist,
+    // dann ist der Bouncing-Zustand beendet.
+    if (this.character.invincible && this.character.y > Y_STOMP_THRESHOLD) {
+        this.character.invincible = false;
+    }
+    
+    // ZUSATZPRÜFUNG: Wenn der Charakter den Boden berührt (395), ist der Schutz IMMER vorbei.
+    if (this.character.y >= 395) {
+        this.character.invincible = false;
+    }
+}
+
     /**
     * Checks for collisions between the character and collectible bottles.
     */
@@ -280,10 +307,9 @@ class World {
         if(distance <= 200 && !this.endboss.isAttacking){
             this.endboss.bossAttackMovement();
         }else if(distance <= 1400 ){
-            this.endboss.distanceX = true;
-            this.audio.stopWorldBackgroundSound();
-        }else if(distance >=1401){
-            this.endboss.distanceX = false;
+           this.endboss.distanceX = true;  
+           this.audio.stopWorldBackgroundSound();
+        }else if(distance >=1401 && this.endboss.distanceX === false){
             this.audio.playWorldBackgroundSound();
         }
     }

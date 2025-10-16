@@ -10,6 +10,7 @@ class Character extends MovableObject{
     y = 395//95 //395
     speed = 8
     intervalId = [];
+    invincible = false;
     
     
     IMAGES_walking =[
@@ -124,6 +125,7 @@ class Character extends MovableObject{
                 this.jump();
                 this.world.resetTimers();
                 //console.log("speedY: ",this.speedY)
+                console.log('normaler Sprung', this.y)
             }
             this.world.camera_x = -this.x + 100
         },1000/60));

@@ -58,7 +58,7 @@ class MovableObject extends DrawableObject{
     isCollidingFromAbove(mo){
         let puffer = 65;
         const collision = this.isColliding(mo);
-        const isFalling = this.speedY < 0; // Assuming positive Y is down, 'speedY < 0' means falling towards the ground
+        const isFalling = this.speedY < 0 || this.speedY < 10; // Assuming positive Y is down, 'speedY < 0' means falling towards the ground
         const characterBottom = this.y + this.height -(this.offset?.bottom || 0)
         const enemyHead = mo.y + (mo.offset?.top || 0)
         const comingFromAbove = characterBottom < enemyHead +puffer;
@@ -82,6 +82,8 @@ class MovableObject extends DrawableObject{
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+                //let check =  this.speedY -= this.acceleration;
+                //console.log( check)
                
             }
             if (!this.isAboveGround() && this.y > 395) { 

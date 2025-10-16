@@ -98,16 +98,10 @@ class Endboss extends MovableObject{
             }else if(this.isDead()){
                 this.playAnimation(this.IMAGES_dead);
                 this.dead();
-                //this.stopEndbossTheme();
-                //this.playDeadSound();
                 this.world.audio.stopEndbossTheme();
                 this.world.audio.playEndbossDeadSound();
                 this.world.audio.zeroEnergy = false;
-
-                //this.world.gameOver()
-           
             }else{
-                 
                 if(this.isAlert){//this.isAlert
                     this.playAnimation(this.IMAGES_alert)
                 }else if(this.isWalking){
@@ -116,7 +110,6 @@ class Endboss extends MovableObject{
                 }else if(this.isAttacking){
                     this.playAnimation(this.IMAGES_attack);
                     this.bossAttack();
-
                 }
             }
         },200));
@@ -127,12 +120,12 @@ class Endboss extends MovableObject{
     */
     playEndbossSounds(){
         this.intervalId.push(setInterval(()=>{
-            if(this.distanceX && !this.isHurt()&& !this.isDead()){
+            if(this.distanceX && !this.isDead()){
                 this.world.audio.startEndbossTheme();
             }
-            else{
-                this.world.audio.stopEndbossTheme();
-            }  
+            //else{
+            //    this.world.audio.stopEndbossTheme();
+            //}  
         },200))
     }  
 

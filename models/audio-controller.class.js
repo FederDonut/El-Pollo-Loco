@@ -106,6 +106,7 @@ class AudioController{
      */
     playLaserShotSound(){
         if(!this.shot){
+            this.laserShotSound.volume = 0.7
             this.laserShotSound.play();
             this.shot = true;
         }
@@ -126,6 +127,7 @@ class AudioController{
      */
     playEnemyDamageSound(){
         if(!this.gotDamage){
+            this.damageSond.volume = 0.7
             this.damageSond.play()
             this.gotDamage =true 
         }
@@ -186,6 +188,7 @@ class AudioController{
      */
     startEndbossTheme(){
         if(!this.bossThemePlayed){
+            this.bossSound.volume = 0.8
             this.bossSound.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
             this.bossSound.play();
             this.bossThemePlayed = true;
