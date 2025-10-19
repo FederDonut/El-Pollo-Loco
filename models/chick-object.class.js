@@ -6,9 +6,9 @@
  */
 class Chick extends MovableObject{
 
-    height = 100;
-    width = 120;
-    y= 586;
+    height = 80;
+    width = 100;
+    y= 600;//586
     intervalId = [];
     soundIsPlaying = false;
 
@@ -29,7 +29,7 @@ class Chick extends MovableObject{
 
     /**parameters for a more precisely collison detection */
     offset = {
-        top: 0,
+        top: 0,//20
         bottom: 0,
         left: 0,
         right: 0
