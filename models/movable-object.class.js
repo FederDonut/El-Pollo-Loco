@@ -82,9 +82,6 @@ class MovableObject extends DrawableObject{
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                //let check =  this.speedY -= this.acceleration;
-                //console.log( check)
-               
             }
             if (!this.isAboveGround() && this.y > 395) { 
             this.y = 395;
@@ -167,6 +164,16 @@ class MovableObject extends DrawableObject{
             this.lastHit = new Date().getTime();
         }
     }
+
+    specialDamage(){
+        this.energy -= 20;//5
+        if(this.energy < 0){
+            this.energy = 0;
+        }else{
+            this.lastHit = new Date().getTime();
+        }
+    }
+    
 
     /**
      * Checks if the object was hit within the last second.

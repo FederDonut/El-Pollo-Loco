@@ -11,6 +11,7 @@ class Character extends MovableObject{
     speed = 8
     intervalId = [];
     invincible = false;
+    isBouncing = false;
     
     
     IMAGES_walking =[

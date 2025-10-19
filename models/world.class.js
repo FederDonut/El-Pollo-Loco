@@ -48,7 +48,8 @@ class World {
         this.checkPlayerActivity();
         this.startInteractivTimer();
         this.startSleepTimer();
-        this.run();  
+        this.run(); 
+        this.collisonControll(); 
     }
 
     /**
@@ -67,8 +68,7 @@ class World {
     */
     run(){
         this.intervalId.push(setInterval(()=>{
-        this.character.lastPositionY = this.character.y;
-        this.checkCollisions();
+        this.checkInvincibilityTimer();
         this.checkMissileCollision()
         this.checkThrowObjects();
         this.checkCollectibleBottle();
@@ -79,7 +79,12 @@ class World {
         },100))
     }
 
-
+    collisonControll(){
+        this.intervalId.push(setInterval(()=>{
+            this.character.lastPositionY = this.character.y;
+            this.checkCollisions();
+        },10))
+    }
     /**
     * Sets up event listeners for key presses to monitor player activity.
     */
@@ -160,49 +165,54 @@ class World {
     /**
     * Checks for collisions between the character and enemies.
     */
+    
     checkCollisions(){ 
         this.level.enemies.forEach((enemy) =>{
             if(this.character.isCollidingFromAbove(enemy)&& !this.character.isColliding(this.endboss)){
-                //invincible = true
-                this.character.invincible = true;
-                enemy.damage();
-                //this.character.lastHit = new Date().getTime(); 
-                this.character.jump();
-                console.log('jump')
-                console.log('Sprunghöhe durch gegener ',this.character.y)
-                console.log('Gegener größe',enemy.y)
-                // Neues Audio Object
-                this.audio.playEnemyDamageSound();
-                this.audio.stopEnemyDamageSound();
-                this.checkPlayerActivity();
+                this.enemyDestruction(enemy);  
+                
             }else if(this.character.isColliding(enemy)&& !this.character.invincible && !this.character.isHurt()){
-                console.log('autsch')
                 this.character.damage();
                 this.resetTimers();
                 this.health_bar.setPercentage(this.character.energy);
-                console.log("erleide schade")
-                console.log(this.character.energy)
+                this.checkPlayerActivity();
             }
+            //else if(this.character.isColliding(this.endboss)){
+            //    this.character.damage();
+            //    this.resetTimers();
+            //    this.health_bar.setPercentage(this.character.energy);
+            //    this.checkPlayerActivity();
+            //}
         })
-        this.checkInvincibility();
+        this.checkBouncingStatus();
     }
-    
-    checkInvincibility(){
-    // Sicherer Schwellenwert, deutlich unter dem Boden (395). 
-    // Der höchste beobachtete Stomp-Wert war ~348. Wir wählen 350 als sichere Grenze.
-    const Y_STOMP_THRESHOLD = 350; 
-    
-    // Wenn das Flag aktiv ist UND die Y-Position TIEFER (größerer Y-Wert) als der Schwellenwert ist,
-    // dann ist der Bouncing-Zustand beendet.
-    if (this.character.invincible && this.character.y > Y_STOMP_THRESHOLD) {
-        this.character.invincible = false;
+
+    enemyDestruction(enemy){
+        this.character.invincible = true;
+        this.character.isBouncing = true;
+        enemy.damage();
+        this.character.lastStompTime = new Date().getTime(); 
+        this.character.jump();
+        this.audio.playEnemyDamageSound();
+        this.audio.stopEnemyDamageSound();
+        this.checkPlayerActivity();
     }
-    
-    // ZUSATZPRÜFUNG: Wenn der Charakter den Boden berührt (395), ist der Schutz IMMER vorbei.
-    if (this.character.y >= 395) {
-        this.character.invincible = false;
+
+    checkBouncingStatus(){
+    const Y_STOMP_THRESHOLD = 350;
+        if (this.character.y >= 394) {this.character.isBouncing = false;}
+        if(this.character.isBouncing && this.character.speedY <= 0 && this.character.y > Y_STOMP_THRESHOLD){
+            this.character.isBouncing = false;
+        }
     }
-}
+
+    checkInvincibilityTimer(){
+        const TIME_PROTECTION = 200;
+        const timePassed = new Date().getTime() - this.character.lastStompTime;
+        if (timePassed > TIME_PROTECTION && !this.character.isBouncing) {
+            this.character.invincible = false;
+        }
+    }
 
     /**
     * Checks for collisions between the character and collectible bottles.
@@ -331,10 +341,12 @@ class World {
         this.ctx.translate(this.camera_x , 0);
         if(this.isObjectVisible){
             this.ctx.translate(-this.camera_x , 0);
+           
             this.addToMap(this.enemy_health_bar);
             this.ctx.translate(this.camera_x , 0);
         }
         this.addObjectsToMap(this.level.enemies);
+         //this.addToMap(this.level.endboss);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.throable_objects);
