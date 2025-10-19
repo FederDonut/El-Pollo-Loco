@@ -162,7 +162,7 @@ canvas{
     width: 1970px;
     background-color: black;
     display: block;
-    border-radius: 15px;
+    
 }
 .d-none{
     display: none !important;

@@ -175,11 +175,14 @@ class World {
                 if(enemy === this.endboss){
                     this.character.damage()
                     this.character.damage();
-                    console.log('doppelter schaden')
+                    this.character.damage();
+                    this.character.damage();
+                    console.log('dreifacher schaden')
                     this.resetTimers();
                     this.health_bar.setPercentage(this.character.energy);
                     this.checkPlayerActivity();
                 }else{
+                    this.character.damage();
                     this.character.damage();
                     this.resetTimers();
                     this.health_bar.setPercentage(this.character.energy);
