@@ -172,10 +172,20 @@ class World {
                 this.enemyDestruction(enemy);  
                 
             }else if(this.character.isColliding(enemy)&& !this.character.invincible && !this.character.isHurt()){
-                this.character.damage();
-                this.resetTimers();
-                this.health_bar.setPercentage(this.character.energy);
-                this.checkPlayerActivity();
+                if(enemy === this.endboss){
+                    this.character.damage()
+                    this.character.damage();
+                    console.log('doppelter schaden')
+                    this.resetTimers();
+                    this.health_bar.setPercentage(this.character.energy);
+                    this.checkPlayerActivity();
+                }else{
+                    this.character.damage();
+                    this.resetTimers();
+                    this.health_bar.setPercentage(this.character.energy);
+                    this.checkPlayerActivity();
+                }
+                
             }
             //else if(this.character.isColliding(this.endboss)){
             //    this.character.damage();
