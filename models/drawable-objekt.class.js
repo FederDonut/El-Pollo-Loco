@@ -50,13 +50,13 @@ class DrawableObject{
         });
     }
 
+    // Debugging function
     /**
      * Draws a rectangular frame (bounding box) around the object for debugging purposes.
      * The frame is only drawn for specific types of movable/interactive objects.
      * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
      */
     drawFrame(ctx){
-
         if(this instanceof Chicken || this instanceof Missile ||  this instanceof Endboss || this instanceof Bottle || this instanceof Chick){
             ctx.beginPath();
             ctx.lineWidth = '1';

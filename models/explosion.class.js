@@ -6,17 +6,11 @@
  */
 class Explosion extends MovableObject{
 
-    /** @type {number} The horizontal position (X-coordinate) where the explosion occurs. */
     x;
-    /** @type {number} The vertical position (Y-coordinate) where the explosion occurs. */
     y;
-    /** @type {number} The fixed width of the explosion animation area. */
     width = 200;
-    /** @type {number} The fixed height of the explosion animation area. */
     height = 200;
-    /** @type {boolean} Flag indicating that the animation is complete and the object should be removed. */
-    removeExplosion = false;
-    /** @type {number} Interval ID for the animation loop. */
+    removeExplosion = false;    
     explosionInterval;
 
     /** @type {string[]} Image paths for the bottle splash/detonation animation. */

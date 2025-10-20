@@ -29,7 +29,7 @@ class Chick extends MovableObject{
 
     /**parameters for a more precisely collison detection */
     offset = {
-        top: 0,//20
+        top: 30,//20
         bottom: 0,
         left: 0,
         right: 0

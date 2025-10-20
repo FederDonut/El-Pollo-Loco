@@ -110,23 +110,16 @@ class Character extends MovableObject{
         this.intervalId.push(setInterval(() =>{
             if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
                 this.goRight();
-                //console.log("speedX: ",this.speedX)
-                //console.log("speed: ",this.speed)
-                
             }
             if(this.world.keyboard.left && this.x > 0 ){
                 this.goLeft(); 
-                //console.log("speedX: ",this.speedX)
-                //console.log("speed: ",this.speed)
-
             }
             if(this.world.keyboard.up && !this.isAboveGround()&& !this.isDead()){
                 this.world.audio.characterJumpSound();
                 this.world.audio.jumping = false;
                 this.jump();
                 this.world.resetTimers();
-                //console.log("speedY: ",this.speedY)
-                console.log('normaler Sprung', this.y)
+
             }
             this.world.camera_x = -this.x + 100
         },1000/60));

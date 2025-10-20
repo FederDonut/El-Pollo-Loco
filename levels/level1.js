@@ -22,9 +22,8 @@ const level1 = () =>{
         new Chicken(9000),
         new Chick(9500),
         new Chicken(),
-        new Chick(),// peak test 
+        new Chick(), 
     ],
-     
     [
         new Cloud(),
         new Cloud(),

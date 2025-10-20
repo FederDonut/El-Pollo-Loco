@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let isMuted;
+let manager;
 
 
 /**
@@ -16,6 +17,7 @@ function init(){
     }
     const level = level1()  
     world = new World(canvas, keyboard, level);
+    manager = world.manager;
     keyboard.mobileButtons();
     checkMuteStatus();
 }
@@ -99,11 +101,11 @@ function saveToLocalStorage(){
 function checkMuteStatus(){
     const localStorageStatus = localStorage.getItem('isMuted');
     if(localStorageStatus === 'true'){
-        world.muteAllSounds();
+        manager.muteAllSounds();
         changeSoundImg(localStorageStatus);
         isMuted = true
     }else if(localStorageStatus === 'false'){
-        world.audibleAllSounds();
+        manager.audibleAllSounds();
         changeSoundImg(localStorageStatus);
         isMuted = false
     }else{

@@ -24,7 +24,7 @@ class Chicken extends MovableObject{
 
     /**parameters for a more precisely collison detection */
     offset = {
-        top: 0,
+        top: 30,
         bottom: 0,
         left: 0,
         right: 0

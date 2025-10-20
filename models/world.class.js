@@ -43,24 +43,35 @@ class World {
         this.keyboard = keyboard;
         this.level = level
         this.endboss = this.level.enemies[3];
+        this.manager = new WorldManager(this);
         this.draw();
         this.setWorld();
         this.checkPlayerActivity();
         this.startInteractivTimer();
         this.startSleepTimer();
-        this.run(); 
-        this.collisonControll(); 
+        this.run();
+        this.collisonControll();
     }
-
-    /**
-     * Assigns the 'world' reference to all essential game components 
-     * (Character, Enemies, Audio, Keyboard).
-     */
+   
+    ///**
+    // * Assigns the 'world' reference to all essential game components 
+    // * (Character, Enemies, Audio, Keyboard).
+    // */
     setWorld(){
         this.character.world = this;
         this.level.enemies.forEach((enemy)=> enemy.world = this);
         this.audio.world = this;
         this.keyboard.world = this;
+    }
+
+    /**
+     * Stops all game activity by delegating the stop command to the WorldManager.
+     * This method is called by global functions (e.g., init, tryAgain) to safely
+     * terminate game loops, clear arrays, and stop audio playback.
+     * * @returns {void}
+     */
+    stopGame(){
+    this.manager.stopGame(); 
     }
 
     /**
@@ -75,10 +86,19 @@ class World {
         this.checkCoinCollision();
         this.endbossMovement();
         this.checkEndbossDistance();
-        this.gameOver();
+        this.manager.gameOver();
         },100))
     }
 
+    /**
+    * Starts a continuous collision control process.
+    *
+    * It sets up an interval that runs every 10 milliseconds.
+    * In each interval, it updates the character's last vertical position
+    * and then checks for any collisions.
+    *
+    * @returns {void}
+    */
     collisonControll(){
         this.intervalId.push(setInterval(()=>{
             this.character.lastPositionY = this.character.y;
@@ -165,19 +185,15 @@ class World {
     /**
     * Checks for collisions between the character and enemies.
     */
-    
     checkCollisions(){ 
         this.level.enemies.forEach((enemy) =>{
             if(this.character.isCollidingFromAbove(enemy)&& !this.character.isColliding(this.endboss)){
                 this.enemyDestruction(enemy);  
-                
             }else if(this.character.isColliding(enemy)&& !this.character.invincible && !this.character.isHurt()){
                 if(enemy === this.endboss){
-                    this.character.damage()
-                    this.character.damage();
-                    this.character.damage();
-                    this.character.damage();
-                    console.log('dreifacher schaden')
+                    for(let i = 0 ; i< 4; i++){
+                        this.character.damage()
+                    }
                     this.resetTimers();
                     this.health_bar.setPercentage(this.character.energy);
                     this.checkPlayerActivity();
@@ -187,19 +203,19 @@ class World {
                     this.resetTimers();
                     this.health_bar.setPercentage(this.character.energy);
                     this.checkPlayerActivity();
-                }
-                
+                } 
             }
-            //else if(this.character.isColliding(this.endboss)){
-            //    this.character.damage();
-            //    this.resetTimers();
-            //    this.health_bar.setPercentage(this.character.energy);
-            //    this.checkPlayerActivity();
-            //}
         })
         this.checkBouncingStatus();
     }
 
+    /**
+    * Handles the logic when the character successfully stomps on and destroys an enemy.
+    * Sets the character to an invincible and bouncing state, damages the enemy,
+    * and initiates a jump and sound effects.
+    *
+    * @param {Object} enemy - The enemy object that was destroyed.
+    */
     enemyDestruction(enemy){
         this.character.invincible = true;
         this.character.isBouncing = true;
@@ -211,6 +227,11 @@ class World {
         this.checkPlayerActivity();
     }
 
+    /**
+    * Checks and updates the character's bouncing status after stomping on an enemy.
+    * Sets 'isBouncing' to false when the character reaches a certain Y position (394)
+    * or starts falling below a threshold while bouncing.
+    */
     checkBouncingStatus(){
     const Y_STOMP_THRESHOLD = 350;
         if (this.character.y >= 394) {this.character.isBouncing = false;}
@@ -219,6 +240,11 @@ class World {
         }
     }
 
+    /**
+    * Manages the character's temporary invincibility period after stomping on an enemy.
+    * Removes invincibility after a short 'TIME_PROTECTION' duration (200ms)
+    * and only if the character is no longer bouncing.
+    */
     checkInvincibilityTimer(){
         const TIME_PROTECTION = 200;
         const timePassed = new Date().getTime() - this.character.lastStompTime;
@@ -281,11 +307,7 @@ class World {
                     }else if(enemy !== this.endboss){
                         enemy.damage();
                         this.audio.playEnemyDamageSound();
-                        this.audio.stopEnemyDamageSound();
-                    }
-                }
-            });
-        });
+                        this.audio.stopEnemyDamageSound();}}});});
         this.throable_objects = this.throable_objects.filter(bottle => !bottle.removeMissile);
         this.firePower = this.firePower.filter(explosion => !explosion.removeExplosion);
     }
@@ -343,153 +365,14 @@ class World {
     */
     draw(){
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x , 0); // transalte verschiebt die camera
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.clouds);
-        this.addToMap(this.character);
-        this.ctx.translate(-this.camera_x , 0);
-        this.addToMap(this.health_bar);
-        this.addToMap(this.coin_bar);
-        this.addToMap(this.bottle_bar);
-        this.ctx.translate(this.camera_x , 0);
+        this.manager.drawCharacterAndStatusBars();
         if(this.isObjectVisible){
-            this.ctx.translate(-this.camera_x , 0);
-           
-            this.addToMap(this.enemy_health_bar);
-            this.ctx.translate(this.camera_x , 0);
+            this.manager.drawEnboss();
         }
-        this.addObjectsToMap(this.level.enemies);
-         //this.addToMap(this.level.endboss);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.throable_objects);
-        this.addObjectsToMap(this.firePower);
-        this.ctx.translate(-this.camera_x , 0);
+        this.manager.drawTrowableObjectsAndEnemys();
         let self = this;
         requestAnimationFrame(function(){
             self.draw()
         });
-    }
-
-    /**
-    * Helper function to draw an array of objects.
-    * @param {DrawableObject[]} objects - An array of objects to draw.
-    */
-    addObjectsToMap(objects){
-        objects.forEach(o => {
-            this.addToMap(o);
-        })
-    }
-    //mo = MovableObject
-    addToMap(mo){
-        if(mo.otherDirection){
-            this.flipImgae(mo);
-        }
-        mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
-        if(mo.otherDirection){
-            this.flipImgaeBack(mo);    
-        }
-    }
-
-    /**
-    * Flips the canvas context horizontally for drawing mirrored images.
-    * @param {MovableObject} mo - The object being flipped.
-    */
-    flipImgae(mo){
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1,1);
-        mo.x = mo.x * -1;
-    }
-
-    /**
-     * Restores the canvas context to its original state after drawing a flipped image.
-     * @param {MovableObject} mo - The object that was flipped.
-     */
-    flipImgaeBack(mo){
-        mo.x = mo.x * -1
-        this.ctx.restore();
-    }
-
-    /**
-    * Checks the win/loss conditions and initiates the game over/you won sequence.
-    */
-    gameOver(){
-        if(this.gameIsEnding){
-            return
-        }
-        if(this.character.energy === 0){
-            this.gameIsEnding = true;
-            this.endboss.speed = 0;        
-            setTimeout(()=>{
-                this.stopGame();
-                gameIsOver();
-            },4000);
-        }
-        if(this.endboss.energy===0){
-            this.gameIsEnding = true;
-            this.character.speed = 0;
-            setTimeout(()=>{
-               this.stopGame();
-                YouWonTheGame();
-            },4000)
-        }        
-    }
-    
-    /**
-     * Halts all game activity: stops intervals, clears arrays, and stops sounds.
-     */
-    stopGame(){    
-        this.stopIntervals();
-        this.clearArrays();
-        this.audio.stopAllSounds();       
-    }
-
-    //Cut
-    /**
-    *  Clears all arrays, 
-    */
-    clearArrays(){
-        this.level.enemies = []
-        this.level.clouds = []
-        this.level.coins = []
-        this.level.bottles = []
-        this.level.backgroundObjects = [];
-        this.firePower = []
-        this.throable_objects=[];
-        this.intervalId = [];
-        this.audio.soundLib = [];
-    }
-
-     /**
-    * Stops all running intervals for the world, character, and all objects in the level.
-    */
-    stopIntervals(){
-        this.intervalId.forEach(interval => {clearInterval(interval)});
-        this.character.stopIntervals();
-        this.level.enemies.forEach((enemy)=>{
-            enemy.stopIntervals();
-        })
-        this.level.clouds.forEach((cloud)=>{
-            cloud.stopIntervals();
-        })
-        this.level.coins.forEach((coin)=>{
-            coin.stopIntervals();
-        })
-    }
-
-    /**
-    * Mutes all managed game sounds.
-    */
-    muteAllSounds(){
-        this.audio.muteAllWorldSounds();
-    }
-
-    /**
-    * Restores sound volume for all managed game sounds.
-    */
-    audibleAllSounds(){
-        this.audio.audibleAllWorldSounds();
     }
 }
