@@ -53,10 +53,10 @@ class World {
         this.collisonControll();
     }
    
-    ///**
-    // * Assigns the 'world' reference to all essential game components 
-    // * (Character, Enemies, Audio, Keyboard).
-    // */
+    /**
+    * Assigns the 'world' reference to all essential game components 
+    * (Character, Enemies, Audio, Keyboard).
+    */
     setWorld(){
         this.character.world = this;
         this.level.enemies.forEach((enemy)=> enemy.world = this);
