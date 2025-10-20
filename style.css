@@ -593,6 +593,7 @@ button{
     body{
         background-color: black;
     }
+    
     .Canvas-Control{
         height: 40px;
         padding-bottom: 10px;
@@ -694,7 +695,8 @@ button{
         justify-content: center;
     }
     .startScreen{
-        background-size: contain;    
+        background-size: contain;
+            
     }
     .Canvas-Container{
         height: 80%;
@@ -705,6 +707,12 @@ button{
     .mobileBtn{
         height: 100%;
         width: 50px;
+    }
+    .Game-Manual{
+        display: none; /**Test**/
+    }
+    h1{
+        margin: 10px !important; 
     }
 }
 
