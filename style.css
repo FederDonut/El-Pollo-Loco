@@ -30,7 +30,7 @@ body{
     height: 100vh;
     width: 100%;
     /**background-color: rgb(236, 241, 242);**/
-    background-image: url(/img/Overlay_assets/ai-generated-8286299_1280.jpg);
+    background-image: url(./img/Overlay_assets/ai-generated-8286299_1280.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

@@ -172,7 +172,7 @@ function changeSoundImg(localStorageStatus){
  */
 function fullScreen(){
     let screenIcons = document.getElementById('Canvas-Container')
-    let h1= document.querySelector('h1');
+    let h1= document.getElementById('h1');
     let manual = document.getElementById('Game-Manual');
     let CanvasContainer = document.getElementById('CanvasDocker');
     let canvas = document.getElementById('canvas');
