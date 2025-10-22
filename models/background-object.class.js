@@ -6,9 +6,7 @@
  */
 class BackgroundObject extends MovableObject{
 
-    /** @type {number} The fixed width of the background object. */
     width = 1720
-    /** @type {number} The fixed height of the background object. */
     height = 780
 
     /**

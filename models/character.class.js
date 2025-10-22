@@ -7,7 +7,7 @@
 class Character extends MovableObject{
 
     height = 300
-    y = 395//95 //395
+    y = 395
     speed = 8
     intervalId = [];
     invincible = false;
@@ -106,57 +106,8 @@ class Character extends MovableObject{
     * Sets up the main game loops for movement (60 FPS) and animation/sound (10 FPS).
     */
     animate(){
-
-        this.intervalId.push(setInterval(() =>{
-            if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){
-                this.goRight();
-            }
-            if(this.world.keyboard.left && this.x > 0 ){
-                this.goLeft(); 
-            }
-            if(this.world.keyboard.up && !this.isAboveGround()&& !this.isDead()){
-                this.world.audio.characterJumpSound();
-                this.world.audio.jumping = false;
-                this.jump();
-                this.world.resetTimers();
-
-            }
-            this.world.camera_x = -this.x + 100
-        },1000/60));
-
-        this.intervalId.push(setInterval(() =>{
-            
-            if(this.isDead()){
-                this.playAnimation(this.IMAGES_death);
-                //this.dead();
-               
-                this.world.audio.wastedSound();
-                this.speed = 0;
-                this.world.audio.charIsDead = false;
-            }     
-            else if(this.isHurt()){
-                this.playAnimation(this.IMAGES_damage);
-                this.world.audio.characterTakeDamageSound();
-                this.world.audio.charGotDamage = false;
-            }
-
-            else if(this.isAboveGround()){
-                this.playAnimation(this.IMAGES_jumping);
-            }
-            else if(this.world.chillMode){
-                this.playAnimation(this.IMAGES_inactiv);
-            }
-            else if(this.world.sleepMode){
-                this.playAnimation(this.IMAGES_long_inactivity);
-            }
-           
-            else{    
-                if(this.world.keyboard.right || this.world.keyboard.left){
-                this.playAnimation(this.IMAGES_walking);
-                }
-            }    
-        },100))
-
+        this.characterController();
+        this.charcterStatusAnimation();
         this.intervalId.push(setInterval(() =>{
             if(!this.isDead()){
                 this.movementSounds();
@@ -164,6 +115,64 @@ class Character extends MovableObject{
         },100));  
     }
 
+    /**
+    * Manages the character's animation based on its current status (dead, hurt, jumping, idle, or walking).
+    * This function runs a recurring animation check every 100 milliseconds.
+    */
+    charcterStatusAnimation(){
+        this.intervalId.push(setInterval(() =>{
+            if(this.isDead()){this.charcterDeath();}     
+            else if(this.isHurt()){this.characterHurt();}
+            else if(this.isAboveGround()){ this.playAnimation(this.IMAGES_jumping); }
+            else if(this.world.chillMode){ this.playAnimation(this.IMAGES_inactiv); }
+            else if(this.world.sleepMode){ this.playAnimation(this.IMAGES_long_inactivity); }
+            else{    
+                if(this.world.keyboard.right || this.world.keyboard.left){
+                this.playAnimation(this.IMAGES_walking);
+                }
+            }    
+        },100))
+    }
+
+    /**
+    * Plays the damage animation and triggers the character hurt sound.
+    * Resets the damage flag after playing the sound.
+    */
+    characterHurt(){
+        this.playAnimation(this.IMAGES_damage);
+        this.world.audio.characterTakeDamageSound();
+        this.world.audio.charGotDamage = false;
+    }
+
+    /**
+    * Plays the death animation, triggers the "wasted" sound, and sets the character's speed to zero.
+    * Resets the death flag after playing the sound.
+    */
+    charcterDeath(){
+        this.playAnimation(this.IMAGES_death);
+        this.world.audio.wastedSound();
+        this.speed = 0;
+        this.world.audio.charIsDead = false;
+    }
+
+    /**
+    * Manages character movement based on keyboard input.
+    * Handles moving right/left, jumping, and updates the camera position.
+    * This function runs a recurring check for input at a rate of 60 times per second (1000/60 ms).
+    */
+    characterController(){
+        this.intervalId.push(setInterval(() =>{
+            if(this.world.keyboard.right && this.x < this.world.level.level_end_x ){this.goRight();}
+            if(this.world.keyboard.left && this.x > 0 ){this.goLeft();}
+            if(this.world.keyboard.up && !this.isAboveGround()&& !this.isDead()){
+                this.world.audio.characterJumpSound();
+                this.world.audio.jumping = false;
+                this.jump();
+                this.world.resetTimers();
+            }
+            this.world.camera_x = -this.x + 100
+        },1000/60));
+    }
     /**
     * Initiates the 'Game Over' sequence after a short delay for the death animation to play out.
     */

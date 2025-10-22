@@ -51,17 +51,11 @@ class Chicken extends MovableObject{
     animate(){
         this.intervalId.push(setInterval(() =>{
             this.moveLeft();
-           
-            
         },1000 / 60))
-            
-       
-
         this.intervalId.push(setInterval(()=>{
             if(this.isHurt()){
                 this.playAnimation(this.IMAGES_dead);
-                this.dead();
-                
+                this.dead();   
             }else{
                 this.playAnimation(this.IMAGES_walking);   
             }     

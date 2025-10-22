@@ -56,19 +56,16 @@ class Chick extends MovableObject{
         this.intervalId.push(setInterval(()=>{
             this.moveLeft();
         },1000/60))
-    
-
         this.intervalId.push(setInterval(()=>{
-                if(this.isHurt()){
-                    this.playAnimation(this.IMAGES_dead);
-                    this.dead();
-                }else{
-                    this.playAnimation(this.IMAGES_walking);
-                }     
-            },100));
+            if(this.isHurt()){
+                this.playAnimation(this.IMAGES_dead);
+                this.dead();
+            }else{
+                this.playAnimation(this.IMAGES_walking);
+            }     
+        },100));
     }
 
-   
     /**
     * Clears all intervals associated with this chick, stopping movement and animations.
     */

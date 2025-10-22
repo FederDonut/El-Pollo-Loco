@@ -4,19 +4,12 @@
  * It handles image loading, caching, drawing, and provides basic dimensions.
  */
 class DrawableObject{
-    /** @type {HTMLImageElement} The currently displayed image object. */
     img;
-    /** @type {Object.<string, HTMLImageElement>} Cache to store loaded images using their paths as keys. */
     imageCache = {};
-    /** @type {number} Index of the current image in an animation array. */
     currentImage = 0;
-    /** @type {number} The horizontal position (X-coordinate) of the object. */
     x = 120;
-    /** @type {number} The vertical position (Y-coordinate) of the object. */
     y = 535;
-    /** @type {number} The height of the object. */
     height =  150;
-    /** @type {number} The width of the object. */
     width = 150;
 
     /**
@@ -50,8 +43,9 @@ class DrawableObject{
         });
     }
 
-    // Debugging function
+   
     /**
+     * !!!!!! Debugging function === is not a operational Part of the Game !!!!!!!
      * Draws a rectangular frame (bounding box) around the object for debugging purposes.
      * The frame is only drawn for specific types of movable/interactive objects.
      * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.

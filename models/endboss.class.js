@@ -9,14 +9,12 @@ class Endboss extends MovableObject{
     height = 800;
     width = 500;
     y = -50;
-    speed = 25;
+    speed = 70;
     detectionX = false;
     isWalking = false;
     isAlert = false;
     isAttacking = false;
-    //bossThemePlayed = false;
     distanceX = false;
-    //zeroEnergy = false;
     intervalId = [];
     world;
     audio;
@@ -81,7 +79,7 @@ class Endboss extends MovableObject{
         this.loadImages(this.IMAGES_damage);
         this.loadImages(this.IMAGES_dead);
         this.loadImages(this.IMAGES_attack);
-        this.x = 9000//2600
+        this.x = 9000
         this.animate();
         this.bossMovement();
         this.playEndbossSounds();
@@ -96,21 +94,9 @@ class Endboss extends MovableObject{
             if(this.isHurt()){
                 this.playAnimation(this.IMAGES_damage);
             }else if(this.isDead()){
-                this.playAnimation(this.IMAGES_dead);
-                this.dead();
-                this.world.audio.stopEndbossTheme();
-                this.world.audio.playEndbossDeadSound();
-                this.world.audio.zeroEnergy = false;
+               this.bossDies();
             }else{
-                if(this.isAlert){//this.isAlert
-                    this.playAnimation(this.IMAGES_alert)
-                }else if(this.isWalking){
-                    this.playAnimation(this.IMAGES_walking)
-                    this.moveLeft();
-                }else if(this.isAttacking){
-                    this.playAnimation(this.IMAGES_attack);
-                    this.bossAttack();
-                }
+                this.controllBossStatus();
             }
         },200));
     }
@@ -123,9 +109,6 @@ class Endboss extends MovableObject{
             if(this.distanceX && !this.isDead()){
                 this.world.audio.startEndbossTheme();
             }
-            //else{
-            //    this.world.audio.stopEndbossTheme();
-            //}  
         },200))
     }  
 
@@ -137,23 +120,62 @@ class Endboss extends MovableObject{
             setTimeout(()=> this.bossMovement(),this.IMAGES_attack.length);
             return;
         }
-            
         else if(!this.detectionX){
             setTimeout(() => this.bossMovement(),1000);
             return;
         }else{
-            if(this.isAlert){
-                this.isAlert = false;
-                this.isWalking = true; // beginnt zu laufen 
-                setTimeout(() => this.bossMovement(),2000);
-            }else{
-                this.isAlert = true;
-                this.isWalking = false;
-                setTimeout(() => this.bossMovement(),3000);
-            }
-        }
-              
+            this.changeBossStatus();
+        }        
     }
+
+    /**
+    * Triggers the boss death sequence.
+    * Plays the death animation, sets the 'dead' state, stops the boss theme music, and plays the boss dead sound.
+    * Resets the energy flag.
+    */
+    bossDies(){
+        this.playAnimation(this.IMAGES_dead);
+        this.dead();
+        this.world.audio.stopEndbossTheme();
+        this.world.audio.playEndbossDeadSound();
+        this.world.audio.zeroEnergy = false;
+    }
+
+    /**
+    * Manages and plays the appropriate boss animation based on its current status:
+    * - Alert: Plays the alert animation.
+    * - Walking: Plays the walking animation and initiates movement to the left.
+    * - Attacking: Plays the attack animation and initiates the boss attack action.
+    */
+    controllBossStatus(){
+        if(this.isAlert){
+            this.playAnimation(this.IMAGES_alert)
+        }else if(this.isWalking){
+            this.playAnimation(this.IMAGES_walking)
+            this.moveLeft();
+        }else if(this.isAttacking){
+            this.playAnimation(this.IMAGES_attack);
+            this.bossAttack();
+        }
+    }
+
+    /**
+    * Changes the boss's internal state between 'alert' and 'walking', triggering a delayed status change.
+    * If currently 'alert', it switches to 'walking' after a 1-second delay (to start movement).
+    * If currently not 'alert' (i.e., walking), it switches to 'alert' after a 3-second delay.
+    */
+    changeBossStatus(){
+        if(this.isAlert){
+            this.isAlert = false;
+            this.isWalking = true; 
+            setTimeout(() => this.bossMovement(),1000); //2000
+        }else{
+            this.isAlert = true;
+            this.isWalking = false;
+            setTimeout(() => this.bossMovement(),3000);
+        }
+    }
+
     /**
     * Triggers the attack animation and movement for a short duration.
     * Resets the state back to alert after the attack is complete.

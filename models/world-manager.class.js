@@ -69,7 +69,7 @@ class WorldManager{
             this.flipImgae(mo);
         }
         mo.draw(this.world.ctx);
-        //mo.drawFrame(this.ctx);
+        //mo.drawFrame(this.ctx); --> Debugging Function
         if(mo.otherDirection){
             this.flipImgaeBack(mo);    
         }
@@ -103,23 +103,40 @@ class WorldManager{
             return
         }
         if(this.world.character.energy === 0){
-            this.world.gameIsEnding = true;
-            this.world.endboss.speed = 0;        
-            setTimeout(()=>{
-                this.stopGame();
-                gameIsOver();
-            },4000);
+            this.characterIsDead();
         }
         if(this.world.endboss.energy===0){
-            this.world.gameIsEnding = true;
-            this.world.character.speed = 0;
-            setTimeout(()=>{
-                this.stopGame();
-                YouWonTheGame();
-            },4000)
+            this.endbossIsDead();
         }        
     }
 
+    /**
+    * Initiates the sequence for the endboss defeat.
+    * Sets the global game ending flag, stops the main character's movement, and
+    * after a 4-second delay, stops all game activity and calls the 'YouWonTheGame' function.
+    */
+    endbossIsDead(){
+        this.world.gameIsEnding = true;
+        this.world.character.speed = 0;
+        setTimeout(()=>{
+            this.stopGame();
+            YouWonTheGame();
+        },4000)
+    }
+
+    /**
+    * Initiates the sequence for the main character's death.
+    * Sets the global game ending flag, stops the endboss's movement, and
+    * after a 4-second delay, stops all game activity and calls the 'gameIsOver' function.
+    */
+    characterIsDead(){
+        this.world.gameIsEnding = true;
+        this.world.endboss.speed = 0;        
+        setTimeout(()=>{
+            this.stopGame();
+            gameIsOver();
+        },4000);
+    }
     /**
      * Halts all game activity: stops intervals, clears arrays, and stops sounds.
         */

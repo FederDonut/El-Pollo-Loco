@@ -98,24 +98,12 @@ class Statusbar extends DrawableObject{
     * @returns {number} The index (0-5) corresponding to the collection count.
     */
     itemCollection(){
-        if(this.collection === 10){
-            return 5;
-        }
-        else if(this.collection >= 8){
-            return 4;
-        }
-        else if(this.collection >= 6){
-            return 3;
-        }
-        else if(this.collection >= 4){
-            return 2;
-        }
-        else if(this.collection >= 1){
-            return 1;
-        }
-        else{
-            return 0;
-        }
+        if(this.collection === 10){return 5;}
+        else if(this.collection >= 8){return 4;}
+        else if(this.collection >= 6){return 3;}
+        else if(this.collection >= 4){return 2;}
+        else if(this.collection >= 1){return 1;}
+        else{return 0;}
     }
 
     /**
@@ -124,23 +112,11 @@ class Statusbar extends DrawableObject{
     * @returns {number} The index (0-5) corresponding to the current percentage.
     */
     resolveImageIndex(){
-        if(this.percentatge === 100){
-            return 0;
-        }
-        else if(this.percentatge > 80){
-            return 1;
-        }
-        else if(this.percentatge > 50){
-            return 2;
-        }
-        else if(this.percentatge > 30){
-            return 3;
-        }
-        else if(this.percentatge > 9){
-            return 4;
-        }
-        else{
-            return 5;
-        }
+        if(this.percentatge === 100){return 0;}
+        else if(this.percentatge > 80){return 1;}
+        else if(this.percentatge > 50){return 2;}
+        else if(this.percentatge > 30){return 3;}
+        else if(this.percentatge > 9){return 4;}
+        else{return 5;}
     }
 }

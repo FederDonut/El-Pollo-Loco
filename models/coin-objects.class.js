@@ -9,7 +9,6 @@ class Coin extends MovableObject{
     height = 150;
     width = 150;
     collectCoin = false;
-    //playCoinSound = false;
     intervalId = [];
     y = 350;
 
@@ -34,9 +33,7 @@ class Coin extends MovableObject{
     constructor(){
         super().loadImage(this.IMAGE_coin[0]);
         this.loadImages(this.IMAGE_coin);
-        // Sets a random horizontal position.
         this.x = 500 + Math.random()*7000;
-        // Sets a random vertical position (slight variation in height).
         this.y = 450 - Math.random()*100;
         this.animate();
     }
@@ -45,7 +42,6 @@ class Coin extends MovableObject{
      * Sets up the animation loop for the coin, making it rotate.
      */
     animate(){
-        // Animation Loop (5 FPS): Cycles through the coin images.
         this.intervalId.push(setInterval(()=>{
             this.playAnimation(this.IMAGE_coin);
         },200))

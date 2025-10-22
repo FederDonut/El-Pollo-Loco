@@ -205,6 +205,11 @@ function backToHomeMenu(){
     
 }
 
+/**
+ * Toggles the visibility of the impressum (legal notice) overlay.
+ * First, it updates the content of the 'impressum-wrapper' with the result of the 'renderImpressum' function,
+ * and then toggles the 'd-none' class on the 'impressum' element to show or hide it.
+ */
 function toggleImpressum(){
     let impressum = document.getElementById('impressum');
     let content = document.getElementById('impressum-wrapper');
@@ -230,59 +235,32 @@ function preventBubbling (event){
     event.stopPropagation();   
 }
 
+/**
+ * Global event listener for keyboard key presses ('keydown').
+ * When a specified key (ArrowRight, ArrowLeft, ArrowUp, ArrowDown, Spacebar, or 'd') is pressed,
+ * the corresponding boolean flag in the global 'keyboard' object is set to **true** to indicate active input.
+ */
 window.addEventListener('keydown', (event) => {
-    
-    if (event.key == "ArrowRight"){
-        keyboard.right = true;
-        
-    };
-
-    if (event.key == "ArrowLeft"){
-        keyboard.left = true;
-    };
-
-    if (event.key == "ArrowUp"){
-        keyboard.up = true;
-    };
-
-    if (event.key == "ArrowDown"){
-        keyboard.down = true;
-    };
-
-    if(event.key == " "){
-        keyboard.space == true;
-    }
-
-    if(event.key == "d"){
-        keyboard.attack = true;
-    }
+    if (event.key == "ArrowRight"){keyboard.right = true;};
+    if (event.key == "ArrowLeft"){keyboard.left = true;};
+    if (event.key == "ArrowUp"){keyboard.up = true;};
+    if (event.key == "ArrowDown"){keyboard.down = true;};
+    if(event.key == " "){keyboard.space == true;}
+    if(event.key == "d"){keyboard.attack = true;}
 });
 
+/**
+ * Global event listener for keyboard key releases ('keyup').
+ * When a specified key (ArrowRight, ArrowLeft, ArrowUp, ArrowDown, Spacebar, or 'd') is released,
+ * the corresponding boolean flag in the global 'keyboard' object is set to **false** to stop the input action.
+ */
 window.addEventListener('keyup', (event) =>{
-     if (event.key == "ArrowRight"){
-        keyboard.right = false;
-    };
-
-    if (event.key == "ArrowLeft"){
-        keyboard.left = false;
-    };
-
-    if (event.key == "ArrowUp"){
-        keyboard.up = false;
-    };
-
-    if (event.key == "ArrowDown"){
-        keyboard.down = false;
-    };
-    
-    if(event.key == " "){
-        keyboard.space == false;
-    }
-
-    if(event.key == "d"){
-        keyboard.attack = false;
-    }
-
+     if (event.key == "ArrowRight"){keyboard.right = false;};
+    if (event.key == "ArrowLeft"){keyboard.left = false;};
+    if (event.key == "ArrowUp"){keyboard.up = false;};
+    if (event.key == "ArrowDown"){keyboard.down = false;};
+    if(event.key == " "){keyboard.space == false;}
+    if(event.key == "d"){keyboard.attack = false;}
 });
 
 

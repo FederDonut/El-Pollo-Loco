@@ -10,7 +10,7 @@ class World {
     anyKeyPressed = false;
     chillMode =false;
     sleepMode = false;
-    isObjectVisible = false; // fixiert statusbar Bossgegener
+    isObjectVisible = false; 
     canThrow = true; 
     canvas;
     ctx;
@@ -191,22 +191,42 @@ class World {
                 this.enemyDestruction(enemy);  
             }else if(this.character.isColliding(enemy)&& !this.character.invincible && !this.character.isHurt()){
                 if(enemy === this.endboss){
-                    for(let i = 0 ; i< 4; i++){
-                        this.character.damage()
-                    }
-                    this.resetTimers();
-                    this.health_bar.setPercentage(this.character.energy);
-                    this.checkPlayerActivity();
+                   this.endBossStrength()
                 }else{
-                    this.character.damage();
-                    this.character.damage();
-                    this.resetTimers();
-                    this.health_bar.setPercentage(this.character.energy);
-                    this.checkPlayerActivity();
+                    this.enemyStrength();
                 } 
             }
         })
         this.checkBouncingStatus();
+    }
+
+    /**
+    * Applies a strong damage sequence to the main character, simulating an Endboss attack.
+    * The character is damaged four times.
+    * Resets the player's inactivity timers, updates the health bar percentage based on the character's energy,
+    * and then checks for overall player activity.
+    */
+    endBossStrength(){
+        for(let i = 0 ; i< 4; i++){
+            this.character.damage()
+        }
+        this.resetTimers();
+        this.health_bar.setPercentage(this.character.energy);
+        this.checkPlayerActivity();
+    }
+    
+    /**
+    * Applies standard damage to the main character, simulating an attack from a regular enemy.
+    * The character is damaged twice.
+    * Resets the player's inactivity timers, updates the health bar percentage based on the character's energy,
+    * and then checks for overall player activity.
+    */
+    enemyStrength(){
+        this.character.damage();
+        this.character.damage();
+        this.resetTimers();
+        this.health_bar.setPercentage(this.character.energy);
+        this.checkPlayerActivity();
     }
 
     /**
@@ -302,16 +322,24 @@ class World {
                     this.missileExplosion(bottle);
                     if(enemy === this.endboss){
                         this.endbossDamage(enemy);
-                        this.audio.playEnemyDamageSound();
-                        this.audio.stopEnemyDamageSound();
+                        this.enemyDamageSound();
                     }else if(enemy !== this.endboss){
                         enemy.damage();
-                        this.audio.playEnemyDamageSound();
-                        this.audio.stopEnemyDamageSound();}}});});
+                        this.enemyDamageSound();    
+                    }}});});
         this.throable_objects = this.throable_objects.filter(bottle => !bottle.removeMissile);
         this.firePower = this.firePower.filter(explosion => !explosion.removeExplosion);
     }
     
+    /**
+    * Plays the enemy damage sound effect by first initiating the sound
+    * and then immediately stopping it (likely intended to ensure the sound plays only once or
+    * to handle quick playback state, although the immediate stop might be a logic error depending on the implementation).
+    */
+    enemyDamageSound(){
+        this.audio.playEnemyDamageSound();
+        this.audio.stopEnemyDamageSound();
+    }
     /**
     * Handles the visual and logical effect of a missile detonation.
     * @param {Missile} bottle - The missile object that detonated.
@@ -349,7 +377,7 @@ class World {
     */
     checkEndbossDistance(){
         let distance = Math.abs((this.character.x + this.character.width)-this.endboss.x);
-        if(distance <= 200 && !this.endboss.isAttacking){
+        if(distance <= 750 && !this.endboss.isAttacking){
             this.endboss.bossAttackMovement();
         }else if(distance <= 1400 ){
            this.endboss.distanceX = true;  

@@ -20,13 +20,9 @@ class Cloud extends MovableObject{
      * Loads the cloud image and assigns a random starting position and vertical offset.
      */
     constructor(){
-        super().loadImage('img/5_background/layers/4_clouds/1.png')
-
-        // Sets a random horizontal starting position.
+        super().loadImage('img/5_background/layers/4_clouds/1.png');
         this.x = 10 +Math.random() * 10000 
-        // Sets a random vertical offset (Y-coordinate).
         this.y = 20 +Math.random()* 80
-        
         this.animate();
     }
 
