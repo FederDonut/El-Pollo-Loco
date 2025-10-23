@@ -13,7 +13,6 @@ class Explosion extends MovableObject{
     removeExplosion = false;    
     explosionInterval;
 
-    /** @type {string[]} Image paths for the bottle splash/detonation animation. */
     IMAGE_detonation = [
                     'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
                     'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
@@ -33,28 +32,23 @@ class Explosion extends MovableObject{
     constructor(x,y){
         super().loadImage(this.IMAGE_detonation[0]);
         this.loadImages(this.IMAGE_detonation);
-        this.x = x; //+ 100; adjustment needed depending on where the object is centered
+        this.x = x; 
         this.y = y;
         this.animate();
         
         
     }
     
-
     /** * Starts the detonation animation loop and sets a timeout to end the animation.
      */
     animate(){ 
-        // Animation Loop (Runs every 300ms)
         this.explosionInterval = setInterval(() => { 
             this.playAnimation(this.IMAGE_detonation);
         },300);
-        
-        // Stops the animation and flags the object for removal after 1 second.
         setTimeout(() =>{
             this.endAnimation();
             this.removeExplosion=true;
         },1000)
-        
     }
 
     /**
@@ -65,12 +59,5 @@ class Explosion extends MovableObject{
             clearInterval(this.explosionInterval);
             this.explosionInterval = null;
         }
-    }
-
-    /**
-     * Placeholder function for sound effects (currently empty).
-     */
-    sound(){
-
     }
 }

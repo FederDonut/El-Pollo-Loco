@@ -8,7 +8,7 @@ class Chick extends MovableObject{
 
     height = 80;
     width = 100;
-    y= 600;//586
+    y= 600;
     intervalId = [];
     soundIsPlaying = false;
 
@@ -26,10 +26,8 @@ class Chick extends MovableObject{
         'audio/strongpunch.mp3'
     ];
 
-
-    /**parameters for a more precisely collison detection */
     offset = {
-        top: 30,//20
+        top: 30,
         bottom: 0,
         left: 0,
         right: 0

@@ -55,21 +55,15 @@ class AudioController{
         this.bossSound = new Audio(this.Endboss_audio[0]);
         this.bossDeathSound = new Audio(this.Endboss_audio[1]);
         this.bossDamageSound = new Audio(this.Endboss_audio[2]);
-
-        //Character
         this.charRunSound = new Audio(this.Character_audio[0]);
         this.charJumpSound = new Audio(this.Character_audio[1]);
         this.charDeathSound = new Audio(this.Character_audio[3]);
         this.charDamageSound = new Audio(this.Character_audio[4]);
-        
-
-        //World
         this.worldSound = new Audio(this.World_audio[0]);
         this.laserShotSound = new Audio(this.World_audio[1]);
         this.damageSond = new Audio(this.World_audio[2]);
         this.coinSound = new Audio(this.World_audio[3])
         this.reloadSound = new Audio(this.World_audio[4]);
-
         this.soundLib.push( this.bossSound,this.bossDeathSound,this.bossDamageSound,this.charRunSound,this.charJumpSound,this.charDeathSound,this.charDamageSound,
                             this.worldSound,this.laserShotSound,this.damageSond,this.coinSound,this.reloadSound
         );

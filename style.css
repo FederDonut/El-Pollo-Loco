@@ -22,6 +22,7 @@
     font-style: normal;
     src: url(./fonts/ComicRelief-Regular.ttf);
 }
+
 body{
     display: flex;
     flex-direction: column;
@@ -29,13 +30,11 @@ body{
     align-items: center;
     height: 100vh;
     width: 100%;
-    /**background-color: rgb(236, 241, 242);**/
     background-image: url(./img/Overlay_assets/ai-generated-8286299_1280.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     opacity: 0.95;
-    
 }
 
 .goingToFullScreen{
@@ -55,8 +54,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
+
 .Canvas-Control{
     position: absolute;
     bottom: 0px;
@@ -65,9 +64,8 @@ body{
     z-index: 10;
     display: flex;
     flex-direction: row-reverse;
-    
-
 }
+
 .hud{
     position: absolute;
     bottom: 0;
@@ -82,11 +80,10 @@ body{
     width: 100%;
     display: flex;
     justify-content: space-between;
-
 }
+
 .hud-position{
     width: 20%;
-    
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -95,10 +92,8 @@ body{
 .mobileBtn{
     height: 60px;
     width: 60px;
-    border-radius: 50%;
-    
+    border-radius: 50%;   
 }
-
 
 .btn{
     background-image: url(./img/You\ won\,\ you\ lost/Play.png);
@@ -119,10 +114,12 @@ body{
     height: 100px;
     width: 100px;
 }
+
 .btn:hover{
     cursor: pointer;
     background-color: rgb(255, 218, 6);
 }
+
 .canvasBtn{
     height: 80%;
     width: 80px;
@@ -140,7 +137,6 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: 40px;
-    
 }
 
 .sound-control{
@@ -162,7 +158,6 @@ canvas{
     width: 1970px;
     background-color: black;
     display: block;
-    
 }
 .d-none{
     display: none !important;
@@ -234,7 +229,6 @@ canvas{
     height: 50px;
     color: black !important;
     background-color: rgb(225, 225, 227);
-   
 }
 
 .Info-Wrapper{
@@ -242,7 +236,6 @@ canvas{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
 }
 
 .manualOverlay{
@@ -256,17 +249,14 @@ canvas{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
 
 .manualWrapper{
     height: 200px;
     width: 75%;
-    
     border-radius: 5px;
     border: 4px solid white;
     display: flex;
-
 }
 
 .mobile-Controler{
@@ -281,7 +271,6 @@ canvas{
     flex-direction: column;
     justify-content: space-around;
     border-radius: 5px;
-
 }
 
 .controler-head{
@@ -294,7 +283,6 @@ canvas{
 h3{
     font-weight: bold;
     font-size: 20px;
-
 }
 
 .mobile-description{
@@ -318,19 +306,19 @@ h3{
 .text{
     font-size: 24px;
     font-weight: 600;
-
 }
 
 h1{
     color: rgb(210, 88, 22);
     font-size: 70px;
 }
+
 button{
     height: 150px;
     width: 300px;
     font-size: 40px;
-
 }
+
 .gameOverScreen{
     position: absolute;
     top: 0;
@@ -344,6 +332,7 @@ button{
     align-items: center;
     justify-content: center;
 }
+
 .gameOverPosition{
     height: 75%;
     width: 100%;
@@ -351,15 +340,14 @@ button{
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-
 }
+
 .btnWrapper{
     display: flex;
     gap: 50px;
 }
 
-.exitBtn{
-   
+.exitBtn{   
     height: 30px;
     width: 30px;
     border-radius: 50%;
@@ -368,12 +356,13 @@ button{
     border: 1px solid white;
     background-image: url(./img/Overlay_assets/close.png);
     background-position: center;
-
 }
+
 .exitBtn:hover{
     cursor: pointer;
     background-color: white;
 }
+
 .Game-Manual{
     height: 500px;
     width: 1720px;
@@ -404,17 +393,16 @@ button{
 .Item-img{
     height: 100%;
     width: 80px;
-    background-color: rgb(247, 247, 247);
-   
+    background-color: rgb(247, 247, 247);   
 }
+
 .coin-img{
     background-image: url(./img/8_coin/coin_1.png);
     background-size: 200px;
     background-repeat: no-repeat;
     background-position: center;
-
-
 }
+
 .bottle-img{
     background-image: url(./img/6_salsa_bottle/salsa_bottle.png);
     background-repeat: no-repeat;
@@ -428,9 +416,7 @@ button{
     color: red;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-   
-    
+    align-items: center; 
 }
 
 .space{
@@ -530,14 +516,11 @@ button{
     padding: 20px; 
 }
 
-/**Overlay Querformat Logic **/
-
 @media (orientation: portrait) {
     #rotateDeviceOverlay {
-        /* Überschreibt das standardmäßige 'display: none' der d-none Klasse */
+        
         display: flex !important; 
     }
-    
     .Canvas-Container {
         visibility: hidden;
     }
@@ -547,18 +530,15 @@ button{
     #rotateDeviceOverlay {
         display: none !important;
     }
-    /* Optional: Zeige das Spiel wieder an, wenn die Warnung nicht sichtbar ist */
     .Canvas-Container {
         visibility: visible;
     }
 }
 
 @media (max-width: 1980px){
-   
     .startScreen{
         background-size: contain;
     }
-
     canvas{
         width: 95%;
     }
@@ -570,7 +550,6 @@ button{
         gap: 10px;
         
     }
-    
     .Game-Manual{
         width: 100%;
     }
@@ -578,7 +557,6 @@ button{
         width: 30px;
         height: 30px;
     }
-   
     .left, .right, .up{
         background-size: 20px;
         background-position: center;
@@ -594,7 +572,6 @@ button{
         background-color: black;
         justify-content: center;
     }
-    
     .Canvas-Control{
         height: 40px;
         padding-bottom: 10px;
@@ -610,18 +587,15 @@ button{
     .fullscreen{
        background-size: 40px;
     }
-
     .Game-Manual{
         display: none;
     }
-    
     h1{
         display: none;
     }
     .fullscreen{
         display: none;
     }
-
     .Canvas-Container{
         width: 100vw;
         height: 100vh;
@@ -630,7 +604,6 @@ button{
         width: 100%;
         height: 100%;
     }
-
     .hud-wrapper{
         width: 100%;
     }
@@ -639,7 +612,6 @@ button{
         height: 40px;
         display: block;
     }
-
     .btn{
         height: 80px;
         width: 80px;
@@ -650,10 +622,7 @@ button{
     }
 }
 
-
-
 @media (max-width: 1260px){
-   
     .InfoBtnPosition{
         width: 20%;
         margin-right: 0;
@@ -663,8 +632,6 @@ button{
         justify-content: space-around;
     }
 }
-
-
 
 @media (max-width: 700px){
     .Canvas-Control{
@@ -690,10 +657,14 @@ button{
     
 }
 
+@media (max-height: 1149px){
+    .Game-Manual{
+        display: none;
+    }
+}
+
 @media (max-height: 1050px){
-   
     body{
-        /**justify-content: center;**/
         gap: 25px;
     }
     .startScreen{
@@ -711,7 +682,7 @@ button{
         width: 50px;
     }
     .Game-Manual{
-        display: none; /**Test**/
+        display: none; 
     }
     h1{
         margin: 10px !important; 
@@ -720,7 +691,9 @@ button{
 
 @media (max-height: 780px){
 
-  
+    canvas{
+        height: 100%;
+    }
     .InfoBtnPosition{
         margin-bottom: 0;
         height: 35px;
@@ -735,14 +708,10 @@ button{
     .impressumBtn{
         height: 30px;
         font-size: 14px;
-    }
-   
-    
+    } 
 }
+
 @media (max-height: 600px){
-    .Canvas-Container{
-        height: 100%;
-    }
     .InfoBtnPosition{
         margin-bottom: 8px;
     }
@@ -752,6 +721,7 @@ button{
     }
     
 }
+
 
 
 

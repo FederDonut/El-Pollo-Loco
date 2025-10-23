@@ -60,7 +60,6 @@ class Endboss extends MovableObject{
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
-    /**parameters for a more precisely collison detection */
     offset = {
         top: 0,
         bottom: 0,
@@ -85,7 +84,6 @@ class Endboss extends MovableObject{
         this.playEndbossSounds();
     }
 
-  
     /**
      * Controls the boss's animation based on its current state (Hurt, Dead, Alert, Walking, Attacking).
     */

@@ -10,8 +10,6 @@ class Keyboard {
     down = false;
     attack = false;
     space = false;
-
-    /** @type {World|null} Reference to the game world instance for timer control. */
     world = null;
 
     /**

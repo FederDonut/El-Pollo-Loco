@@ -42,7 +42,6 @@ class DrawableObject{
         this.imageCache[path]= img;
         });
     }
-
    
     /**
      * !!!!!! Debugging function === is not a operational Part of the Game !!!!!!!

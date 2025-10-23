@@ -22,13 +22,13 @@ class Chicken extends MovableObject{
         'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ]
 
-    /**parameters for a more precisely collison detection */
     offset = {
         top: 30,
         bottom: 0,
         left: 0,
         right: 0
-    };
+    }
+
     /**
     * Creates an instance of Chicken.
     * Loads images, sets a random starting X position, assigns initial health (10), 
@@ -41,8 +41,7 @@ class Chicken extends MovableObject{
         this.x = 500 + Math.random()*8700;
         this.energy = 10;
         this.animate();
-        this.speed = 0.15 + Math.random() * 0.5;
-        
+        this.speed = 0.15 + Math.random() * 0.5;  
     }
 
     /**

@@ -92,11 +92,9 @@ class World {
 
     /**
     * Starts a continuous collision control process.
-    *
     * It sets up an interval that runs every 10 milliseconds.
     * In each interval, it updates the character's last vertical position
     * and then checks for any collisions.
-    *
     * @returns {void}
     */
     collisonControll(){
@@ -233,7 +231,6 @@ class World {
     * Handles the logic when the character successfully stomps on and destroys an enemy.
     * Sets the character to an invincible and bouncing state, damages the enemy,
     * and initiates a jump and sound effects.
-    *
     * @param {Object} enemy - The enemy object that was destroyed.
     */
     enemyDestruction(enemy){

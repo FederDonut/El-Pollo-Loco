@@ -86,6 +86,7 @@ class Character extends MovableObject{
         left: 50,
         right: 50
     };
+    
     /**
     * Creates an instance of Character.
     * Loads all necessary images, applies gravity, and starts the animation loops.

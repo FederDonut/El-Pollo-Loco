@@ -12,13 +12,11 @@ class Coin extends MovableObject{
     intervalId = [];
     y = 350;
 
-    /** @type {string[]} Image paths for the coin animation. */
     IMAGE_coin = [
         'img/8_coin/coin_1.png',
         'img/8_coin/coin_2.png',
     ];
 
-    /**parameters for a more precisely collison detection */
     offset = {
         top: 50,
         bottom: 50,

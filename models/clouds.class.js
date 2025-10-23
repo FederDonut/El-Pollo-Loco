@@ -6,14 +6,9 @@
  */
 class Cloud extends MovableObject{
 
-    
-    /** @type {number} The fixed height of the cloud model. */
     height = 350;
-    /** @type {number} The fixed width of the cloud model. */
     width = 600;
-    /** @type {number[]} Array to store IDs of all running intervals. */
     intervalId = [];
-
 
     /**
      * Creates an instance of Cloud.

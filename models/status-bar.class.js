@@ -8,7 +8,6 @@ class Statusbar extends DrawableObject{
     height = 100
     width = 300
     
-    // Precentage
     IMAGES_health_bar = [
                     'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
                     'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
@@ -26,8 +25,7 @@ class Statusbar extends DrawableObject{
                     'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
                     'img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
     ]
-
-    // Collection 
+ 
     IMAGE_bottle_bar =[
                     'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
                     'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',

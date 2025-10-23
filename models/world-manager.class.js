@@ -23,7 +23,6 @@ class WorldManager{
      /**
     * Draws the Endboss's health bar on the canvas, ensuring it remains fixed on the screen
     * (not scrolling with the camera).
-    *
     * @returns {void}
     */
     drawEnboss(){
@@ -34,10 +33,8 @@ class WorldManager{
 
     /**
     * Draws the main game elements and the player's status bars.
-    *
     * It applies camera translation to draw background, clouds, and character at their
     * world coordinates, and then resets the translation to draw fixed status bars (HUD).
-    *
     * @returns {void}
     */
     drawCharacterAndStatusBars(){
@@ -121,7 +118,7 @@ class WorldManager{
         setTimeout(()=>{
             this.stopGame();
             YouWonTheGame();
-        },4000)
+        },3000)
     }
 
     /**
@@ -135,18 +132,18 @@ class WorldManager{
         setTimeout(()=>{
             this.stopGame();
             gameIsOver();
-        },4000);
+        },2000);
     }
+
     /**
      * Halts all game activity: stops intervals, clears arrays, and stops sounds.
-        */
+    */
     stopGame(){    
         this.stopIntervals();
         this.clearArrays();
         this.world.audio.stopAllSounds();       
     }
 
-    //Cut
     /**
     *  Clears all arrays, 
     */
@@ -162,7 +159,7 @@ class WorldManager{
         this.world.audio.soundLib = [];
     }
 
-        /**
+    /**
     * Stops all running intervals for the world, character, and all objects in the level.
     */
     stopIntervals(){

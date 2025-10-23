@@ -41,8 +41,7 @@ function gameIsOver(){ // check
     let endScreen = document.getElementById('gameOver');
     endScreen.classList.remove('d-none');
     removeBtnVisabillity()
-    manageMobileHud();
-    
+    manageMobileHud();    
 }
 
 /**
@@ -54,10 +53,8 @@ function tryAgain(){
     init();
     addBtnVisabillity();
     manageMobileHud();
-   
-   
-   
 }
+
 /**
  * Resets the game after a win: toggles the 'You Won' screen and re-initializes the game.
  */
@@ -68,7 +65,6 @@ function tryAgainAfterWin(){
     init();
     addBtnVisabillity();
     manageMobileHud();
-   
 }
 
 /**
@@ -123,6 +119,12 @@ function muteSounds(){
     checkMuteStatus();    
 }
 
+/**
+ * Initiates the game start sequence after handling an Impressum (Legal Notice) related action.
+ * Toggles the visibility of the 'startScreen' overlay (likely hiding it).
+ * Calls the global 'init()' function to start the game.
+ * Attempts to navigate back in the browser's history, which might be intended to hide a previously shown screen or modal.
+ */
 function ImpressumBtn(){
     let overlay = document.getElementById('startScreen');
     overlay.classList.toggle('d-none');
@@ -200,8 +202,6 @@ function backToHomeMenu(){
     youWon.classList.add('d-none');
     gameOver.classList.add('d-none');
     homeOverlay.classList.remove('d-none');
-    
-    
 }
 
 /**

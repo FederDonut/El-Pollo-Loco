@@ -55,7 +55,7 @@ class MovableObject extends DrawableObject{
     isCollidingFromAbove(mo){
         let puffer = 65;
         const collision = this.isColliding(mo);
-        const isFalling = this.speedY < 0 || this.speedY < 10; // Assuming positive Y is down, 'speedY < 0' means falling towards the ground
+        const isFalling = this.speedY < 0 || this.speedY < 10; 
         const characterBottom = this.y + this.height -(this.offset?.bottom || 0)
         const enemyHead = mo.y + (mo.offset?.top || 0)
         const comingFromAbove = characterBottom < enemyHead +puffer;
@@ -92,7 +92,7 @@ class MovableObject extends DrawableObject{
         if(this.isDead()){
             return true
         }
-        if((this instanceof Missile) ){ // Missile should always fall
+        if((this instanceof Missile) ){ 
             return true;
         }else{
            return this.y < 395;
@@ -163,7 +163,7 @@ class MovableObject extends DrawableObject{
      * @returns {boolean} True if the object is currently in a 'hurt' state.
      */
     isHurt(){
-        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
+        let timePassed = new Date().getTime() - this.lastHit; 
         timePassed = timePassed / 1000;
         
         return timePassed < 1;
