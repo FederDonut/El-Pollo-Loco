@@ -168,7 +168,7 @@ class World {
             this.throable_objects.push(bottle); 
             this.bottle_counter -=1;
             this.bottle_bar.setCollection(this.bottle_counter);
-            setTimeout(()=>{this.canThrow = true},1000)
+            setTimeout(()=>{this.canThrow = true},2000)
         }
     }
 

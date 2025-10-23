@@ -81,7 +81,7 @@ class AudioController{
     */
     playWorldBackgroundSound(){
         if(!this.worldSundTrack){
-            this.worldSound.volume = 0.7;
+            this.worldSound.volume = 0.2;
             this.worldSound.loop = true;
             this.worldSound.play();
             this.worldSundTrack = true;
@@ -106,7 +106,7 @@ class AudioController{
      */
     playLaserShotSound(){
         if(!this.shot){
-            this.laserShotSound.volume = 0.7
+            this.laserShotSound.volume = 0.5
             this.laserShotSound.play();
             this.shot = true;
         }
@@ -127,7 +127,7 @@ class AudioController{
      */
     playEnemyDamageSound(){
         if(!this.gotDamage){
-            this.damageSond.volume = 0.7
+            this.damageSond.volume = 0.3
             this.damageSond.play()
             this.gotDamage =true 
         }
@@ -148,6 +148,7 @@ class AudioController{
      */
     playCoinSound(){
         if(!this.takeCoin){
+            this.coinSound.volume = 0.3
             this.coinSound.play();
             this.takeCoin = true;
         }
@@ -168,6 +169,7 @@ class AudioController{
      */
     playReloadingSound(){
         if(!this.reloading){
+            this.reloadSound.volume = 0.3
             this.reloadSound.play();
             this.reloading = true;
         }
@@ -188,14 +190,13 @@ class AudioController{
      */
     startEndbossTheme(){
         if(!this.bossThemePlayed){
-            this.bossSound.volume = 0.8
-            this.bossSound.loop = true; // bewirkt,dass die Audiodatei vn anfang bis ende gespielt wird            bossTheme1.play();
+            this.bossSound.volume = 0.5
+            this.bossSound.loop = true; 
             this.bossSound.play();
             this.bossThemePlayed = true;
         }
         
     }
-
 
     /**
      * Stops the Endboss theme music and resets its time.
@@ -236,6 +237,7 @@ class AudioController{
      */
     characterTakeDamageSound(){
         if(!this.charGotDamage){
+            this.charDamageSound.volume =0.5
             this.charDamageSound.play();
             this.charGotDamage = true;
         }
@@ -246,6 +248,7 @@ class AudioController{
     */
     characterJumpSound(){
         if(!this.jumping){
+            this.charJumpSound.volume = 0.3
             this.charJumpSound.play();
             this.jumping = true;
         }
@@ -256,7 +259,7 @@ class AudioController{
     characterRunSound(){
         if(!this.characterMovement){
             this.charRunSound.playbackRate = 1.3;
-            this.charRunSound.volume = 1;
+            this.charRunSound.volume = 0.5;
             this.charRunSound.play();
             this.characterMovement = true;
         }

@@ -111,7 +111,6 @@ function checkMuteStatus(){
     }else{
         isMuted = false;
     }
-
 }
 
 /**
