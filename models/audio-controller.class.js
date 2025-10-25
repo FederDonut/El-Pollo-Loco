@@ -7,7 +7,6 @@ class AudioController{
 
     world;
     
-
     Character_audio =   [
         'audio/run.mp3',
         'audio/jump.mp3',
@@ -51,7 +50,6 @@ class AudioController{
     * and populating the `soundLib` array.
     */
     constructor(){
-        //Endboss
         this.bossSound = new Audio(this.Endboss_audio[0]);
         this.bossDeathSound = new Audio(this.Endboss_audio[1]);
         this.bossDamageSound = new Audio(this.Endboss_audio[2]);
@@ -67,7 +65,6 @@ class AudioController{
         this.soundLib.push( this.bossSound,this.bossDeathSound,this.bossDamageSound,this.charRunSound,this.charJumpSound,this.charDeathSound,this.charDamageSound,
                             this.worldSound,this.laserShotSound,this.damageSond,this.coinSound,this.reloadSound
         );
-
     }
 
     /**
@@ -80,7 +77,6 @@ class AudioController{
             this.worldSound.play();
             this.worldSundTrack = true;
         }
-       
     }
 
     /**
@@ -212,9 +208,6 @@ class AudioController{
             this.zeroEnergy = true;
         }
     }
-
-
-    //Character Audio
 
     /**
      * Plays the character death sound effect once.

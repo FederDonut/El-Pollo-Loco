@@ -337,6 +337,7 @@ class World {
         this.audio.playEnemyDamageSound();
         this.audio.stopEnemyDamageSound();
     }
+    
     /**
     * Handles the visual and logical effect of a missile detonation.
     * @param {Missile} bottle - The missile object that detonated.

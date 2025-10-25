@@ -12,6 +12,7 @@ class Character extends MovableObject{
     intervalId = [];
     invincible = false;
     isBouncing = false;
+    jumpIntervalId = null;
     
     
     IMAGES_walking =[
@@ -86,7 +87,7 @@ class Character extends MovableObject{
         left: 50,
         right: 50
     };
-    
+
     /**
     * Creates an instance of Character.
     * Loads all necessary images, applies gravity, and starts the animation loops.
@@ -132,7 +133,7 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_walking);
                 }
             }    
-        },100))
+        },125)) 
     }
 
     /**
@@ -169,7 +170,7 @@ class Character extends MovableObject{
                 this.world.audio.characterJumpSound();
                 this.world.audio.jumping = false;
                 this.jump();
-                this.world.resetTimers();
+                this.world.resetTimers();  
             }
             this.world.camera_x = -this.x + 100
         },1000/60));
@@ -229,9 +230,7 @@ class Character extends MovableObject{
         this.world.chillMode = false;
         this.world.sleepMode = false;
         this.world.checkPlayerActivity();
-        
     };
-    
      
     /**
     * Clears all character-specific intervals stored in intervalId.

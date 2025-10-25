@@ -15,7 +15,6 @@ class MovableObject extends DrawableObject{
     lastHit = 0;
     intervalId = [];
 
-
     /**
     * Checks for a collision between this object and another movable object.
     * It considers optional 'offset' properties on both objects to define collision boundaries.
@@ -104,6 +103,12 @@ class MovableObject extends DrawableObject{
      * @param {string[]} images - Array of image paths for the animation.
      */
     playAnimation(images){
+
+        if (this.currentAnimationImages !== images) {
+            this.currentImage = 0; // Setze den Index zurück
+            this.currentAnimationImages = images; // Merke dir das aktuelle Array
+        }
+
         let i = this.currentImage % images.length;
         this.path = images[i];
         this.img = this.imageCache[this.path];
